@@ -23,7 +23,7 @@ describe('config loader', () => {
     expect(c.ingredients.lemonSpoilDays).toBe(6);
     expect(c.upgrades.fridge.lemonSpoilDays).toBe(12);
     expect(c.recipe.cupsPerPitcher).toBe(12);
-    expect(c.customers.archetypes.tourist.wtpBase).toBe(2.25);
+    expect(c.customers.archetypes.tourist.wtpBase).toBe(3.25); // tuned in M3 (GDD: 2.25), see DECISIONS.md
     expect(c.customers.archetypes.jogger.sweetShift).toBe(-1);
     expect(c.service.serveMinutes).toBe(0.8);
     expect(c.reputation.start).toBe(40);

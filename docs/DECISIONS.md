@@ -48,3 +48,36 @@ Choices made where the GDD is ambiguous or silent. Newest at the bottom of each 
 - **Health inspector:** rolled at night, before expired lemons are thrown out. If expired lemons are on hand, the fine and the −5 rep apply to every location operated that day.
 - **Lemon shelf life:** a batch bought on day d can be used through day d+5 and is discarded at the end of that day ("spoils after 6 days").
 - **Events:** a Festival is announced the morning before it happens. Festival and Construction pick a random *unlocked* location. Competitor carts are rolled per unlocked location. "First $100 day" means profit ≥ $100.
+
+## M3 — Balance harness and tuning
+**Bots** (`scripts/bots.ts`):
+- The bots estimate demand from the forecast with the same §4/§7 formulas a practiced player would learn. They pick the most profitable price on a $0.25 grid, then refine it in $0.05 steps.
+- **Recipe:** L = 6. S matches the crowd's weighted sweet shift. I = ideal ice for the forecast's mean temperature.
+- **Stock:** expected buyers × 1.2. Sugar and cups are bought in bulk once cash is over $300.
+- **Sensible bot's expansion rules:**
+  - Throughput upgrades only when the line turned away more than 4% of stoppers.
+  - Appeal upgrades when they cost ≤ 25% of cash.
+  - A licence when there are more profitable free locations than stands.
+  - Stands are placed at the best-earning unlocked locations each day.
+  - A Server is hired when the line loses enough sales to pay their wage, and staff are let go when the line is short.
+- **Greedy and Cheap** use the same logic with a fixed price. **Hoarder** buys 3× the day's needs every morning, ignoring stock on hand.
+
+**Measurement choices:**
+- The "reaches $1,000" and "unlocks FD" targets use the median over 20 seeds.
+- **Variety target:** a fresh game (rep 40) at Maple Park, on Tue–Thu, forced Sunny at 60°F or 90°F. Prices are tested from $0.50 to $2.50 in $0.05 steps, over 20 seeds × 3 days. The score is revenue − ingredients used.
+
+**Tuning changes** (config only; no formulas changed):
+
+| Value | GDD | Now | Why |
+|---|---|---|---|
+| `customers.decision.stopBase` | 0.25 | 0.27 | Overall demand. Tried 0.35/0.40 first, then lowered again as WTP rose |
+| `wtpBase` Kid / Office / Tourist / Jogger | 0.75 / 1.75 / 2.25 / 1.25 | 1.15 / 2.50 / 3.25 / 1.80 | |
+| `wtpBase` Senior / Student / Fan | 1.00 / 1.00 / 2.50 | 1.45 / 1.45 / 3.60 | |
+| `priceSens` Kid / Office / Tourist / Jogger | 1.6 / 0.8 / 0.6 / 1.0 | 1.2 / 0.6 / 0.45 / 0.75 | |
+| `priceSens` Senior / Student / Fan | 1.4 / 1.3 / 0.5 | 1.05 / 0.98 / 0.38 | |
+
+- The WTP bases were scaled about 1.45× and price sensitivity 0.75×. This was the only table-level lever that pushed the 60°F/90°F best-price gap past $0.30. Before, it was $0.20–0.25 because Maple Park's crowd (35% kids) prices low.
+- It also gave the mid and late game the income they needed. Before tuning, FD unlocked around day 119 and $100k was never reached by day 260.
+- A cleaner fix for the variety gap would be to make temperature matter more in the WTP formula (`wtpThirstBase`/`wtpThirstScale`, 0.6/0.4). That is a formula coefficient, so it was left alone, as the handoff asks.
+
+**Result (20 seeds × 260 days):** all 10 targets pass. See the M3 summary in the commit and the `npm run balance` output.

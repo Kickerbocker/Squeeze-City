@@ -20,9 +20,9 @@ describe('customer decision (GDD §7)', () => {
     expect(repFactor(100, C)).toBeCloseTo(1.5);
   });
 
-  it('P_stop = min(0.95, 0.25·appeal·repFactor·adFactor·W·T)', () => {
+  it('P_stop = min(0.95, stopBase·appeal·repFactor·adFactor·W·T)', () => {
     const p = stopProbability({ appeal: 1.15, rep: 40, adFactor: 1.1, wThirst: 0.9, tThirst: 0.85, multiplier: 1 }, C);
-    expect(p).toBeCloseTo(0.25 * 1.15 * 0.9 * 1.1 * 0.9 * 0.85);
+    expect(p).toBeCloseTo(C.customers.decision.stopBase * 1.15 * 0.9 * 1.1 * 0.9 * 0.85);
     expect(stopProbability({ appeal: 2, rep: 100, adFactor: 1.6, wThirst: 1, tThirst: 1.8, multiplier: 2 }, C)).toBe(0.95);
   });
 

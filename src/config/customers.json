@@ -2,8 +2,8 @@
   "archetypes": {
     "kid": {
       "name": "Kid",
-      "wtpBase": 0.75,
-      "priceSens": 1.6,
+      "wtpBase": 1.15,
+      "priceSens": 1.2,
       "qualitySens": 0.6,
       "patience": 4,
       "sweetShift": 2,
@@ -13,8 +13,8 @@
     },
     "office": {
       "name": "Office worker",
-      "wtpBase": 1.75,
-      "priceSens": 0.8,
+      "wtpBase": 2.5,
+      "priceSens": 0.6,
       "qualitySens": 1.0,
       "patience": 3,
       "sweetShift": 0,
@@ -24,8 +24,8 @@
     },
     "tourist": {
       "name": "Tourist",
-      "wtpBase": 2.25,
-      "priceSens": 0.6,
+      "wtpBase": 3.25,
+      "priceSens": 0.45,
       "qualitySens": 0.8,
       "patience": 8,
       "sweetShift": 1,
@@ -35,8 +35,8 @@
     },
     "jogger": {
       "name": "Jogger",
-      "wtpBase": 1.25,
-      "priceSens": 1.0,
+      "wtpBase": 1.8,
+      "priceSens": 0.75,
       "qualitySens": 1.2,
       "patience": 2,
       "sweetShift": -1,
@@ -46,8 +46,8 @@
     },
     "senior": {
       "name": "Senior",
-      "wtpBase": 1.0,
-      "priceSens": 1.4,
+      "wtpBase": 1.45,
+      "priceSens": 1.05,
       "qualitySens": 1.3,
       "patience": 10,
       "sweetShift": 0,
@@ -57,8 +57,8 @@
     },
     "student": {
       "name": "Student",
-      "wtpBase": 1.0,
-      "priceSens": 1.3,
+      "wtpBase": 1.45,
+      "priceSens": 0.98,
       "qualitySens": 0.9,
       "patience": 6,
       "sweetShift": 1,
@@ -68,8 +68,8 @@
     },
     "fan": {
       "name": "Fan",
-      "wtpBase": 2.5,
-      "priceSens": 0.5,
+      "wtpBase": 3.6,
+      "priceSens": 0.38,
       "qualitySens": 0.6,
       "patience": 5,
       "sweetShift": 1,
@@ -79,7 +79,7 @@
     }
   },
   "decision": {
-    "stopBase": 0.25,
+    "stopBase": 0.27,
     "stopMax": 0.95,
     "repFactorBase": 0.5,
     "repScale": 100,
