@@ -3,7 +3,7 @@ import { dayInfo } from '../../sim';
 import { netWorth } from '../../sim/game';
 import type { App } from '../app';
 import { audio } from '../audio';
-import { h, mount } from '../dom';
+import { confirmSheet, h, mount } from '../dom';
 import { money } from '../text';
 
 export function renderTitle(app: App): void {
@@ -89,8 +89,10 @@ export function renderTitle(app: App): void {
 }
 
 function confirmNew(app: App, slot: number, broken: boolean): void {
-  const ok = broken || window.confirm(`Start a new game in slot ${slot + 1}? The current save will be lost.`);
-  if (!ok) return;
-  audio.unlock();
-  app.startNew(slot);
+  const start = () => {
+    audio.unlock();
+    app.startNew(slot);
+  };
+  if (broken) start();
+  else confirmSheet(`Start a new game in slot ${slot + 1}?\nThe current save will be lost.`, 'Start new game', start, true);
 }

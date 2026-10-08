@@ -31,6 +31,18 @@
     color-scheme: dark;
   }
 }
+:root[data-theme='dark'] {
+    --ink: #f4ecdb;
+    --muted: #b7ab95;
+    --cream: #2b2620;
+    --paper: #1e1b17;
+    --line: #3a342b;
+    --card: #26221c;
+    --bg: #17140f;
+    --warn-bg: #3a2f17;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    color-scheme: dark;
+}
 
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; }

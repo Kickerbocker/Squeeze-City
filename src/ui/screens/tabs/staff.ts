@@ -2,7 +2,7 @@ import { CONFIG } from '../../../config';
 import { wage } from '../../../sim/stand';
 import type { App } from '../../app';
 import { selectedStand, standLabel, standPicker } from '../../components';
-import { h } from '../../dom';
+import { confirmSheet, h } from '../../dom';
 import { money, ROLE_EFFECT, ROLE_ICON } from '../../text';
 
 const stars = (n: number) => '★'.repeat(n) + '☆'.repeat(CONFIG.staff.maxSkill - n);
@@ -44,7 +44,7 @@ export function staffTab(app: App): HTMLElement {
             'button',
             {
               class: 'btn danger',
-              onclick: () => window.confirm(`Let ${m.name} go?`) && app.act({ type: 'fire', standId: stand.id, staffId: m.id }),
+              onclick: () => confirmSheet(`Let ${m.name} go? Firing is free.`, `Fire ${m.name}`, () => app.act({ type: 'fire', standId: stand.id, staffId: m.id }), true),
             },
             'Fire',
           ),

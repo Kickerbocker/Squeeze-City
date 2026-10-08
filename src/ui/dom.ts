@@ -45,3 +45,31 @@ export async function toastSequence(messages: string[], kind: 'info' | 'good' = 
     await new Promise((r) => setTimeout(r, 2700));
   }
 }
+
+/** In-page confirmation sheet (browser confirm() is blocked in some embedded views). */
+export function confirmSheet(message: string, confirmLabel: string, onConfirm: () => void, danger = false): void {
+  const close = () => sheet.remove();
+  const sheet = h(
+    'div',
+    { class: 'sheet-backdrop', onclick: (e: Event) => e.target === sheet && close() },
+    h(
+      'div',
+      { class: 'sheet', role: 'dialog', 'aria-modal': 'true' },
+      ...message.split('\n').filter(Boolean).map((line) => h('p', null, line)),
+      h(
+        'button',
+        {
+          class: `btn block ${danger ? 'danger' : 'primary'}`,
+          onclick: () => {
+            close();
+            onConfirm();
+          },
+        },
+        confirmLabel,
+      ),
+      h('button', { class: 'btn block ghost', onclick: close }, 'Cancel'),
+    ),
+  );
+  document.body.append(sheet);
+  sheet.querySelector<HTMLButtonElement>('.btn')?.focus();
+}

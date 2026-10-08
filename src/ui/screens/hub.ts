@@ -3,7 +3,7 @@ import { dayInfo, upcomingNotices } from '../../sim';
 import { lemonCount } from '../../sim/inventory';
 import type { App, HubTab } from '../app';
 import { topBar } from '../components';
-import { h, mount } from '../dom';
+import { confirmSheet, h, mount } from '../dom';
 import { EVENT_TEXT, locName } from '../text';
 import { marketingTab } from './tabs/marketing';
 import { mapTab } from './tabs/map';
@@ -84,8 +84,8 @@ export function renderHub(app: App): void {
           {
             class: 'btn open-btn',
             onclick: () => {
-              if (warnings.length && !window.confirm(`${warnings.join('\n')}\n\nOpen anyway?`)) return;
-              app.openForBusiness();
+              if (warnings.length) confirmSheet(`${warnings.join('\n')}\nOpen anyway?`, 'Open anyway', () => app.openForBusiness());
+              else app.openForBusiness();
             },
           },
           `Open for business${open.length > 1 ? ` (${open.length} stands)` : ''}`,

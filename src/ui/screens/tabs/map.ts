@@ -2,7 +2,7 @@ import { type Archetype, CONFIG, type LocationConfig, type LocationId } from '..
 import { bestRep, licenseCost, upcomingNotices } from '../../../sim';
 import type { App } from '../../app';
 import { canAfford } from '../../components';
-import { h } from '../../dom';
+import { confirmSheet, h } from '../../dom';
 import { ARCHETYPE_ICON, EVENT_TEXT, money } from '../../text';
 
 /** Pin positions on the stylised city map (percent of width/height). */
@@ -107,7 +107,7 @@ export function mapTab(app: App): HTMLElement {
       lic !== null
         ? h(
             'button',
-            { class: 'btn primary block', disabled: !canAfford(s, lic), onclick: () => window.confirm(`Buy stand licence #${s.stands.length + 1} for ${money(lic, false)}?`) && app.act({ type: 'buyLicense' }) },
+            { class: 'btn primary block', disabled: !canAfford(s, lic), onclick: () => confirmSheet(`Buy stand licence #${s.stands.length + 1} for ${money(lic, false)}?`, 'Buy licence', () => app.act({ type: 'buyLicense' })) },
             `Buy licence #${s.stands.length + 1} — ${money(lic, false)}`,
           )
         : h('p', { class: 'small muted' }, 'All licences owned.'),
