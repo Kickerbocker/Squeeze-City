@@ -29,10 +29,11 @@ scripts      balance bots, balance report, trace, icon generator
 ## Deploy to GitHub Pages
 The workflow in `.github/workflows/deploy.yml` tests, builds and publishes `dist/` on every push to `main`.
 
+0. GitHub Pages on a **free** account only works for **public** repos. Make the repo public (**Settings → General → Danger Zone → Change visibility**) or use GitHub Pro.
 1. Merge this branch into `main` (or change `branches:` in the workflow to the branch you want to deploy from).
 2. On GitHub, open **Settings → Pages**. Under **Build and deployment → Source**, choose **GitHub Actions**.
 3. Push to `main`, or run the workflow by hand from **Actions → Deploy to GitHub Pages → Run workflow**.
-4. When it finishes, the site is at `https://<your-username>.github.io/<repo-name>/` (the URL also appears on the workflow run).
+4. When it finishes, the site is at `https://kickerbocker.github.io/Squeeze-City/` (the URL also appears on the workflow run).
 5. **Install on your phone:** open that URL in the phone's browser.
    - **iPhone (Safari):** tap Share, then **Add to Home Screen**.
    - **Android (Chrome):** tap ⋮, then **Install app**.
