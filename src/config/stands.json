@@ -1,0 +1,5 @@
+{
+  "maxStands": 4,
+  "licenseCosts": [0, 2000, 8000, 25000],
+  "startingLicenses": 1
+}

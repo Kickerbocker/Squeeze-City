@@ -1,0 +1,12 @@
+{
+  "startCash": 100,
+  "milestones": {
+    "firstHundredDay": { "threshold": 100, "bonus": 25 },
+    "firstUpgrade": { "bonus": 25 },
+    "rep75": { "threshold": 75, "bonus": 50 },
+    "locationUnlocked": { "bonus": 50 },
+    "standOpened": { "bonuses": [0, 100, 250, 500] },
+    "netWorth": { "thresholds": [10000, 100000, 1000000], "bonuses": [100, 500, 1000] },
+    "tycoonNetWorth": 1000000
+  }
+}

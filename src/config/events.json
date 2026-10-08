@@ -1,0 +1,10 @@
+{
+  "majorOrder": ["heatwave", "festival", "lemonShortage", "sugarSale", "construction"],
+  "heatwave": { "chance": 0.08, "seasons": ["summer"], "tempBonus": 12, "minDays": 2, "maxDays": 4 },
+  "festival": { "chance": 0.03, "trafficMultiplier": 2.5, "days": 1, "announceDays": 1 },
+  "lemonShortage": { "chance": 0.04, "priceMultiplier": 1.6, "minDays": 3, "maxDays": 5 },
+  "sugarSale": { "chance": 0.04, "priceMultiplier": 0.6, "minDays": 2, "maxDays": 2 },
+  "construction": { "chance": 0.03, "trafficMultiplier": 0.5, "minDays": 5, "maxDays": 10 },
+  "competitor": { "chancePerLocation": 0.05, "steal": 0.2, "stealHighRep": 0.05, "highRepAbove": 70, "days": 7 },
+  "inspector": { "chance": 0.02, "fine": 200, "repPenalty": 5 }
+}

@@ -1,0 +1,98 @@
+{
+  "archetypes": {
+    "kid": {
+      "name": "Kid",
+      "wtpBase": 1.15,
+      "priceSens": 1.2,
+      "qualitySens": 0.6,
+      "patience": 4,
+      "sweetShift": 2,
+      "hourly": [0.2, 0.4, 0.9, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 0.3],
+      "weekendMultiplier": 1.6,
+      "gameDaysOnly": false
+    },
+    "office": {
+      "name": "Office worker",
+      "wtpBase": 2.5,
+      "priceSens": 0.6,
+      "qualitySens": 1.0,
+      "patience": 3,
+      "sweetShift": 0,
+      "hourly": [0.3, 0.2, 0.4, 1.0, 1.0, 1.0, 0.3, 0.3, 1.0, 0.5],
+      "weekendMultiplier": 1.0,
+      "gameDaysOnly": false
+    },
+    "tourist": {
+      "name": "Tourist",
+      "wtpBase": 3.25,
+      "priceSens": 0.45,
+      "qualitySens": 0.8,
+      "patience": 8,
+      "sweetShift": 1,
+      "hourly": [0.3, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.4],
+      "weekendMultiplier": 1.0,
+      "gameDaysOnly": false
+    },
+    "jogger": {
+      "name": "Jogger",
+      "wtpBase": 1.8,
+      "priceSens": 0.75,
+      "qualitySens": 1.2,
+      "patience": 2,
+      "sweetShift": -1,
+      "hourly": [1.0, 1.0, 1.0, 0.3, 0.2, 0.2, 0.3, 1.0, 1.0, 1.0],
+      "weekendMultiplier": 1.0,
+      "gameDaysOnly": false
+    },
+    "senior": {
+      "name": "Senior",
+      "wtpBase": 1.45,
+      "priceSens": 1.05,
+      "qualitySens": 1.3,
+      "patience": 10,
+      "sweetShift": 0,
+      "hourly": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.4, 0.3, 0.2, 0.1],
+      "weekendMultiplier": 1.0,
+      "gameDaysOnly": false
+    },
+    "student": {
+      "name": "Student",
+      "wtpBase": 1.45,
+      "priceSens": 0.98,
+      "qualitySens": 0.9,
+      "patience": 6,
+      "sweetShift": 1,
+      "hourly": [0.1, 0.2, 0.4, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+      "weekendMultiplier": 1.0,
+      "gameDaysOnly": false
+    },
+    "fan": {
+      "name": "Fan",
+      "wtpBase": 3.6,
+      "priceSens": 0.38,
+      "qualitySens": 0.6,
+      "patience": 5,
+      "sweetShift": 1,
+      "hourly": [0.4, 0.5, 0.7, 0.9, 1.0, 1.0, 1.0, 1.0, 0.9, 0.7],
+      "weekendMultiplier": 1.0,
+      "gameDaysOnly": true
+    }
+  },
+  "decision": {
+    "stopBase": 0.27,
+    "stopMax": 0.95,
+    "repFactorBase": 0.5,
+    "repScale": 100,
+    "wtpThirstBase": 0.6,
+    "wtpThirstScale": 0.4,
+    "wtpRepBase": 0.75,
+    "wtpRepScale": 0.5,
+    "wtpSigma": 0.25,
+    "buySteepness": 6,
+    "fairnessMin": 0.5,
+    "fairnessMax": 1.2,
+    "waitPenalty": 0.5,
+    "satHigh": 0.8,
+    "satLow": 0.4
+  }
+}

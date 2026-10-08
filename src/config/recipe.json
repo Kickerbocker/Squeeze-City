@@ -1,0 +1,24 @@
+{
+  "cupsPerPitcher": 12,
+  "lemons": { "min": 1, "max": 12 },
+  "sugar": { "min": 1, "max": 12 },
+  "ice": { "min": 0, "max": 8 },
+  "price": { "min": 0.05, "max": 10, "step": 0.05 },
+  "idealLemons": 6,
+  "idealSugarBase": 4,
+  "sourScale": 4,
+  "sweetScale": 3,
+  "idealIce": { "refTemp": 45, "degreesPerCube": 8, "min": 0, "max": 8 },
+  "iceScale": 2.5,
+  "tasteWeight": 0.7,
+  "iceWeight": 0.3,
+  "complaints": {
+    "tooSour": 0.5,
+    "tooWeak": -0.5,
+    "tooSweet": 0.6,
+    "notSweet": -0.6,
+    "notColdBelow": 2,
+    "tooMuchIceAbove": 3
+  },
+  "defaults": { "lemons": 6, "sugar": 4, "ice": 3, "price": 1.0 }
+}
