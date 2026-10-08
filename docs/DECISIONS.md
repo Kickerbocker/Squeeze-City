@@ -81,3 +81,13 @@ Choices made where the GDD is ambiguous or silent. Newest at the bottom of each 
 - A cleaner fix for the variety gap would be to make temperature matter more in the WTP formula (`wtpThirstBase`/`wtpThirstScale`, 0.6/0.4). That is a formula coefficient, so it was left alone, as the handoff asks.
 
 **Result (20 seeds × 260 days):** all 10 targets pass. See the M3 summary in the commit and the `npm run balance` output.
+
+## M4–M6 — Playable game (UI)
+- **Instant sim, replayed day:** pressing "Open for business" runs `runDay` instantly and autosaves the resulting night. The Phaser scene then replays the event log. Closing the app mid-replay therefore can't change or re-roll the day.
+- **Phaser vs DOM:** the day view is Phaser for the street only. The clock, cash, stock bars, speed controls, stand tabs and live funnel are DOM, which is easier to lay out for touch. The scene renders at 2× (camera zoom) for crisp vector art on phones.
+- **Live stock bars:** each bar starts from the latest hourly snapshot in the event log, minus pitchers and servings since then. That's exact apart from melt, which the next hourly snapshot corrects.
+- **Busy streets:** plain passers-by are thinned out (`passSampling`) so about 22 walkers are on screen at once. Everyone who stops is always drawn. At most 6 non-overlapping bubbles show at a time, with people at the stand taking priority.
+- **Queue:** the line shows up to 12 people (§8) plus a "+N in line" label.
+- **The whole UI ships with M4:** the sim already supported multiple stands, staff, marketing and events, so all six hub tabs, the map and the stats screen are included. The M5/M6 milestones are therefore UI-complete.
+- **Seed:** a new game's seed comes from the clock in the UI layer. The sim never reads the time.
+- **Speed:** 1× is 3 game minutes per real second (a 3-minute day, §0).
