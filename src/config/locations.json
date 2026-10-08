@@ -1,0 +1,80 @@
+{
+  "locations": [
+    {
+      "id": "maple",
+      "name": "Maple Park",
+      "rent": 0,
+      "trafficWeekday": 40,
+      "trafficWeekend": 70,
+      "mix": { "kid": 35, "jogger": 25, "senior": 25, "office": 15 },
+      "unlockCash": 0,
+      "unlockRep": 0
+    },
+    {
+      "id": "uptown",
+      "name": "Uptown Blocks",
+      "rent": 15,
+      "trafficWeekday": 50,
+      "trafficWeekend": 60,
+      "mix": { "senior": 30, "kid": 30, "office": 20, "jogger": 20 },
+      "unlockCash": 300,
+      "unlockRep": 40
+    },
+    {
+      "id": "campus",
+      "name": "Campus Quad",
+      "rent": 35,
+      "trafficWeekday": 90,
+      "trafficWeekend": 40,
+      "mix": { "student": 70, "jogger": 15, "office": 15 },
+      "unlockCash": 1000,
+      "unlockRep": 45
+    },
+    {
+      "id": "boardwalk",
+      "name": "Boardwalk",
+      "rent": 60,
+      "trafficWeekday": 60,
+      "trafficWeekend": 150,
+      "mix": { "tourist": 45, "kid": 25, "jogger": 30 },
+      "unlockCash": 2500,
+      "unlockRep": 50,
+      "weatherAmplify": 1.5,
+      "offSeasons": ["fall", "winter"],
+      "offSeasonTraffic": 0.3
+    },
+    {
+      "id": "financial",
+      "name": "Financial District",
+      "rent": 120,
+      "trafficWeekday": 180,
+      "trafficWeekend": 40,
+      "mix": { "office": 85, "tourist": 15 },
+      "unlockCash": 6000,
+      "unlockRep": 55
+    },
+    {
+      "id": "stadium",
+      "name": "Stadium Row",
+      "rent": 150,
+      "trafficWeekday": 40,
+      "trafficWeekend": 40,
+      "mix": { "fan": 70, "student": 15, "kid": 15 },
+      "unlockCash": 12000,
+      "unlockRep": 60,
+      "gameDayTraffic": 400,
+      "gameDaysPerWeek": 2,
+      "gameDayAnnounceDays": 2
+    },
+    {
+      "id": "neon",
+      "name": "Neon Square",
+      "rent": 350,
+      "trafficWeekday": 250,
+      "trafficWeekend": 300,
+      "mix": { "tourist": 60, "office": 20, "student": 10, "kid": 10 },
+      "unlockCash": 30000,
+      "unlockRep": 70
+    }
+  ]
+}

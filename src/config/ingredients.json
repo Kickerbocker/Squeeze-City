@@ -1,0 +1,47 @@
+{
+  "items": {
+    "lemons": {
+      "name": "Lemons",
+      "unit": "each",
+      "basePrice": 0.3,
+      "packs": [
+        { "size": 12, "discount": 0 },
+        { "size": 48, "discount": 0.1 },
+        { "size": 144, "discount": 0.2 }
+      ]
+    },
+    "sugar": {
+      "name": "Sugar",
+      "unit": "cup",
+      "basePrice": 0.15,
+      "packs": [
+        { "size": 10, "discount": 0 },
+        { "size": 40, "discount": 0.1 },
+        { "size": 120, "discount": 0.2 }
+      ]
+    },
+    "ice": {
+      "name": "Ice",
+      "unit": "cube",
+      "basePrice": 0.01,
+      "packs": [
+        { "size": 100, "discount": 0 },
+        { "size": 500, "discount": 0.1 },
+        { "size": 1000, "discount": 0.2 }
+      ]
+    },
+    "cups": {
+      "name": "Cups",
+      "unit": "each",
+      "basePrice": 0.04,
+      "packs": [
+        { "size": 50, "discount": 0 },
+        { "size": 250, "discount": 0.1 },
+        { "size": 1000, "discount": 0.2 }
+      ]
+    }
+  },
+  "lemonSpoilDays": 6,
+  "priceDrift": { "maxStep": 0.05, "min": 0.75, "max": 1.35 },
+  "iceMelt": { "basePctPerHour": 3, "refTemp": 70, "degreesPerPct": 10 }
+}

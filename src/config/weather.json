@@ -1,0 +1,27 @@
+{
+  "seasonBaseTemp": { "spring": 68, "summer": 86, "fall": 64, "winter": 42 },
+  "dayTempStdDev": 7,
+  "hourly": { "offset": -4, "amplitude": 8, "startHour": 9, "halfPeriodHours": 9 },
+  "conditionNames": {
+    "sunny": "Sunny",
+    "partlyCloudy": "Partly cloudy",
+    "cloudy": "Cloudy",
+    "rain": "Rain",
+    "storm": "Storm"
+  },
+  "conditionEffects": {
+    "sunny": { "traffic": 1.0, "thirst": 1.0 },
+    "partlyCloudy": { "traffic": 1.0, "thirst": 0.9 },
+    "cloudy": { "traffic": 0.9, "thirst": 0.8 },
+    "rain": { "traffic": 0.5, "thirst": 0.6 },
+    "storm": { "traffic": 0.2, "thirst": 0.4 }
+  },
+  "seasonConditionWeights": {
+    "spring": { "sunny": 30, "partlyCloudy": 25, "cloudy": 20, "rain": 20, "storm": 5 },
+    "summer": { "sunny": 55, "partlyCloudy": 25, "cloudy": 10, "rain": 8, "storm": 2 },
+    "fall": { "sunny": 25, "partlyCloudy": 25, "cloudy": 25, "rain": 20, "storm": 5 },
+    "winter": { "sunny": 25, "partlyCloudy": 25, "cloudy": 30, "rain": 15, "storm": 5 }
+  },
+  "thirst": { "base": 0.4, "refTemp": 50, "scale": 40, "min": 0.2, "max": 1.8 },
+  "forecast": { "accuracy": 0.8, "tempStdDev": 4, "radioAccuracy": 0.95, "radioTempStdDev": 1 }
+}

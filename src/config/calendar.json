@@ -1,0 +1,11 @@
+{
+  "seasons": ["spring", "summer", "fall", "winter"],
+  "seasonNames": { "spring": "Spring", "summer": "Summer", "fall": "Fall", "winter": "Winter" },
+  "daysPerSeason": 28,
+  "daysPerWeek": 7,
+  "dayNames": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  "startDayOfWeek": 0,
+  "weekendDays": [5, 6],
+  "openHour": 9,
+  "closeHour": 18
+}
