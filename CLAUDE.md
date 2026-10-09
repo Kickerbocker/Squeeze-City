@@ -8,7 +8,8 @@ A personal browser game, mobile-first. It is a spiritual successor to Lemonade T
 - **Ideas parking lot:** `docs/LATER.md`
 - **What Benjamin finds fun:** `docs/learning/TASTE.md` (outranks everything else)
 - **Lessons and open questions:** `docs/learning/LESSONS.md`, `docs/learning/UNKNOWNS.md`
-- **Design principles:** `docs/research/PRINCIPLES.md`
+- **Design principles:** `docs/research/PRINCIPLES.md` (rules this game has adopted)
+- **Game design knowledge base:** `docs/research/KNOWLEDGE.md` (what we know about any strategy, sim or idle game; updated as we learn)
 
 ## Skills
 Three skills in `.claude/skills/` cover the work in order. Use the one that matches what you are doing.

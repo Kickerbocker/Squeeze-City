@@ -63,7 +63,8 @@ Ask the player to note where they were bored, confused, delighted or frustrated.
 1. Find the line in `docs/learning/LESSONS.md` that said what the change was expected to do. Write what happened next to it.
 2. Add what the player liked and disliked to `docs/learning/TASTE.md`, in their words.
 3. Anything that surprised us goes in `docs/learning/UNKNOWNS.md`.
-4. At a milestone's end, write four lines: what we expected, what happened, why they differed, what we will do differently.
+4. If a lesson would hold for another game, add it to section 15 of `docs/research/KNOWLEDGE.md`, and mark any finding there that it confirms or contradicts.
+5. At a milestone's end, write four lines: what we expected, what happened, why they differed, what we will do differently.
 
 ## Keeping this skill current
 

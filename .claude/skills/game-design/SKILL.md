@@ -15,6 +15,7 @@ In the game's repo:
 
 - `docs/learning/TASTE.md` - what the player finds fun. This outranks every rule below.
 - `docs/PLAYTEST.md` - the newest session
+- `docs/research/KNOWLEDGE.md` - for the system being designed, its family in the element catalog (section 5) and the failure catalog (section 3)
 - `docs/research/PRINCIPLES.md` and `docs/learning/LESSONS.md`
 - `docs/GDD.md` - the current design
 - The output of `npm run audit` and `npm run balance`

@@ -13,7 +13,8 @@ This skill is the first of three. `game-design` turns findings into specs. `game
 
 In the game's repo, read these first so nothing is researched twice:
 
-- `docs/research/PRINCIPLES.md` - rules already adopted, with their evidence
+- `docs/research/KNOWLEDGE.md` - what we already know about any game in these genres: methods, failure modes, an element catalog, sources
+- `docs/research/PRINCIPLES.md` - the rules this game has adopted, with their evidence
 - `docs/learning/UNKNOWNS.md` - questions already open
 - `docs/learning/LESSONS.md` - what was tried and what happened
 - `docs/learning/TASTE.md` - what the player has said is fun to them
@@ -34,10 +35,13 @@ If the repo is not attached, ask for it. Its copy of this skill (`.claude/skills
 
 ## Output
 
+- Findings that would hold for another game go into `docs/research/KNOWLEDGE.md`, in the section they belong to, tagged and sourced, with a line in its changelog. That file's own rules say how to mark a finding confirmed, contradicted or retired.
 - A teardown at `docs/research/teardowns/<game>.md` using the template in `docs/research/teardowns/TEMPLATE.md`.
-- At most five new rules added to `docs/research/PRINCIPLES.md`, each one checkable, tagged and sourced. A rule nobody could test is commentary; leave it out.
+- At most five new rules added to `docs/research/PRINCIPLES.md`, each one checkable, tagged and sourced. These are the rules this game adopts. A rule nobody could test is commentary; leave it out.
 - New open questions added to `docs/learning/UNKNOWNS.md`, each with how it could be answered.
 - A short answer to the original question: recommendation, confidence, and what would change it.
+
+`KNOWLEDGE.md` is mirrored in the Game Development project so it is available in chat for any game. After editing it, upload the file to the project again when the session can reach the project.
 
 ## Finding what we don't know
 

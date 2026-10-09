@@ -1,5 +1,7 @@
 # Design principles
 
+The rules Squeeze City has adopted. The wider reference these are drawn from, which applies to any game, is `KNOWLEDGE.md` in this folder.
+
 Rules we have adopted, each one checkable. Tags: `[E]` evidenced, `[X]` expert opinion, `[P]` our own proposal, to be checked by the audit and by playtests. Add a rule only with a tag and a source. Remove a rule that has been contradicted twice (see `docs/learning/LESSONS.md`).
 
 ## Decisions
@@ -34,3 +36,11 @@ Rules we have adopted, each one checkable. Tags: `[E]` evidenced, `[X]` expert o
 
 17. `[E]` Bots find structural problems such as dominant strategies and dead options. They cannot measure fun; every paper on automated playtesting says so. The player's verdict is final.
 18. `[E]` Passing pacing targets says nothing about whether choices matter. This game passed 10 of 10 balance targets while failing 6 of 6 audit checks. (Our own audit, 2026-10-09)
+
+## Purchases and feedback
+
+19. `[E]` Show a purchase's effect where the decision is made, and name the cause along with the number. (Factorio Friday Facts #426; Path of Exile 2's node preview; RollerCoaster Tycoon guest thoughts)
+20. `[E]` A flat percentage with no baseline is not feedback. (Jurassic World Evolution players could not tell whether upgrades stack; our playtest, 2026-10-09)
+21. `[P]` The problem an upgrade fixes should be present on at least a quarter of days at the point where the upgrade becomes affordable.
+22. `[P]` Make purchases worth buying before building the displays that show their worth. Built first, the displays would report that purchases are useless.
+23. `[X]` Threat and pressure cancel a cozy tone, so failure has to be slow, announced in advance and recoverable. (Project Horseshoe, "Coziness in Games", 2017)
