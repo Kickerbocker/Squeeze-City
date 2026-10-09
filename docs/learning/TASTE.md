@@ -27,6 +27,6 @@ Lemonade Tycoon 2, RollerCoaster Tycoon, Game Dev Tycoon, Thrillville, Cities: S
 - 2026-10-09: Upgrades, hiring and marketing "gave some description on the benefits", but "I really couldn't tell how much it was truly helping after I purchased them".
 - 2026-10-09: "I didn't understand the purpose of buying multiple parts of the map or what makes it truly better."
 
-## Not yet answered
+## How much the game should explain
 
-- Whether the game should show its numbers or leave some to discover (`UNKNOWNS.md` U2).
+- 2026-10-09: On upgrades: "Perhaps show the math, or at least show a comparison of before the upgrade and after."
