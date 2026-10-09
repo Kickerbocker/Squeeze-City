@@ -26,7 +26,7 @@ This file is meant to be edited often.
 3. **When our own development contradicts a finding**, add "Contradicted in *game*, *date*" with what happened. Contradicted twice, it moves to the retired list in section 16.
 4. **Decisions about one game stay out.** They go in that game's `PRINCIPLES.md` (rules adopted), `LESSONS.md` (what we tried) and `TASTE.md` (what its player likes). This file holds what would be true for the next game too.
 5. **When a section passes about 150 lines**, move it to its own file in `docs/research/` and leave a summary and a link here.
-6. **The master copy** is `docs/research/KNOWLEDGE.md` in the Squeeze City repo. A copy is kept in the Game Development project so it is available in chat for any game. After editing the master, upload it again to the project.
+6. **The master copy** is `docs/research/KNOWLEDGE.md` in the Squeeze City repo. A copy is kept in the Game Development project as `claude/game-design-knowledge-base.md`, so it is available in chat for any game. After editing the master, write it to that project path again.
 
 ## Contents
 

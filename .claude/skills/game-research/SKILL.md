@@ -41,7 +41,7 @@ If the repo is not attached, ask for it. Its copy of this skill (`.claude/skills
 - New open questions added to `docs/learning/UNKNOWNS.md`, each with how it could be answered.
 - A short answer to the original question: recommendation, confidence, and what would change it.
 
-`KNOWLEDGE.md` is mirrored in the Game Development project so it is available in chat for any game. After editing it, upload the file to the project again when the session can reach the project.
+`KNOWLEDGE.md` is mirrored in the Game Development project as `claude/game-design-knowledge-base.md`, so it is available in chat for any game. After editing the repo file, write it to that same project path again when the session can reach the project. If only the project copy is reachable, edit that and say the repo copy needs the same change.
 
 ## Finding what we don't know
 
