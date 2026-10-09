@@ -212,7 +212,7 @@ Before adopting an element because successful games have it, ask:
 | 18 | **Same opening every time** | Identical first moves across seeds | Vary the start; add modifiers | `[E]` Game Dev Tycoon players repeating one genre |
 | 19 | **Purchases that don't bind** | The problem an upgrade fixes is rarely present | Make the constraint real and visible first | `[E]` Confirmed in Squeeze City, 2026-10-09: 1% of customers left the line, so speed upgrades took 281 to 864 days to pay back |
 | 20 | **Pacing tests mistaken for fun** | All balance targets pass and the player is bored | Test separately whether choices matter | `[E]` Confirmed in Squeeze City, 2026-10-09: 10 of 10 balance targets passed while lazy play earned 98% |
-| 21 | **Waiting is the best move** | Most days have nothing to buy or unlock | Short goals; steady unlocks; no cash-threshold gates alone | `[E]` Confirmed in Squeeze City, 2026-10-09: 82% of days had nothing to buy |
+| 21 | **Waiting is the best move** | Most days have nothing to buy or unlock; a bot that never spends progresses as fast as one that does | Short goals; steady unlocks; gates that count money earned, never cash in hand | `[E]` Confirmed in Squeeze City, 2026-10-09: 82% of days had nothing to buy |
 | 22 | **Flat percentage upgrades** | The player can't say what a purchase did | Show the change in the player's own numbers | `[E]` Jurassic World Evolution's stacking confusion; confirmed in Squeeze City, 2026-10-09 |
 
 ---
@@ -265,7 +265,7 @@ The formula sits behind a "show the math" tap.
 
 **After buying**, in the results screen:
 
-- **Twin day**: replay the same day without the purchase and show the difference. This needs the simulation to give each customer their own random stream, so that removing the item doesn't shift everyone else's luck. The technique is known as common random numbers.
+- **Twin day**: replay the same day without the purchase and show the difference. For this to be honest, removing the item must not shift anyone else's luck. Two ways to get that: give each customer their own random stream, or draw the same fixed set of random numbers for every customer whether or not they use them. The technique is known as common random numbers. Check which your simulation already does before changing it.
 - **Attribution**: mark and count the customers who came because of a campaign.
 - **Ledger**: each purchase's running gain against its cost, with a mark when it has paid for itself.
 - **One chart**: profit over time with a marker on each purchase day.
@@ -729,6 +729,14 @@ Findings from building games ourselves. These are the strongest evidence in this
 6. **Staff and marketing priced without checking them lose money.** Every staff role lost money at three locations tested.
 7. **Order of work matters.** Make purchases worth buying before building displays that show their worth. Otherwise the display honestly reports that they are worthless.
 
+### Squeeze City, design review and experiments, 2026-10-09
+
+8. **A gate on cash in hand punishes spending.** Locations unlocked when the player held enough cash. With cheaper upgrades, a bot that bought more of them unlocked the next location on day 26, where it had been day 17. Count what has been earned.
+9. **Cheaper purchases do not fill quiet days.** Days with nothing to buy or unlock stayed at 79% after every price was cut. A game with about ten things to buy needs goals to fill the time between them.
+10. **Some purchases cannot be fixed with numbers.** Storage upgrades and one staff role fixed problems the game did not have. No price made them worth buying. They came off sale until redesigned.
+11. **A simulation may already support twin-day comparison.** Ours drew the same four random numbers per passer-by whether or not they stopped. A one-day test showed identical arrivals with and without each purchase. Only purchases that change how many people arrive broke it.
+12. **Test a limitation before writing it down.** We recorded that the engine could not do the comparison in point 11 without reading the code. A ten-minute test showed it could.
+
 Each game's own detail lives in its `docs/learning/LESSONS.md`.
 
 ---
@@ -815,4 +823,5 @@ None yet. A finding contradicted twice by our own development moves here with th
 
 | Date | Change |
 |---|---|
+| 2026-10-09 | Added findings 8 to 12 in section 15 from Squeeze City's design review and experiments. Corrected section 4.4 on what a twin-day comparison needs. Extended failure 21. |
 | 2026-10-09 | File created from two research passes (design fundamentals and failure modes; a catalog of proven elements and how to show purchase effects) and from Squeeze City's first playtest and decision audit. |

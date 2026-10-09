@@ -44,3 +44,4 @@ Rules we have adopted, each one checkable. Tags: `[E]` evidenced, `[X]` expert o
 21. `[P]` The problem an upgrade fixes should be present on at least a quarter of days at the point where the upgrade becomes affordable.
 22. `[P]` Make purchases worth buying before building the displays that show their worth. Built first, the displays would report that purchases are useless.
 23. `[X]` Threat and pressure cancel a cozy tone, so failure has to be slow, announced in advance and recoverable. (Project Horseshoe, "Coziness in Games", 2017)
+24. `[E]` A gate on progress counts what the player has earned, never the cash they are holding. Gates on cash in hand punish spending. (Our own experiment and playtest, 2026-10-09: cheaper upgrades delayed the Campus Quad unlock from day 17 to day 26)
