@@ -6,6 +6,15 @@ A personal browser game, mobile-first. It is a spiritual successor to Lemonade T
 - **Milestone plan:** `docs/HANDOFF.md`
 - **Decisions log:** `docs/DECISIONS.md`
 - **Ideas parking lot:** `docs/LATER.md`
+- **What Benjamin finds fun:** `docs/learning/TASTE.md` (outranks everything else)
+- **Lessons and open questions:** `docs/learning/LESSONS.md`, `docs/learning/UNKNOWNS.md`
+- **Design principles:** `docs/research/PRINCIPLES.md`
+
+## Skills
+Three skills in `.claude/skills/` cover the work in order. Use the one that matches what you are doing.
+- `game-research` when a design question has no confident answer yet
+- `game-design` when deciding what the game should do
+- `game-build-verify` when writing code, changing numbers or checking a build
 
 ## Stack
 - TypeScript (strict), Vite, Vitest
@@ -38,7 +47,8 @@ scripts/
 ## Workflow rules
 - Before each milestone, read the relevant GDD sections, propose a short plan, and wait for approval.
 - Every sim formula gets unit tests. `npm test` must pass before you say something is done.
-- After any sim or config change, run `npm run balance` and report the results against the GDD §17 targets.
+- After any sim or config change, run `npm run balance` and `npm run audit` and report both. Balance checks pacing; the audit checks that the player's choices and purchases matter.
+- Work on a branch and open a pull request. `main` deploys the live game.
 - Commit at every green step, with clear messages.
 - Build only what the GDD specifies. Put new ideas in `docs/LATER.md`.
 - If the GDD is ambiguous, pick the simplest option and log it in `docs/DECISIONS.md`.
@@ -49,4 +59,5 @@ scripts/
 - `npm run dev` — local dev server, reachable on LAN for phone testing (`--host`)
 - `npm test` — Vitest
 - `npm run balance` — headless balance report
+- `npm run audit` — decision audit (`-- --loc financial` to test another location)
 - `npm run build` — production build

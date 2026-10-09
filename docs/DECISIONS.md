@@ -91,3 +91,9 @@ Choices made where the GDD is ambiguous or silent. Newest at the bottom of each 
 - **The whole UI ships with M4:** the sim already supported multiple stands, staff, marketing and events, so all six hub tabs, the map and the stats screen are included. The M5/M6 milestones are therefore UI-complete.
 - **Seed:** a new game's seed comes from the clock in the UI layer. The sim never reads the time.
 - **Speed:** 1× is 3 game minutes per real second (a 3-minute day, §0).
+
+## Tooling — decision audit and skills (2026-10-09)
+- **`npm run audit`** (`scripts/audit.ts`) checks what `npm run balance` does not: whether adapting beats not adapting, whether each upgrade, staff role and campaign pays for itself, and how many days pass with nothing to buy. It is tooling only; no sim code or config changed.
+- **Audit thresholds** (85% lazy play, 30-day payback, 60% quiet days, 10-day quiet stretch) are our own proposals, set as constants at the top of the script. They are listed as an open question in `docs/learning/UNKNOWNS.md` (U1).
+- **Probe runs** hold cash at $500 or more so stock is never cash-limited. They compare profit per day, not cash.
+- **Skills** live in `.claude/skills/` (`game-research`, `game-design`, `game-build-verify`). What they learn is kept in `docs/learning/` and `docs/research/`.
