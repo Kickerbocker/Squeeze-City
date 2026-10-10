@@ -11,6 +11,7 @@ import { recipeTab } from './tabs/recipe';
 import { shopTab } from './tabs/shop';
 import { staffTab } from './tabs/staff';
 import { upgradesTab } from './tabs/upgrades';
+import { audio } from '../audio';
 
 const TABS: { id: HubTab; label: string; icon: string }[] = [
   { id: 'shop', label: 'Shop', icon: '🛒' },
@@ -65,6 +66,7 @@ export function renderHub(app: App): void {
               'aria-selected': String(app.hubTab === t.id),
               onclick: () => {
                 app.hubTab = t.id;
+                audio.tick();
                 app.render();
                 app.root.querySelector('.scroll')?.scrollTo(0, 0);
               },

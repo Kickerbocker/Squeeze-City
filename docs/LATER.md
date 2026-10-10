@@ -14,3 +14,4 @@ Ideas that came up during development but are not in the GDD. Not to be built wi
 - **Exact twin-day figures for Radio and TV:** they add foot traffic, which changes who arrives. Drawing arrivals at a fixed ceiling rate and thinning them would keep the crowd identical. Natural to do with M15's stepped sim.
 - **Profit chart with purchase markers** on the report or stats screen.
 - **Stand licence prices:** $2,000, $8,000 and $25,000 are long saves. Revisit after Playtest 2.
+- **M16 art and sound, beyond the 2026-10-10 pass:** redesigned characters with more animation frames, distinct stand art per tier, time-of-day lighting on buildings (windows lighting up at dusk), a day/night title screen, music stems that crossfade per hour, and a short jingle when a location unlocks.

@@ -178,6 +178,39 @@ export function lerpColor(a: number, b: number, t: number): number {
 
 export const GROUND_Y = 262;
 
+/** A hazy far layer behind the backdrop (hills, a skyline, the horizon) for depth. */
+export function drawFarLayer(g: Phaser.GameObjects.Graphics, loc: LocationId, width: number): void {
+  g.clear();
+  const base = GROUND_Y;
+  const haze = (c: number) => lerpColor(c, 0xcfe6f5, 0.55);
+  switch (loc) {
+    case 'maple':
+    case 'campus':
+      g.fillStyle(haze(0x6fbf73));
+      g.fillEllipse(width * 0.2, base - 40, width * 0.8, 120);
+      g.fillStyle(haze(0x5aa865));
+      g.fillEllipse(width * 0.8, base - 30, width * 0.9, 100);
+      break;
+    case 'boardwalk':
+      g.fillStyle(haze(0x7b9cb8));
+      g.fillTriangle(width * 0.55, base - 70, width * 0.75, base - 105, width * 0.95, base - 70);
+      break;
+    case 'uptown':
+    case 'financial':
+    case 'stadium':
+    case 'neon': {
+      const c = loc === 'neon' ? 0x5a4b86 : 0x8ea3b8;
+      for (let i = 0; i < 9; i++) {
+        const w = 26 + ((i * 17) % 22);
+        const h = 120 + ((i * 47) % 90);
+        g.fillStyle(haze(c));
+        g.fillRect(i * 46 - 6, base - h - 20, w, h);
+      }
+      break;
+    }
+  }
+}
+
 /** Location backdrop: buildings, trees, sea… */
 export function drawBackdrop(g: Phaser.GameObjects.Graphics, loc: LocationId, width: number): void {
   g.clear();
@@ -265,6 +298,7 @@ export function drawBackdrop(g: Phaser.GameObjects.Graphics, loc: LocationId, wi
 }
 
 export const STAND_W = [92, 106, 116, 124];
+export const STAND_H = [52, 70, 92, 120];
 
 /** The stand itself; size and look depend on the body tier and upgrades. */
 export function drawStand(g: Phaser.GameObjects.Graphics, front: Phaser.GameObjects.Graphics, x: number, upgrades: StandUpgrades, soldOut: boolean): void {
@@ -273,7 +307,7 @@ export function drawStand(g: Phaser.GameObjects.Graphics, front: Phaser.GameObje
   const base = GROUND_Y + 32;
   const tier = upgrades.body;
   const w = STAND_W[tier] ?? 92;
-  const h = [52, 70, 92, 120][tier] ?? 52;
+  const h = STAND_H[tier] ?? 52;
   const left = x - 12;
   const top = base - h;
   const stripe = (y: number, hh: number) => {
@@ -318,11 +352,20 @@ export function drawStand(g: Phaser.GameObjects.Graphics, front: Phaser.GameObje
   front.fillStyle(0x6bbf59);
   front.fillEllipse(left + w / 2 + 9, base - 23, 8, 4);
   if (upgrades.neon) {
-    g.fillStyle(0xff4fd8, 0.25);
-    g.fillRoundedRect(left + w / 2 - 34, top - 22, 68, 18, 8);
+    g.fillStyle(0x2a1f3d, 0.9);
+    g.fillRoundedRect(left + w / 2 - 30, top - 20, 60, 14, 6);
     g.lineStyle(2, 0xff4fd8);
     g.strokeRoundedRect(left + w / 2 - 30, top - 20, 60, 14, 6);
+  } else if (tier >= 1) {
+    // A painted sign board for anything bigger than a cart.
+    g.fillStyle(PALETTE.cream);
+    g.fillRoundedRect(left + w / 2 - 30, top - 18, 60, 13, 3);
+    g.lineStyle(1.5, PALETTE.lemonDark);
+    g.strokeRoundedRect(left + w / 2 - 30, top - 18, 60, 13, 3);
   }
+  // A soft shadow under the stand.
+  g.fillStyle(0x000000, 0.12);
+  g.fillEllipse(left + w / 2, base + 6, w + 24, 10);
   if (upgrades.umbrella) {
     g.fillStyle(0x2a8cff);
     g.fillTriangle(left - 30, top + 22, left - 4, top + 4, left + 22, top + 22);

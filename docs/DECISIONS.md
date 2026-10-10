@@ -168,3 +168,14 @@ Built from `docs/specs/M10-show-what-it-did.md`. All numbers are the spec's, in 
 - `npm run audit`: identical to the end of M9, plus the new projection check passing 6/6 (Stall, Neon sign and Register I at Maple Park and the Financial District; worst is Register I at Maple Park, off by 21% on a $0.93-a-day effect).
 
 **Play log v2** records "what your purchases did" each day and how often "Show the math" was opened.
+
+## Sound and look pass (2026-10-10)
+Requested by Benjamin ahead of M16, built after M10 (his choice of order). Generated music, as he chose. GDD §19 updated.
+- **No asset files, no new dependencies.** All music, ambience and effects are Web Audio synthesis; all art is Phaser graphics and CSS.
+- **Music is generative,** not a loop: a look-ahead scheduler plays eighth notes, changing chords at bar lines and picking a new four-bar phrase every 8 bars, so long sessions don't repeat. Randomness here uses `Math.random`/`Date.now`, which is fine in the UI layer; the theory module (`theory.ts`) is pure and unit-tested.
+- **Mood mapping** (in `theory.ts`): tempo 66–94 bpm; a low-pass "brightness" that follows the clock (2.4 kHz at opening, 5 kHz at noon, 1.8 kHz at closing), ×0.55 in rain; hats from busy-ness 0.15, kick from 0.5 and never in rain. Busy-ness is cups sold in the last game hour ÷ 36 plus the line ÷ 10, capped at 1.
+- **Levels** were set by measuring the output in a headless browser with analysers on each bus (no clipping anywhere; at the default 50% music volume, music sits around −31 dB RMS and peaks around −13 dB; effects peak around −15 dB). Make-up gains per bus are in `engine.ts`. A limiter on the master guards against stacking.
+- **Audio pauses** when the page is hidden.
+- **Coin pops** are limited to one every 0.45 s, alternating sides, so a rush stays readable.
+- **Canvas fallback:** Phaser can only draw gradient fills in WebGL, so on the Canvas renderer the sky is drawn as two bands.
+- **The deeper art pass stays in M16** (`docs/ROADMAP.md`): M13 and M15 will change the day scene, so character redesigns and new animation sets wait until then.
