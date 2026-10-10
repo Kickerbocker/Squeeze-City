@@ -1,0 +1,72 @@
+{
+  "startCash": 60,
+  "dayMinutes": 540,
+  "openHour": 9,
+  "weekendDays": [5, 6],
+  "weather": [
+    { "id": "rain", "name": "Rainy", "condition": "rain", "share": 0.15, "demand": 0.45, "street": 1.0, "temp": [58, 68], "market": 0.6 },
+    { "id": "cloudy", "name": "Cloudy", "condition": "cloudy", "share": 0.2, "demand": 0.75, "street": 1.1, "temp": [62, 72], "market": 0.85 },
+    { "id": "mild", "name": "Mild", "condition": "partlyCloudy", "share": 0.3, "demand": 1.0, "street": 1.2, "temp": [70, 78], "market": 1.0 },
+    { "id": "warm", "name": "Warm", "condition": "sunny", "share": 0.22, "demand": 1.3, "street": 1.35, "temp": [79, 86], "market": 1.05 },
+    { "id": "hot", "name": "Hot", "condition": "sunny", "share": 0.13, "demand": 1.7, "street": 1.5, "temp": [88, 97], "market": 0.95 }
+  ],
+  "forecast": [
+    { "label": "sure", "share": 0.35, "right": 0.92, "uncertainty": 0.08 },
+    { "label": "fairly sure", "share": 0.4, "right": 0.8, "uncertainty": 0.2 },
+    { "label": "unsure", "share": 0.25, "right": 0.6, "uncertainty": 0.35 }
+  ],
+  "rangeZ": 1.28,
+  "demandNoise": 0.22,
+  "gigs": {
+    "pay": [40, 60],
+    "list": [
+      { "id": "delivery", "name": "Delivery run", "teaches": "What two neighborhoods' crowds like" },
+      { "id": "helper", "name": "Market helper", "teaches": "How a stall owner picks a batch size, and how it turned out" },
+      { "id": "yardsale", "name": "Lemonade at a neighbor's yard sale", "teaches": "How faces react to a price" }
+    ]
+  },
+  "market": {
+    "name": "Market table",
+    "product": "Cookies",
+    "gate": 120,
+    "cost": 90,
+    "price": 2.25,
+    "unitCost": 0.6,
+    "salvage": 0.5,
+    "crowdWeekday": 45,
+    "crowdWeekend": 95,
+    "passRatio": 2.0,
+    "maxBatch": 300
+  },
+  "stand": {
+    "name": "Drink stand",
+    "product": "Lemonade",
+    "gate": 420,
+    "cost": 300,
+    "unitCost": 0.25,
+    "salvage": 0.5,
+    "baseInterested": 250,
+    "weekendFactor": 1.25,
+    "wtpSpread": 0.25,
+    "passRatio": 1.5,
+    "maxBatch": 900,
+    "priceMin": 0.25,
+    "priceMax": 3.0,
+    "priceStep": 0.05,
+    "startPrice": 1.0
+  },
+  "reactions": { "deal": 1.35, "fair": 1.08 },
+  "cartGate": 1700,
+  "xp": { "base": 130, "growth": 1.32 },
+  "skills": {
+    "sharpEye": { "name": "Sharp eye", "cost": 1, "does": "Reactions show what customers would have paid" },
+    "thrifty": { "name": "Thrifty", "cost": 1, "does": "Unsold goods keep 75% of their value", "salvage": 0.75 },
+    "prepSense": { "name": "Prep sense", "cost": 2, "does": "The board suggests a batch; one tap accepts", "handDays": 5 },
+    "standingOrder": { "name": "Standing order", "cost": 2, "does": "The batch sets itself each morning. Take it back any day." }
+  },
+  "weekGoal": { "bonus": 30, "growth": 1.15, "defaultUnits": { "gigs": 0, "market": 250, "stand": 900 }, "defaultEarn": 300 },
+  "moments": { "dealRun": 5, "walkRun": 3, "slowSpeed": 0.5, "slowMinutes": 30 },
+  "missed": { "minGain": 2, "maxLines": 2 },
+  "hourly": [0.5, 0.7, 0.9, 1.0, 1.0, 0.95, 0.85, 0.75, 0.6],
+  "marketHourly": [1.0, 1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3]
+}

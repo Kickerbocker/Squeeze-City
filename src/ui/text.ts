@@ -22,6 +22,9 @@ export const BUBBLES: Record<Bubble, string> = {
   tooExpensive: '💸 Too expensive',
   lineTooLong: '⏳ Line too long',
   soldOut: '🚫 Sold out',
+  deal: '🤩 What a deal!',
+  fair: '🙂',
+  pricey: '😬 Hmm, pricey',
 };
 
 export const CONDITION_ICON: Record<Condition, string> = {
