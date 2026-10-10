@@ -90,3 +90,71 @@ Done when all single-location targets pass. Later-game targets are allowed to be
 
 ## E. When to come back to chat
 Stay in Claude Code for everything above. Come back to chat only for big design rethinks, such as a new system or a change of direction. Update GDD.md afterward so Claude Code stays in sync.
+
+From M9 onward, section F replaces this rule: chat writes each spec, and Claude Code builds it.
+
+## F. The second arc: M9 onward
+
+M1 to M8 are done. The first playtest found the game boring in specific ways, and `docs/DESIGN_REVIEW.md` explains why. `docs/ROADMAP.md` has the order of work from here.
+
+### What Claude Code has to work from
+
+| File | What it is |
+|---|---|
+| `CLAUDE.md` | Rules for every session: stack, architecture, workflow, commands |
+| `.claude/skills/game-build-verify/` | How to build and check a milestone. Claude Code loads it when building. |
+| `.claude/skills/game-design/`, `game-research/` | For spec and research work |
+| `docs/GDD.md` (v1.1) | The design. Source of truth for what to build. |
+| `docs/specs/M9-worth-buying.md` | Full spec for M9 |
+| `docs/specs/M10-show-what-it-did.md` | Full spec for M10 |
+| `docs/ROADMAP.md` | Order of M9 to M16, with a brief for each |
+| `docs/DESIGN_REVIEW.md` | Why the current build fails, with numbers |
+| `docs/learning/TASTE.md` | What Benjamin finds fun. Outranks everything else. |
+| `docs/learning/LESSONS.md`, `UNKNOWNS.md` | What we tried, what we bet on, what we don't know |
+| `docs/research/KNOWLEDGE.md`, `PRINCIPLES.md` | What we know about these games in general, and the rules this game adopted |
+| `scripts/audit.ts` | `npm run audit`: checks that choices and purchases matter |
+
+### One-time step
+
+Merge pull request #2 into `main` so Claude Code sees all of the above. It changes no game code.
+
+### Session habits
+
+The habits in section B still apply. Three additions:
+
+- **Branch and pull request for every milestone.** `main` deploys the live game. Never push to it directly.
+- **Three checks, every time:** `npm test`, `npm run balance`, `npm run audit`. Report every failure, including ones that were already failing.
+- **Model:** Opus 5.5 for both M9 and M10. Both touch the sim.
+
+### Milestone prompts (paste one per session)
+
+**M9 — Worth buying**
+> Read CLAUDE.md, docs/specs/M9-worth-buying.md, and GDD §8, §10, §12 to §14 and §17. Use the game-build-verify skill. Build milestone M9 exactly as the spec says: the config changes, the items taken off sale, unlocks on lifetime revenue, the two new bots, audit version 2, and the changed balance target. Start from the spec's numbers and tune only config until "Done when" passes. Log every value that ends up different in docs/DECISIONS.md. Work on a branch named claude/m9-worth-buying and open a pull request. Propose your plan first and wait for my approval.
+
+Done when the spec's "Done when" list passes and the pull request is open.
+
+**M10 — Show what it did**
+> Read CLAUDE.md, docs/specs/M10-show-what-it-did.md, and GDD §18 and §21. Use the game-build-verify skill. Build milestone M10 exactly as the spec says: projectPurchase, attributeDay, runDayWithAttribution, the purchase ledger with its save migration, the three-line purchase cards, the "What your purchases did today" report card, and the one-minute day. runDay must return exactly what it did after M9 for the same seed and plan. Work on a branch named claude/m10-show-what-it-did and open a pull request. Propose your plan first and wait for my approval.
+
+Done when the spec's "Done when" list passes and the pull request is open.
+
+**→ Playtest 2 (you):** merge both pull requests, then play at least 15 in-game days on your phone. Buy things. Note where you were bored, confused, delighted or frustrated, and answer these in `docs/PLAYTEST.md`:
+
+1. What did you buy, and what made you pick it?
+2. Think of the last thing you bought. What did you expect it to do? What did it do?
+3. Did you open the math? What were you looking for?
+4. How did the length of the day feel?
+5. Was there a moment you wanted to skip? What was happening?
+
+**After Playtest 2 (Claude Code)**
+> Read CLAUDE.md and the newest session in docs/PLAYTEST.md. Use the game-build-verify skill, section "After the playtest". Fill in the results for the M9 and M10 bets in docs/learning/LESSONS.md, add what I liked and disliked to docs/learning/TASTE.md in my words, log surprises in docs/learning/UNKNOWNS.md, and add anything that would hold for another game to section 15 of docs/research/KNOWLEDGE.md. Change no game code.
+
+### Then come back to chat
+
+Bring the playtest notes to the Game Development project in chat and ask for the M11 spec. Chat writes `docs/specs/M11-….md`, updates the GDD and adds the M11 prompt here. The same loop repeats for each milestone in `docs/ROADMAP.md`.
+
+### If something goes wrong
+
+- **A "Done when" check won't pass after honest tuning:** stop and say which one, with the numbers. Do not change a bot's rules or a formula to make it pass.
+- **The spec and the GDD disagree:** the GDD wins. Say so, and fix the spec in the same pull request.
+- **The spec is silent:** pick the simplest option and log it in `docs/DECISIONS.md`.

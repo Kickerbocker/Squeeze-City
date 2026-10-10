@@ -1,13 +1,15 @@
-# Squeeze City — Game Design Document (v1)
+# Squeeze City — Game Design Document (v1.1)
 
 Working title. Personal, non-commercial spiritual successor to Lemonade Tycoon 2. Captures the idea, not a copy: all names, art, and audio are original.
+
+**v1.1 (2026-10-09)** changes §0, §8, §10, §12, §13, §14, §17 and §18, and adds §21. Each change is marked with the milestone that builds it. Full specs: `docs/specs/M9-worth-buying.md` and `docs/specs/M10-show-what-it-did.md`. Until a milestone is built, the code still has the v1 value.
 
 ## 0. Assumptions (change here if you disagree)
 - Platform: browser, mobile-first portrait (reference 390×844), installable PWA. Also works on desktop.
 - Sandbox with milestones, not scripted scenarios.
 - Multiple simultaneous stands (up to 4) in the late game — the "empire" fantasy.
 - One drink (lemonade) in v1. Extra drinks are in the parking lot (§20).
-- A business day takes about 3 real minutes at 1x speed, with 2x, 4x, and Skip.
+- A business day takes about 1 real minute at 1x speed, with 2x, 4x, and Skip. (M10; was 3 minutes)
 
 ## 1. Design pillars
 1. **Every day is a small puzzle:** read the forecast, set stock, recipe, and price, watch, learn.
@@ -105,8 +107,8 @@ Each archetype has a 10-value hourly weight curve (hours 9–18) that peaks at t
 6. **Sold out** (no cups, or no pitcher and no lemons or sugar to make one): "Sold out," a lost customer.
 
 ## 8. Service
-- Pitcher prep: 4 minutes base. The Juicer and a Mixer reduce it. One pitcher can be prepared at a time per stand.
-- Serving: 0.8 minutes per customer base. Each Register tier multiplies this by 0.8. A Server adds a parallel serving lane.
+- Pitcher prep: 4 minutes base, set by the Juicer's first tier. The Juicer and a Mixer reduce it. One pitcher can be prepared at a time per stand.
+- Serving: 2.0 minutes per customer base (M9; was 0.8), so that lines form at busy places and hours. Each Register tier multiplies this by 0.8. A Server adds a parallel serving lane.
 - The scene shows a visible queue of up to 12 people.
 
 ## 9. Reputation
@@ -119,16 +121,17 @@ Each archetype has a 10-value hourly weight curve (hours 9–18) that peaks at t
 - A location with no stand placed that day loses 1 rep per day.
 
 ## 10. Locations
-| # | Location | Rent/day | Traffic/hr (wkday/wkend) | Archetype mix | Unlock (cash + best rep) |
+| # | Location | Rent/day | Traffic/hr (wkday/wkend) | Archetype mix | Unlock (lifetime revenue + best rep) |
 |---|---|---|---|---|---|
 | 1 | Maple Park | $0 | 40 / 70 | Kid 35, Jogger 25, Senior 25, Office 15 | start |
 | 2 | Uptown Blocks | $15 | 50 / 60 | Senior 30, Kid 30, Office 20, Jogger 20 | $300, 40 |
 | 3 | Campus Quad | $35 | 90 / 40 | Student 70, Jogger 15, Office 15 | $1,000, 45 |
-| 4 | Boardwalk | $60 | 60 / 150 | Tourist 45, Kid 25, Jogger 30 | $2,500, 50 |
-| 5 | Financial District | $120 | 180 / 40 | Office 85, Tourist 15 | $6,000, 55 |
-| 6 | Stadium Row | $150 | 40 (400 on game days) | Fan 70, Student 15, Kid 15 | $12,000, 60 |
-| 7 | Neon Square | $350 | 250 / 300 | Tourist 60, Office 20, Student 10, Kid 10 | $30,000, 70 |
+| 4 | Boardwalk | $60 | 60 / 150 | Tourist 45, Kid 25, Jogger 30 | $5,000, 50 |
+| 5 | Financial District | $120 | 180 / 40 | Office 85, Tourist 15 | $17,500, 55 |
+| 6 | Stadium Row | $150 | 40 (400 on game days) | Fan 70, Student 15, Kid 15 | $37,500, 60 |
+| 7 | Neon Square | $350 | 250 / 300 | Tourist 60, Office 20, Student 10, Kid 10 | $80,000, 70 |
 
+- Unlocks (M9): a location opens once lifetime revenue and best reputation reach its thresholds. Cash in hand is not counted, so spending on the stand never delays an unlock. The v1 thresholds were cash in hand: $300, $1,000, $2,500, $6,000, $12,000, $30,000.
 - Boardwalk: weather multipliers are amplified ×1.5, and traffic is ×0.3 in Fall and Winter.
 - Stadium Row: 2 random game days per week, announced on the map 2 days ahead.
 - Hourly arrivals at a location = traffic × W_traffic × the archetype's hourly weight × (event and marketing traffic multipliers), drawn as a Poisson process.
@@ -142,22 +145,28 @@ Each archetype has a 10-value hourly weight curve (hours 9–18) that peaks at t
 ## 12. Upgrades
 | Upgrade | Scope | Tiers and cost | Effect |
 |---|---|---|---|
-| Stand body | stand | Cart → Stall $400 → Kiosk $2,000 → Shop $10,000 | appeal 1.00 / 1.15 / 1.35 / 1.60 |
-| Juicer | stand | $150 / $600 / $2,000 | pitcher prep 4 → 3 → 2 → 1 min |
-| Register | stand | $200 / $900 | serve time ×0.8 per tier |
-| Cooler | stand | $250 | ice melt ×0.5 |
-| Umbrella | stand | $120 | patience +30% when temp > 85°F or Rain |
-| Neon sign | stand | $500 | appeal +0.10 |
-| Speaker | stand | $350 | Kid, Student, and Tourist P_stop ×1.10 |
-| Fridge | global | $800 | lemons spoil after 12 days |
-| Weather radio | global | $300 | forecast 95% / ±1°F |
+| Stand body | stand | Cart → Stall $120 → Kiosk $600 → Shop $2,500 | appeal 1.00 / 1.15 / 1.35 / 1.60 |
+| Juicer | stand | $90 / $300 / $900 | pitcher prep 4 → 3 → 2 → 1 min |
+| Register | stand | $120 / $400 | serve time ×0.8 per tier |
+| Neon sign | stand | $90 | appeal +0.10 |
+| Speaker | stand | $70 | Kid, Student, and Tourist P_stop ×1.10 |
+| Weather radio | global | $60 | forecast 95% / ±1°F |
+| Cooler | stand | not for sale | ice melt ×0.5 |
+| Umbrella | stand | not for sale | patience +30% when temp > 85°F or Rain |
+| Fridge | global | not for sale | lemons spoil after 12 days |
+
+- Costs are M9 values, sized so each item pays back in about two to four weeks where it starts to matter. The v1 costs were Stall $400, Kiosk $2,000, Shop $10,000; Juicer $150 / $600 / $2,000; Register $200 / $900; Neon sign $500; Speaker $350; Weather radio $300.
+- Cooler, Umbrella and Fridge are off sale from M9 because they fix problems the game does not have. A player who owns one keeps its effect. Their redesign is in `docs/LATER.md`.
 
 ## 13. Staff (max 2 per stand)
 | Role | Daily wage | Effect (skill s = 1–5) |
 |---|---|---|
-| Server | $40 + $10·s | parallel serving lane at speed 0.7 + 0.1·s |
-| Mixer | $35 + $10·s | pitcher prep −(0.3 + 0.1·s) min, floor 0.5 |
-| Promoter | $45 + $10·s | P_stop ×(1.05 + 0.03·s) |
+| Server | $8 + $4·s | parallel serving lane at speed 0.7 + 0.1·s |
+| Promoter | $8 + $4·s | P_stop ×(1.15 + 0.05·s) |
+| Mixer | not offered | pitcher prep −(0.3 + 0.1·s) min, floor 0.5 |
+
+- Wages and the Promoter's effect are M9 values. The v1 wages were Server $40 + $10·s, Mixer $35 + $10·s, Promoter $45 + $10·s, and the Promoter's effect was ×(1.05 + 0.03·s).
+- The Mixer is not offered from M9. One already hired keeps working at the v1 wage.
 
 - The hiring pool shows 3 candidates and refreshes weekly.
 - Skill rises by 1 every 20 days worked (cap 5), and the wage rises to match.
@@ -166,7 +175,7 @@ Each archetype has a 10-value hourly weight curve (hours 9–18) that peaks at t
 ## 14. Marketing
 | Campaign | Cost | Duration | Effect |
 |---|---|---|---|
-| Flyers | $25 | 3 days | one location, adFactor +8% |
+| Flyers | $18 | 3 days | one location, adFactor +25% (M9; was $25 and +8%) |
 | Newspaper | $120 | 5 days | all stands +12% |
 | Radio | $400 | 7 days | all stands +18%, traffic +5% |
 | TV | $1,500 | 10 days | all stands +30%, traffic +12% |
@@ -203,7 +212,7 @@ Run headlessly over 20 seeds with `npm run balance`.
 
 **Sensible bot** (good recipe for the weather, cost-aware price, buys stock for the forecast):
 - Days 1–7: average profit $15–$60 per day
-- Reaches $1,000 cash between day 14 and 25
+- Unlocks Campus Quad between day 14 and 25 (M9; was "reaches $1,000 cash", which stops being a fair measure once the bot spends its cash)
 - Unlocks the Financial District between day 45 and 70
 - Reaches $100k net worth between day 160 and 260
 - Cash never goes below $0
@@ -215,6 +224,15 @@ Run headlessly over 20 seeds with `npm run balance`.
 - Hoarder bot (buys 3× its needs): its spoilage cost is at least 15% of revenue.
 
 **Variety check:** the best fixed price on 60°F days and on 90°F days differs by at least $0.30.
+
+**Decision audit** (`npm run audit`, M9). Balance checks pacing. The audit checks that choices and purchases matter.
+- At Maple Park, at least 3 items for sale pay back within 30 days.
+- Every item for sale pays back within 30 days at one or more of the first five locations.
+- At the Financial District, at least one staff role earns its wage.
+- At Maple Park, Flyers earn their cost.
+- A bot that never buys anything does not unlock Campus Quad sooner than the Sensible bot.
+- Reported until later milestones fix them: lazy play earns at most 85% of Sensible play (M11); at most 60% of days have nothing to buy or unlock (M12).
+- From M10: a purchase's projected gain is within 25% of its measured gain.
 
 ## 18. Screens (mobile-first)
 - **Title:** 3 save slots, new game, continue.
@@ -230,7 +248,9 @@ Run headlessly over 20 seeds with `npm run balance`.
   - Revenue and a cost breakdown (ingredients, rent, wages, ads, spoilage), then profit.
   - Customer funnel: passed by, stopped, bought.
   - Top 3 complaints with counts, and an hourly sales chart.
-- **Map:** locations, lock state, rent, traffic hints, demographic icons, and event markers.
+  - From M10: "What your purchases did today", one line per purchase with its effect and how much of its cost has been earned back (§21).
+- **Upgrade, staff and marketing cards** (M10): the projected gain here, the payback time, and the problem it fixes in yesterday's numbers. "Show the math" opens the inputs (§21).
+- **Map:** locations, lock state, rent, traffic hints, demographic icons, and event markers. From M9, a locked location shows progress on money earned and the reputation needed.
 - **Stats/Milestones** screen.
 
 ## 19. Art and audio
@@ -240,3 +260,14 @@ Run headlessly over 20 seeds with `npm run balance`.
 
 ## 20. Parking lot (not in v1)
 Extra drinks (pink lemonade, iced tea), loans, competitor AI shops, seasonal decorations, achievements beyond the milestones.
+
+## 21. Purchase feedback (M10)
+The full rules, numbers, screens and tests are in `docs/specs/M10-show-what-it-did.md`.
+
+- **Before buying**, every purchase card shows three lines: the projected gain at this stand with a typical range, the payback time (or the gain after wages or cost for staff and campaigns), and the visible problem it fixes in yesterday's numbers. If the projected gain is under $0.50 a day the card says it won't help here yet, and why.
+- **The projection** simulates tomorrow with and without the item over 7 sample days, using the forecast as the weather. It draws from its own RNG stream and never uses tomorrow's real customers.
+- **After buying**, the evening report replays today without each purchase and shows the difference. The comparison is exact: the sim draws the same random numbers for every passer-by whether or not they stop, so the same people arrive in both runs.
+- **Exceptions:** Radio and TV campaigns add foot traffic, so their figure is a 7-day average marked "about". The Weather radio shows how often the forecast was right.
+- **Ledger:** each upgrade tracks how much of its cost it has earned back, and shows "Paid off in N days" when it has.
+- **Losses are shown as plainly as gains.**
+- **Show the math** is closed by default, with a setting to keep it open.

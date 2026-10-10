@@ -8,3 +8,9 @@ Ideas that came up during development but are not in the GDD. Not to be built wi
 - **Stand placement preview on the Map:** show expected customers for tomorrow at each location.
 - **Moving staff between stands** without firing and rehiring them.
 - **Haptics** (`navigator.vibrate`) on sales and milestones.
+- **Storage redesign (Cooler, Fridge):** off sale from M9 because waste is not a real risk at current ingredient prices. See `docs/learning/UNKNOWNS.md` U10.
+- **Umbrella redesign:** off sale from M9. It only acts on hot or wet days when there is a line. One idea: shade that draws people in on hot days, so it pairs with the forecast.
+- **Mixer redesign:** not offered from M9. Pitcher prep is a small share of serving time, so cutting it earns nothing. Fold into the staff work in M14.
+- **Exact twin-day figures for Radio and TV:** they add foot traffic, which changes who arrives. Drawing arrivals at a fixed ceiling rate and thinning them would keep the crowd identical. Natural to do with M15's stepped sim.
+- **Profit chart with purchase markers** on the report or stats screen.
+- **Stand licence prices:** $2,000, $8,000 and $25,000 are long saves. Revisit after Playtest 2.

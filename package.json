@@ -9,6 +9,7 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "balance": "tsx scripts/balance.ts",
+    "audit": "tsx scripts/audit.ts",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host"
   },
