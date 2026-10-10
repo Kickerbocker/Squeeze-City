@@ -7,7 +7,7 @@ import { type BotMemory, type BotOptions, botMorning, chooseRecipe } from './bot
 interface RunLog {
   reports: DayReport[];
   minCash: number;
-  firstDayCash1000: number | null;
+  campusUnlockDay: number | null;
   financialUnlockDay: number | null;
   netWorth100kDay: number | null;
   netWorthAt: (day: number) => number;
@@ -19,7 +19,7 @@ export function runBot(seed: number, days: number, opts: BotOptions, cfg: GameCo
   const reports: DayReport[] = [];
   const nw: number[] = [];
   let minCash = s.cash;
-  let firstDayCash1000: number | null = null;
+  let campusUnlockDay: number | null = null;
   let financialUnlockDay: number | null = null;
   let netWorth100kDay: number | null = null;
   for (let d = 0; d < days; d++) {
@@ -31,14 +31,14 @@ export function runBot(seed: number, days: number, opts: BotOptions, cfg: GameCo
     s = r.state;
     minCash = Math.min(minCash, s.cash);
     nw.push(netWorth(s));
-    if (firstDayCash1000 === null && s.cash >= 1000) firstDayCash1000 = r.report.day;
+    if (campusUnlockDay === null && s.locations.campus.unlocked) campusUnlockDay = r.report.day;
     if (financialUnlockDay === null && s.locations.financial.unlocked) financialUnlockDay = r.report.day;
     if (netWorth100kDay === null && netWorth(s) >= 100000) netWorth100kDay = r.report.day;
   }
   return {
     reports,
     minCash,
-    firstDayCash1000,
+    campusUnlockDay,
     financialUnlockDay,
     netWorth100kDay,
     netWorthAt: (day) => nw[day - 1] ?? NaN,
@@ -73,7 +73,7 @@ function fixedPriceProfit(price: number, temp: number, seeds: number, cfg: GameC
   return total / (seeds * 3);
 }
 
-function bestFixedPrice(temp: number, seeds: number, cfg: GameConfig): { price: number; profit: number } {
+export function bestFixedPrice(temp: number, seeds: number, cfg: GameConfig): { price: number; profit: number } {
   let best = { price: 0, profit: -Infinity };
   for (let p = 0.5; p <= 2.5 + 1e-9; p += 0.05) {
     const price = Math.round(p * 100) / 100;
@@ -99,12 +99,13 @@ export function balanceReport(cfg: GameConfig = CONFIG, seeds = 20, days = 260):
   const week1 = mean(runs.map((r) => mean(r.reports.slice(0, 7).map((x) => x.profit))));
   rows.push({ target: 'Sensible: days 1–7 avg profit $15–$60', value: `$${week1.toFixed(2)}`, pass: inRange(week1, 15, 60) });
 
-  const d1000 = runs.map((r) => r.firstDayCash1000 ?? Infinity);
-  const m1000 = median(d1000);
+  // M9: cash in hand stops being a fair measure once the bot spends it, so this reads the unlock itself.
+  const dCampus = runs.map((r) => r.campusUnlockDay ?? Infinity);
+  const mCampus = median(dCampus);
   rows.push({
-    target: 'Sensible: reaches $1,000 cash day 14–25',
-    value: `median day ${fmt(Number.isFinite(m1000) ? m1000 : null)} (range ${fmt(Math.min(...d1000))}–${fmt(Number.isFinite(Math.max(...d1000)) ? Math.max(...d1000) : null)})`,
-    pass: inRange(m1000, 14, 25),
+    target: 'Sensible: unlocks Campus Quad day 14–25',
+    value: `median day ${fmt(Number.isFinite(mCampus) ? mCampus : null)} (range ${fmt(Math.min(...dCampus))}–${fmt(Number.isFinite(Math.max(...dCampus)) ? Math.max(...dCampus) : null)})`,
+    pass: inRange(mCampus, 14, 25),
   });
 
   const dFin = runs.map((r) => r.financialUnlockDay ?? Infinity);
