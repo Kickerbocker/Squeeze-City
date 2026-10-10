@@ -94,7 +94,15 @@ interface StandRun {
  * Simulates one business day plus the night that follows, then sets up the next
  * morning. Pure: the input state is never mutated.
  */
-export function runDay(state: GameState, plan: DayPlan = {}, cfg: GameConfig = CONFIG): DayResult {
+export interface RunDayOptions {
+  /**
+   * M10: seed for the customer stream instead of the game seed. Projections use this to
+   * sample made-up crowds; everything else about the day is unchanged.
+   */
+  customerSeed?: number;
+}
+
+export function runDay(state: GameState, plan: DayPlan = {}, cfg: GameConfig = CONFIG, opts: RunDayOptions = {}): DayResult {
   const s = structuredClone(state);
   applyPlan(s, plan, cfg);
 
@@ -130,7 +138,7 @@ export function runDay(state: GameState, plan: DayPlan = {}, cfg: GameConfig = C
       stand,
       loc,
       rep,
-      rng: dayRng(s.seed, day, STREAM.customers, LOCATION_IDS.indexOf(loc.id)),
+      rng: dayRng(opts.customerSeed ?? s.seed, day, STREAM.customers, LOCATION_IDS.indexOf(loc.id)),
       shares: archetypeShares(loc, info.weekend, gameDay, cfg),
       traffic,
       wTraffic: w.traffic,

@@ -1,6 +1,7 @@
 import calendar from './calendar.json';
 import customers from './customers.json';
 import events from './events.json';
+import feedback from './feedback.json';
 import ingredients from './ingredients.json';
 import locations from './locations.json';
 import marketing from './marketing.json';
@@ -34,6 +35,7 @@ export function rawConfig(): Record<keyof GameConfig, unknown> {
     marketing,
     events,
     progression,
+    feedback,
   };
 }
 

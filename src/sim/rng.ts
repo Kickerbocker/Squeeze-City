@@ -115,6 +115,8 @@ export const STREAM = {
   staff: 6,
   stadium: 7,
   inspector: 8,
+  /** M10: sample crowds for purchase projections, never the real day's customers. */
+  projection: 9,
 } as const;
 
 /** A fresh generator for one stream on one day. */

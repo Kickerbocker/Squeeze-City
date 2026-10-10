@@ -8,6 +8,7 @@ import type {
   MajorEvent,
   Season,
   StaffRole,
+  StandUpgrade,
 } from '../config';
 
 export interface LemonBatch {
@@ -124,6 +125,37 @@ export interface Stats {
   complaints: Partial<Record<Bubble, number>>;
 }
 
+/** M10: one upgrade bought, and how much of its cost it has earned back. */
+export interface Purchase {
+  item: StandUpgrade | GlobalUpgrade;
+  /** For tiered upgrades (body, juicer, register), the tier bought. */
+  tier?: number;
+  /** null for whole-business upgrades. */
+  standId: number | null;
+  day: number;
+  cost: number;
+  earnedBack: number;
+  /** Day the earnings reached the cost. */
+  paidOffDay?: number;
+  /** A higher tier replaced this one, so it is no longer measured. */
+  replaced?: boolean;
+}
+
+/** M10: whether the forecast condition matched the day's weather. */
+export interface ForecastRecord {
+  day: number;
+  right: boolean;
+}
+
+/** M10: yesterday's numbers per stand, for the "why" line on purchase cards. */
+export interface YesterdayStand {
+  standId: number;
+  locationId: LocationId;
+  passersby: number;
+  stoppers: number;
+  lostQueue: number;
+}
+
 export interface GameState {
   seed: number;
   day: number;
@@ -142,6 +174,12 @@ export interface GameState {
   milestones: string[];
   ledger: Ledger;
   stats: Stats;
+  /** M10 purchase ledger. */
+  purchases: Purchase[];
+  /** M10: the most recent days' forecast results, newest last. */
+  forecastHistory: ForecastRecord[];
+  /** M10: yesterday's numbers per stand; null before the first day. */
+  yesterday: { day: number; stands: YesterdayStand[] } | null;
 }
 
 export interface StandPlan {

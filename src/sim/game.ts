@@ -36,6 +36,9 @@ export function newGame(cfg: GameConfig = CONFIG, seed = 1): GameState {
     milestones: [],
     ledger: { stock: 0, ads: 0, capital: 0 },
     stats: { cupsSold: 0, lifetimeRevenue: 0, bestDayProfit: 0, bestDay: 0, netWorthHistory: [], complaints: {} },
+    purchases: [],
+    forecastHistory: [],
+    yesterday: null,
   };
   beginDay(state, cfg);
   return state;
