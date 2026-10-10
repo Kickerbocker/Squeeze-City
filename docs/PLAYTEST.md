@@ -2,6 +2,29 @@
 
 Add a new section per session (newest at the top). These notes feed the M8+ balance loop.
 
+## Session 2026-10-10 (Playtest 2, game days 1–23, build after PRs #3–#6)
+Play log: `docs/playtests/2026-10-10-playtest2-seed1160044776-day24.json` (`npm run playlog -- <file>`).
+
+Benjamin's notes, in his words:
+- "The math didn't make sense much. Not sure what any of show the math worked or helped at all. Is it per customer or something? It didn't make much sense."
+- "The music felt more ominous than relaxing. It should be a relaxing but upbeat and fun melody."
+- "The visuals should be way more appealing, similar to lemonade tycoon 2."
+- "I feel like the game didn't really change much day by day. Not much thinking or problem solving, and got mundane really quick."
+- "Maybe add some more game elements from the other referenced games such as restaurant city. Maybe add what other things a lemonade stand can add eventually. Or maybe even own a restaurant eventually?"
+- "Start off as someone who want to hustle and start off small. Do small gigs, gain skills, build and earn money, buy other things that make money like vending machines or other side hustles all in the food space as a individual entrepreneur who only wants to work for him/herself. Eventually a lemonade stand, then food stand, then food truck, restaurant, etc. with more curation of food recipes, finding trends or new taste palettes and or add new things to sell."
+- "It's time to pick it up substantially. Much more research and development."
+
+What the play log shows (23 days in 14 minutes):
+- Skipped 19 of 23 days (83%), median at 9:22 AM. Watching had no value.
+- Recipe set once on day 1 (4/4/3) and never changed. Price changed on 2 days, ending $0.50–$0.65, about half the best price (~$1.05–$1.40). Only 4% of those who stopped said "too expensive", and the game never pointed that out.
+- 74% of mornings only bought stock; median planning time 14 seconds.
+- 83% of days had nothing bought or unlocked (longest run 7 days).
+- Sold out on 4 days, turning away up to 208 people in a day, mostly on days he had skipped.
+- Hired a Promoter on day 8; the report showed it losing ~$13 a day; fired on day 18. The after-the-fact report worked; the before-buying projection did not prevent the hire.
+- Unlocked Uptown on day 10 and never moved there (Map tab opened on 13% of days).
+- "Show the math" opened on days 1–2 only (5 times), then never.
+- Net worth $114 → $303 over 23 days.
+
 ## Session 2026-10-09 (first playtest, build 0f818cf)
 Benjamin's notes:
 - Bored when the recipe got monotonous.

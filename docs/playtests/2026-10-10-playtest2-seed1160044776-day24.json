@@ -1,0 +1,2814 @@
+{
+ "logVersion": 2,
+ "seed": 1160044776,
+ "configHash": "503a45da",
+ "createdAt": "2026-10-10T03:37:42.584Z",
+ "sessions": [
+  {
+   "start": "2026-10-10T03:37:42.584Z",
+   "end": "2026-10-10T03:51:49.962Z",
+   "days": 23,
+   "activeSec": 849
+  },
+  {
+   "start": "2026-10-10T03:51:49.963Z",
+   "end": "2026-10-10T03:51:49.963Z",
+   "days": 0,
+   "activeSec": 13
+  }
+ ],
+ "days": [
+  {
+   "day": 1,
+   "season": "spring",
+   "weather": {
+    "cond": "partlyCloudy",
+    "temp": 56
+   },
+   "forecast": {
+    "cond": "partlyCloudy",
+    "temp": 58
+   },
+   "cashStart": 100,
+   "cashEnd": 95.14,
+   "netWorth": 114.4,
+   "revenue": 27,
+   "profit": 14.4,
+   "costs": {
+    "ingredients": 9.32,
+    "rent": 0,
+    "wages": 0,
+    "ads": 0,
+    "spoilage": 3.28,
+    "fines": 0
+   },
+   "stockBought": 31.86,
+   "capitalSpent": 0,
+   "cupsSold": 45,
+   "spoiledLemons": 0,
+   "iceLost": 263,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.6,
+     "upgrades": "",
+     "staff": [],
+     "passersby": 351,
+     "stoppers": 56,
+     "buyers": 45,
+     "lostQueue": 1,
+     "lostSoldOut": 0,
+     "tooExpensive": 10,
+     "revenue": 27,
+     "ingredients": 9.32,
+     "rent": 0,
+     "wages": 0,
+     "repBefore": 40,
+     "repAfter": 45.48,
+     "avgSat": 0.68,
+     "soldOutAt": null,
+     "complaints": {}
+    }
+   ],
+   "morning": {
+    "sec": 58,
+    "tabs": [
+     "shop",
+     "recipe",
+     "staff",
+     "upgrades",
+     "marketing",
+     "map"
+    ],
+    "actions": {
+     "buy": 4,
+     "setPrice": 4,
+     "setRecipe": 2
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 38,
+    "speeds": [
+     1,
+     2
+    ],
+    "skippedAt": null
+   },
+   "reportSec": 5,
+   "mathOpened": 2,
+   "purchasesDid": []
+  },
+  {
+   "day": 2,
+   "season": "spring",
+   "weather": {
+    "cond": "rain",
+    "temp": 66
+   },
+   "forecast": {
+    "cond": "rain",
+    "temp": 65
+   },
+   "cashStart": 95.14,
+   "cashEnd": 103.12,
+   "netWorth": 118.42,
+   "revenue": 10,
+   "profit": 4.02,
+   "costs": {
+    "ingredients": 4.57,
+    "rent": 0,
+    "wages": 0,
+    "ads": 0,
+    "spoilage": 1.41,
+    "fines": 0
+   },
+   "stockBought": 2.02,
+   "capitalSpent": 0,
+   "cupsSold": 20,
+   "spoiledLemons": 0,
+   "iceLost": 99,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.5,
+     "upgrades": "",
+     "staff": [],
+     "passersby": 175,
+     "stoppers": 21,
+     "buyers": 20,
+     "lostQueue": 0,
+     "lostSoldOut": 0,
+     "tooExpensive": 1,
+     "revenue": 10,
+     "ingredients": 4.57,
+     "rent": 0,
+     "wages": 0,
+     "repBefore": 45.48,
+     "repAfter": 51.47,
+     "avgSat": 0.75,
+     "soldOutAt": null,
+     "complaints": {}
+    }
+   ],
+   "morning": {
+    "sec": 46,
+    "tabs": [
+     "map",
+     "shop",
+     "recipe",
+     "staff",
+     "upgrades",
+     "marketing"
+    ],
+    "actions": {
+     "buy": 2,
+     "setPrice": 2
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 25,
+    "speeds": [
+     2,
+     1,
+     2
+    ],
+    "skippedAt": 354
+   },
+   "reportSec": 3,
+   "mathOpened": 3,
+   "purchasesDid": []
+  },
+  {
+   "day": 3,
+   "season": "spring",
+   "weather": {
+    "cond": "cloudy",
+    "temp": 53
+   },
+   "forecast": {
+    "cond": "sunny",
+    "temp": 61
+   },
+   "cashStart": 103.12,
+   "cashEnd": 117.68,
+   "netWorth": 126.93,
+   "revenue": 16.5,
+   "profit": 8.51,
+   "costs": {
+    "ingredients": 7.01,
+    "rent": 0,
+    "wages": 0,
+    "ads": 0,
+    "spoilage": 0.98,
+    "fines": 0
+   },
+   "stockBought": 1.94,
+   "capitalSpent": 0,
+   "cupsSold": 33,
+   "spoiledLemons": 0,
+   "iceLost": 68,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.5,
+     "upgrades": "",
+     "staff": [],
+     "passersby": 353,
+     "stoppers": 35,
+     "buyers": 33,
+     "lostQueue": 0,
+     "lostSoldOut": 0,
+     "tooExpensive": 2,
+     "revenue": 16.5,
+     "ingredients": 7.01,
+     "rent": 0,
+     "wages": 0,
+     "repBefore": 51.47,
+     "repAfter": 54.52,
+     "avgSat": 0.67,
+     "soldOutAt": null,
+     "complaints": {}
+    }
+   ],
+   "morning": {
+    "sec": 6,
+    "tabs": [
+     "marketing",
+     "shop"
+    ],
+    "actions": {
+     "buy": 2
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 17,
+    "speeds": [
+     2,
+     4,
+     2,
+     4
+    ],
+    "skippedAt": null
+   },
+   "reportSec": 4,
+   "purchasesDid": []
+  },
+  {
+   "day": 4,
+   "season": "spring",
+   "weather": {
+    "cond": "rain",
+    "temp": 62
+   },
+   "forecast": {
+    "cond": "rain",
+    "temp": 65
+   },
+   "cashStart": 117.68,
+   "cashEnd": 120.05,
+   "netWorth": 131.85,
+   "revenue": 11,
+   "profit": 4.91,
+   "costs": {
+    "ingredients": 4.72,
+    "rent": 0,
+    "wages": 0,
+    "ads": 0,
+    "spoilage": 1.37,
+    "fines": 0
+   },
+   "stockBought": 8.63,
+   "capitalSpent": 0,
+   "cupsSold": 22,
+   "spoiledLemons": 0,
+   "iceLost": 95,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.5,
+     "upgrades": "",
+     "staff": [],
+     "passersby": 194,
+     "stoppers": 22,
+     "buyers": 22,
+     "lostQueue": 0,
+     "lostSoldOut": 0,
+     "tooExpensive": 0,
+     "revenue": 11,
+     "ingredients": 4.72,
+     "rent": 0,
+     "wages": 0,
+     "repBefore": 54.52,
+     "repAfter": 58.55,
+     "avgSat": 0.75,
+     "soldOutAt": null,
+     "complaints": {}
+    }
+   ],
+   "morning": {
+    "sec": 48,
+    "tabs": [
+     "shop"
+    ],
+    "actions": {
+     "buy": 5
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 28,
+    "speeds": [
+     4,
+     1,
+     2,
+     4
+    ],
+    "skippedAt": null
+   },
+   "reportSec": 4,
+   "purchasesDid": []
+  },
+  {
+   "day": 5,
+   "season": "spring",
+   "weather": {
+    "cond": "sunny",
+    "temp": 75
+   },
+   "forecast": {
+    "cond": "rain",
+    "temp": 79
+   },
+   "cashStart": 120.05,
+   "cashEnd": 142.09,
+   "netWorth": 145.04,
+   "revenue": 24,
+   "profit": 13.19,
+   "costs": {
+    "ingredients": 10.26,
+    "rent": 0,
+    "wages": 0,
+    "ads": 0,
+    "spoilage": 0.55,
+    "fines": 0
+   },
+   "stockBought": 1.96,
+   "capitalSpent": 0,
+   "cupsSold": 48,
+   "spoiledLemons": 0,
+   "iceLost": 37,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.5,
+     "upgrades": "",
+     "staff": [],
+     "passersby": 862,
+     "stoppers": 270,
+     "buyers": 48,
+     "lostQueue": 13,
+     "lostSoldOut": 208,
+     "tooExpensive": 1,
+     "revenue": 24,
+     "ingredients": 10.26,
+     "rent": 0,
+     "wages": 0,
+     "repBefore": 58.55,
+     "repAfter": 52.01,
+     "avgSat": 0.67,
+     "soldOutAt": 135.14660506299697,
+     "complaints": {
+      "slowService": 1
+     }
+    }
+   ],
+   "morning": {
+    "sec": 10,
+    "tabs": [
+     "shop"
+    ],
+    "actions": {
+     "buy": 2
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 5,
+    "speeds": [
+     4
+    ],
+    "skippedAt": 170
+   },
+   "reportSec": 1,
+   "purchasesDid": []
+  },
+  {
+   "day": 6,
+   "season": "spring",
+   "weather": {
+    "cond": "sunny",
+    "temp": 72
+   },
+   "forecast": {
+    "cond": "rain",
+    "temp": 75
+   },
+   "cashStart": 142.09,
+   "cashEnd": 151.41,
+   "netWorth": 162.28,
+   "revenue": 41,
+   "profit": 17.24,
+   "costs": {
+    "ingredients": 21.61,
+    "rent": 0,
+    "wages": 0,
+    "ads": 0,
+    "spoilage": 2.15,
+    "fines": 0
+   },
+   "stockBought": 31.68,
+   "capitalSpent": 0,
+   "cupsSold": 82,
+   "spoiledLemons": 0,
+   "iceLost": 173,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.5,
+     "upgrades": "",
+     "staff": [],
+     "passersby": 644,
+     "stoppers": 179,
+     "buyers": 82,
+     "lostQueue": 8,
+     "lostSoldOut": 88,
+     "tooExpensive": 1,
+     "revenue": 41,
+     "ingredients": 21.61,
+     "rent": 0,
+     "wages": 0,
+     "repBefore": 52.01,
+     "repAfter": 49.95,
+     "avgSat": 0.69,
+     "soldOutAt": 287.5867272897158,
+     "complaints": {
+      "notSweet": 1
+     }
+    }
+   ],
+   "morning": {
+    "sec": 9,
+    "tabs": [
+     "shop"
+    ],
+    "actions": {
+     "buy": 3
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 1,
+    "speeds": [
+     4
+    ],
+    "skippedAt": 43
+   },
+   "reportSec": 2,
+   "purchasesDid": []
+  },
+  {
+   "day": 7,
+   "season": "spring",
+   "weather": {
+    "cond": "cloudy",
+    "temp": 69
+   },
+   "forecast": {
+    "cond": "cloudy",
+    "temp": 65
+   },
+   "cashStart": 151.41,
+   "cashEnd": 164.62,
+   "netWorth": 186.43,
+   "revenue": 53.5,
+   "profit": 24.15,
+   "costs": {
+    "ingredients": 27.77,
+    "rent": 0,
+    "wages": 0,
+    "ads": 0,
+    "spoilage": 1.58,
+    "fines": 0
+   },
+   "stockBought": 40.29,
+   "capitalSpent": 0,
+   "cupsSold": 107,
+   "spoiledLemons": 0,
+   "iceLost": 104,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.5,
+     "upgrades": "",
+     "staff": [],
+     "passersby": 578,
+     "stoppers": 115,
+     "buyers": 107,
+     "lostQueue": 5,
+     "lostSoldOut": 0,
+     "tooExpensive": 3,
+     "revenue": 53.5,
+     "ingredients": 27.77,
+     "rent": 0,
+     "wages": 0,
+     "repBefore": 49.95,
+     "repAfter": 54.12,
+     "avgSat": 0.73,
+     "soldOutAt": null,
+     "complaints": {}
+    }
+   ],
+   "morning": {
+    "sec": 10,
+    "tabs": [
+     "shop"
+    ],
+    "actions": {
+     "buy": 4
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 26,
+    "speeds": [
+     4,
+     2
+    ],
+    "skippedAt": null
+   },
+   "reportSec": 2,
+   "purchasesDid": []
+  },
+  {
+   "day": 8,
+   "season": "spring",
+   "weather": {
+    "cond": "partlyCloudy",
+    "temp": 75
+   },
+   "forecast": {
+    "cond": "partlyCloudy",
+    "temp": 68
+   },
+   "cashStart": 164.62,
+   "cashEnd": 163.07,
+   "netWorth": 189.32,
+   "revenue": 56,
+   "profit": 2.89,
+   "costs": {
+    "ingredients": 30.84,
+    "rent": 0,
+    "wages": 20,
+    "ads": 0,
+    "spoilage": 2.27,
+    "fines": 0
+   },
+   "stockBought": 37.55,
+   "capitalSpent": 0,
+   "cupsSold": 112,
+   "spoiledLemons": 0,
+   "iceLost": 151,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.5,
+     "upgrades": "",
+     "staff": [
+      "promoter:3"
+     ],
+     "passersby": 365,
+     "stoppers": 123,
+     "buyers": 112,
+     "lostQueue": 8,
+     "lostSoldOut": 0,
+     "tooExpensive": 3,
+     "revenue": 56,
+     "ingredients": 30.84,
+     "rent": 0,
+     "wages": 20,
+     "repBefore": 54.12,
+     "repAfter": 56.35,
+     "avgSat": 0.68,
+     "soldOutAt": null,
+     "complaints": {
+      "slowService": 1
+     }
+    }
+   ],
+   "morning": {
+    "sec": 84,
+    "tabs": [
+     "shop",
+     "recipe",
+     "staff",
+     "upgrades",
+     "marketing"
+    ],
+    "actions": {
+     "hire": 1,
+     "buy": 9
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 15,
+    "speeds": [
+     2
+    ],
+    "skippedAt": 272
+   },
+   "reportSec": 13,
+   "purchasesDid": [
+    {
+     "kind": "staff",
+     "item": "promoter",
+     "standId": 0,
+     "profit": -13.57,
+     "count": 29,
+     "approx": false
+    }
+   ]
+  },
+  {
+   "day": 9,
+   "season": "spring",
+   "weather": {
+    "cond": "sunny",
+    "temp": 71
+   },
+   "forecast": {
+    "cond": "sunny",
+    "temp": 71
+   },
+   "cashStart": 163.07,
+   "cashEnd": 176.74,
+   "netWorth": 194.39,
+   "revenue": 59,
+   "profit": 5.07,
+   "costs": {
+    "ingredients": 32.74,
+    "rent": 0,
+    "wages": 20,
+    "ads": 0,
+    "spoilage": 1.19,
+    "fines": 0
+   },
+   "stockBought": 25.33,
+   "capitalSpent": 0,
+   "cupsSold": 118,
+   "spoiledLemons": 0,
+   "iceLost": 74,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.5,
+     "upgrades": "",
+     "staff": [
+      "promoter:3"
+     ],
+     "passersby": 367,
+     "stoppers": 129,
+     "buyers": 118,
+     "lostQueue": 7,
+     "lostSoldOut": 0,
+     "tooExpensive": 4,
+     "revenue": 59,
+     "ingredients": 32.74,
+     "rent": 0,
+     "wages": 20,
+     "repBefore": 56.35,
+     "repAfter": 58.82,
+     "avgSat": 0.71,
+     "soldOutAt": null,
+     "complaints": {}
+    }
+   ],
+   "morning": {
+    "sec": 15,
+    "tabs": [
+     "shop"
+    ],
+    "actions": {
+     "buy": 4
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 1,
+    "speeds": [
+     2
+    ],
+    "skippedAt": 19
+   },
+   "reportSec": 1,
+   "purchasesDid": [
+    {
+     "kind": "staff",
+     "item": "promoter",
+     "standId": 0,
+     "profit": -12.35,
+     "count": 25,
+     "approx": false
+    }
+   ]
+  },
+  {
+   "day": 10,
+   "season": "spring",
+   "weather": {
+    "cond": "partlyCloudy",
+    "temp": 64
+   },
+   "forecast": {
+    "cond": "partlyCloudy",
+    "temp": 69
+   },
+   "cashStart": 176.74,
+   "cashEnd": 216.01,
+   "netWorth": 243.93,
+   "revenue": 48.5,
+   "profit": -0.46,
+   "costs": {
+    "ingredients": 27.25,
+    "rent": 0,
+    "wages": 20,
+    "ads": 0,
+    "spoilage": 1.71,
+    "fines": 0
+   },
+   "stockBought": 39.23,
+   "capitalSpent": 0,
+   "cupsSold": 97,
+   "spoiledLemons": 0,
+   "iceLost": 133,
+   "campaigns": [],
+   "unlocked": [
+    "uptown"
+   ],
+   "milestones": [
+    "unlock:uptown"
+   ],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.5,
+     "upgrades": "",
+     "staff": [
+      "promoter:3"
+     ],
+     "passersby": 360,
+     "stoppers": 105,
+     "buyers": 97,
+     "lostQueue": 3,
+     "lostSoldOut": 0,
+     "tooExpensive": 5,
+     "revenue": 48.5,
+     "ingredients": 27.25,
+     "rent": 0,
+     "wages": 20,
+     "repBefore": 58.82,
+     "repAfter": 61.33,
+     "avgSat": 0.73,
+     "soldOutAt": null,
+     "complaints": {}
+    }
+   ],
+   "morning": {
+    "sec": 11,
+    "tabs": [
+     "shop"
+    ],
+    "actions": {
+     "buy": 3
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 1,
+    "speeds": [
+     2
+    ],
+    "skippedAt": 22
+   },
+   "reportSec": 4,
+   "purchasesDid": [
+    {
+     "kind": "staff",
+     "item": "promoter",
+     "standId": 0,
+     "profit": -16.74,
+     "count": 17,
+     "approx": false
+    }
+   ]
+  },
+  {
+   "day": 11,
+   "season": "spring",
+   "weather": {
+    "cond": "rain",
+    "temp": 68
+   },
+   "forecast": {
+    "cond": "rain",
+    "temp": 62
+   },
+   "cashStart": 216.01,
+   "cashEnd": 195.88,
+   "netWorth": 227.18,
+   "revenue": 18,
+   "profit": -16.75,
+   "costs": {
+    "ingredients": 11.45,
+    "rent": 0,
+    "wages": 20,
+    "ads": 0,
+    "spoilage": 3.3,
+    "fines": 0
+   },
+   "stockBought": 18.13,
+   "capitalSpent": 0,
+   "cupsSold": 36,
+   "spoiledLemons": 0,
+   "iceLost": 286,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.5,
+     "upgrades": "",
+     "staff": [
+      "promoter:3"
+     ],
+     "passersby": 201,
+     "stoppers": 37,
+     "buyers": 36,
+     "lostQueue": 0,
+     "lostSoldOut": 0,
+     "tooExpensive": 1,
+     "revenue": 18,
+     "ingredients": 11.45,
+     "rent": 0,
+     "wages": 20,
+     "repBefore": 61.33,
+     "repAfter": 64.8,
+     "avgSat": 0.79,
+     "soldOutAt": null,
+     "complaints": {}
+    }
+   ],
+   "morning": {
+    "sec": 10,
+    "tabs": [
+     "shop"
+    ],
+    "actions": {
+     "buy": 2
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 1,
+    "speeds": [
+     2
+    ],
+    "skippedAt": 19
+   },
+   "reportSec": 1,
+   "purchasesDid": [
+    {
+     "kind": "staff",
+     "item": "promoter",
+     "standId": 0,
+     "profit": -17.21,
+     "count": 11,
+     "approx": false
+    }
+   ]
+  },
+  {
+   "day": 12,
+   "season": "spring",
+   "weather": {
+    "cond": "sunny",
+    "temp": 67
+   },
+   "forecast": {
+    "cond": "partlyCloudy",
+    "temp": 59
+   },
+   "cashStart": 195.88,
+   "cashEnd": 225.28,
+   "netWorth": 237,
+   "revenue": 53.5,
+   "profit": 9.82,
+   "costs": {
+    "ingredients": 22.21,
+    "rent": 0,
+    "wages": 20,
+    "ads": 0,
+    "spoilage": 1.47,
+    "fines": 0
+   },
+   "stockBought": 4.1,
+   "capitalSpent": 0,
+   "cupsSold": 107,
+   "spoiledLemons": 0,
+   "iceLost": 104,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.5,
+     "upgrades": "",
+     "staff": [
+      "promoter:3"
+     ],
+     "passersby": 348,
+     "stoppers": 118,
+     "buyers": 107,
+     "lostQueue": 6,
+     "lostSoldOut": 0,
+     "tooExpensive": 5,
+     "revenue": 53.5,
+     "ingredients": 22.21,
+     "rent": 0,
+     "wages": 20,
+     "repBefore": 64.8,
+     "repAfter": 65.84,
+     "avgSat": 0.73,
+     "soldOutAt": null,
+     "complaints": {}
+    }
+   ],
+   "morning": {
+    "sec": 6,
+    "tabs": [
+     "shop"
+    ],
+    "actions": {
+     "buy": 1
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 11,
+    "speeds": [
+     2
+    ],
+    "skippedAt": 188
+   },
+   "reportSec": 4,
+   "purchasesDid": [
+    {
+     "kind": "staff",
+     "item": "promoter",
+     "standId": 0,
+     "profit": -11.38,
+     "count": 27,
+     "approx": false
+    }
+   ]
+  },
+  {
+   "day": 13,
+   "season": "spring",
+   "weather": {
+    "cond": "sunny",
+    "temp": 78
+   },
+   "forecast": {
+    "cond": "sunny",
+    "temp": 80
+   },
+   "cashStart": 225.28,
+   "cashEnd": 270.19,
+   "netWorth": 275.2,
+   "revenue": 97,
+   "profit": 38.2,
+   "costs": {
+    "ingredients": 38.35,
+    "rent": 0,
+    "wages": 20,
+    "ads": 0,
+    "spoilage": 0.45,
+    "fines": 0
+   },
+   "stockBought": 32.09,
+   "capitalSpent": 0,
+   "cupsSold": 194,
+   "spoiledLemons": 0,
+   "iceLost": 0,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.5,
+     "upgrades": "",
+     "staff": [
+      "promoter:3"
+     ],
+     "passersby": 600,
+     "stoppers": 262,
+     "buyers": 194,
+     "lostQueue": 61,
+     "lostSoldOut": 0,
+     "tooExpensive": 7,
+     "revenue": 97,
+     "ingredients": 38.35,
+     "rent": 0,
+     "wages": 20,
+     "repBefore": 65.84,
+     "repAfter": 61.19,
+     "avgSat": 0.54,
+     "soldOutAt": null,
+     "complaints": {
+      "slowService": 6,
+      "notSweet": 8,
+      "notCold": 12
+     }
+    }
+   ],
+   "morning": {
+    "sec": 21,
+    "tabs": [
+     "shop"
+    ],
+    "actions": {
+     "buy": 4
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 1,
+    "speeds": [
+     2
+    ],
+    "skippedAt": 19
+   },
+   "reportSec": 2,
+   "purchasesDid": [
+    {
+     "kind": "staff",
+     "item": "promoter",
+     "standId": 0,
+     "profit": -8.72,
+     "count": 62,
+     "approx": false
+    }
+   ]
+  },
+  {
+   "day": 14,
+   "season": "spring",
+   "weather": {
+    "cond": "rain",
+    "temp": 67
+   },
+   "forecast": {
+    "cond": "rain",
+    "temp": 70
+   },
+   "cashStart": 270.19,
+   "cashEnd": 241.43,
+   "netWorth": 266.16,
+   "revenue": 23,
+   "profit": -9.04,
+   "costs": {
+    "ingredients": 9.25,
+    "rent": 0,
+    "wages": 20,
+    "ads": 0,
+    "spoilage": 2.79,
+    "fines": 0
+   },
+   "stockBought": 31.76,
+   "capitalSpent": 0,
+   "cupsSold": 46,
+   "spoiledLemons": 0,
+   "iceLost": 261,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.5,
+     "upgrades": "",
+     "staff": [
+      "promoter:3"
+     ],
+     "passersby": 311,
+     "stoppers": 48,
+     "buyers": 46,
+     "lostQueue": 0,
+     "lostSoldOut": 0,
+     "tooExpensive": 2,
+     "revenue": 23,
+     "ingredients": 9.25,
+     "rent": 0,
+     "wages": 20,
+     "repBefore": 61.19,
+     "repAfter": 63.77,
+     "avgSat": 0.74,
+     "soldOutAt": null,
+     "complaints": {}
+    }
+   ],
+   "morning": {
+    "sec": 14,
+    "tabs": [
+     "shop"
+    ],
+    "actions": {
+     "buy": 4
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 2,
+    "speeds": [
+     2
+    ],
+    "skippedAt": 34
+   },
+   "reportSec": 3,
+   "purchasesDid": [
+    {
+     "kind": "staff",
+     "item": "promoter",
+     "standId": 0,
+     "profit": -15.36,
+     "count": 11,
+     "approx": false
+    }
+   ]
+  },
+  {
+   "day": 15,
+   "season": "spring",
+   "weather": {
+    "cond": "partlyCloudy",
+    "temp": 60
+   },
+   "forecast": {
+    "cond": "partlyCloudy",
+    "temp": 54
+   },
+   "cashStart": 241.43,
+   "cashEnd": 265.46,
+   "netWorth": 273.67,
+   "revenue": 48,
+   "profit": 7.52,
+   "costs": {
+    "ingredients": 18.8,
+    "rent": 0,
+    "wages": 20,
+    "ads": 0,
+    "spoilage": 1.68,
+    "fines": 0
+   },
+   "stockBought": 3.97,
+   "capitalSpent": 0,
+   "cupsSold": 96,
+   "spoiledLemons": 0,
+   "iceLost": 133,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.5,
+     "upgrades": "",
+     "staff": [
+      "promoter:3"
+     ],
+     "passersby": 347,
+     "stoppers": 105,
+     "buyers": 96,
+     "lostQueue": 6,
+     "lostSoldOut": 0,
+     "tooExpensive": 3,
+     "revenue": 48,
+     "ingredients": 18.8,
+     "rent": 0,
+     "wages": 20,
+     "repBefore": 63.77,
+     "repAfter": 64.37,
+     "avgSat": 0.7,
+     "soldOutAt": 533.2157643516548,
+     "complaints": {
+      "slowService": 1
+     }
+    }
+   ],
+   "morning": {
+    "sec": 6,
+    "tabs": [
+     "shop"
+    ],
+    "actions": {
+     "buy": 1
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 1,
+    "speeds": [
+     2
+    ],
+    "skippedAt": 16
+   },
+   "reportSec": 1,
+   "purchasesDid": [
+    {
+     "kind": "staff",
+     "item": "promoter",
+     "standId": 0,
+     "profit": -14.67,
+     "count": 20,
+     "approx": false
+    }
+   ]
+  },
+  {
+   "day": 16,
+   "season": "spring",
+   "weather": {
+    "cond": "partlyCloudy",
+    "temp": 62
+   },
+   "forecast": {
+    "cond": "partlyCloudy",
+    "temp": 60
+   },
+   "cashStart": 265.46,
+   "cashEnd": 114.43,
+   "netWorth": 124.81,
+   "revenue": 46.5,
+   "profit": 6.13,
+   "costs": {
+    "ingredients": 18.58,
+    "rent": 0,
+    "wages": 20,
+    "ads": 0,
+    "spoilage": 1.79,
+    "fines": 0
+   },
+   "stockBought": 22.53,
+   "capitalSpent": 180,
+   "cupsSold": 93,
+   "spoiledLemons": 0,
+   "iceLost": 141,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [
+    "firstUpgrade"
+   ],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.5,
+     "upgrades": "body1",
+     "staff": [
+      "promoter:3"
+     ],
+     "passersby": 355,
+     "stoppers": 98,
+     "buyers": 93,
+     "lostQueue": 1,
+     "lostSoldOut": 0,
+     "tooExpensive": 4,
+     "revenue": 46.5,
+     "ingredients": 18.58,
+     "rent": 0,
+     "wages": 20,
+     "repBefore": 64.37,
+     "repAfter": 65.99,
+     "avgSat": 0.73,
+     "soldOutAt": null,
+     "complaints": {}
+    }
+   ],
+   "morning": {
+    "sec": 45,
+    "tabs": [
+     "shop",
+     "upgrades"
+    ],
+    "actions": {
+     "buyGlobalUpgrade": 1,
+     "buyUpgrade": 1,
+     "buy": 3
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 3,
+    "speeds": [
+     2
+    ],
+    "skippedAt": 47
+   },
+   "reportSec": 3,
+   "purchasesDid": [
+    {
+     "kind": "forecast",
+     "item": "radio",
+     "standId": null,
+     "profit": 0,
+     "count": 0,
+     "approx": false
+    },
+    {
+     "kind": "upgrade",
+     "item": "body",
+     "standId": 0,
+     "profit": 3.47,
+     "count": 9,
+     "approx": false
+    },
+    {
+     "kind": "staff",
+     "item": "promoter",
+     "standId": 0,
+     "profit": -12.35,
+     "count": 20,
+     "approx": false
+    }
+   ]
+  },
+  {
+   "day": 17,
+   "season": "spring",
+   "weather": {
+    "cond": "cloudy",
+    "temp": 63
+   },
+   "forecast": {
+    "cond": "cloudy",
+    "temp": 62
+   },
+   "cashStart": 114.43,
+   "cashEnd": 119.49,
+   "netWorth": 141.76,
+   "revenue": 57.2,
+   "profit": 16.95,
+   "costs": {
+    "ingredients": 18.42,
+    "rent": 0,
+    "wages": 20,
+    "ads": 0,
+    "spoilage": 1.83,
+    "fines": 0
+   },
+   "stockBought": 32.14,
+   "capitalSpent": 0,
+   "cupsSold": 88,
+   "spoiledLemons": 0,
+   "iceLost": 155,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.65,
+     "upgrades": "body1",
+     "staff": [
+      "promoter:3"
+     ],
+     "passersby": 353,
+     "stoppers": 98,
+     "buyers": 88,
+     "lostQueue": 0,
+     "lostSoldOut": 0,
+     "tooExpensive": 10,
+     "revenue": 57.2,
+     "ingredients": 18.42,
+     "rent": 0,
+     "wages": 20,
+     "repBefore": 65.99,
+     "repAfter": 67.11,
+     "avgSat": 0.72,
+     "soldOutAt": null,
+     "complaints": {}
+    }
+   ],
+   "morning": {
+    "sec": 19,
+    "tabs": [
+     "shop",
+     "recipe"
+    ],
+    "actions": {
+     "setPrice": 3,
+     "buy": 4
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 2,
+    "speeds": [
+     2
+    ],
+    "skippedAt": 30
+   },
+   "reportSec": 5,
+   "purchasesDid": [
+    {
+     "kind": "forecast",
+     "item": "radio",
+     "standId": null,
+     "profit": 0,
+     "count": 0,
+     "approx": false
+    },
+    {
+     "kind": "upgrade",
+     "item": "body",
+     "standId": 0,
+     "profit": 8.15,
+     "count": 19,
+     "approx": false
+    },
+    {
+     "kind": "staff",
+     "item": "promoter",
+     "standId": 0,
+     "profit": -7.36,
+     "count": 30,
+     "approx": false
+    }
+   ]
+  },
+  {
+   "day": 18,
+   "season": "spring",
+   "weather": {
+    "cond": "cloudy",
+    "temp": 70
+   },
+   "forecast": {
+    "cond": "cloudy",
+    "temp": 71
+   },
+   "cashStart": 119.49,
+   "cashEnd": 141.55,
+   "netWorth": 163.97,
+   "revenue": 62.4,
+   "profit": 22.2,
+   "costs": {
+    "ingredients": 20.61,
+    "rent": 0,
+    "wages": 0,
+    "ads": 18,
+    "spoilage": 1.59,
+    "fines": 0
+   },
+   "stockBought": 22.34,
+   "capitalSpent": 0,
+   "cupsSold": 96,
+   "spoiledLemons": 0,
+   "iceLost": 127,
+   "campaigns": [
+    "flyers"
+   ],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.65,
+     "upgrades": "body1",
+     "staff": [],
+     "passersby": 308,
+     "stoppers": 111,
+     "buyers": 96,
+     "lostQueue": 11,
+     "lostSoldOut": 0,
+     "tooExpensive": 4,
+     "revenue": 62.4,
+     "ingredients": 20.61,
+     "rent": 0,
+     "wages": 0,
+     "repBefore": 67.11,
+     "repAfter": 67.08,
+     "avgSat": 0.72,
+     "soldOutAt": null,
+     "complaints": {
+      "slowService": 1
+     }
+    }
+   ],
+   "morning": {
+    "sec": 34,
+    "tabs": [
+     "shop",
+     "recipe",
+     "staff",
+     "upgrades",
+     "marketing",
+     "map"
+    ],
+    "actions": {
+     "fire": 1,
+     "startCampaign": 1,
+     "buy": 3
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 1,
+    "speeds": [
+     2
+    ],
+    "skippedAt": 23
+   },
+   "reportSec": 1,
+   "purchasesDid": [
+    {
+     "kind": "forecast",
+     "item": "radio",
+     "standId": null,
+     "profit": 0,
+     "count": 0,
+     "approx": false
+    },
+    {
+     "kind": "upgrade",
+     "item": "body",
+     "standId": 0,
+     "profit": 3.88,
+     "count": 13,
+     "approx": false
+    },
+    {
+     "kind": "campaign",
+     "item": "flyers",
+     "standId": 0,
+     "profit": -0.1,
+     "count": 21,
+     "approx": false
+    }
+   ]
+  },
+  {
+   "day": 19,
+   "season": "spring",
+   "weather": {
+    "cond": "storm",
+    "temp": 73
+   },
+   "forecast": {
+    "cond": "storm",
+    "temp": 73
+   },
+   "cashStart": 141.55,
+   "cashEnd": 135.91,
+   "netWorth": 165.6,
+   "revenue": 5.2,
+   "profit": 1.64,
+   "costs": {
+    "ingredients": 2.12,
+    "rent": 0,
+    "wages": 0,
+    "ads": 0,
+    "spoilage": 1.44,
+    "fines": 0
+   },
+   "stockBought": 10.84,
+   "capitalSpent": 0,
+   "cupsSold": 8,
+   "spoiledLemons": 0,
+   "iceLost": 127,
+   "campaigns": [
+    "flyers"
+   ],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.65,
+     "upgrades": "body1",
+     "staff": [],
+     "passersby": 63,
+     "stoppers": 8,
+     "buyers": 8,
+     "lostQueue": 0,
+     "lostSoldOut": 0,
+     "tooExpensive": 0,
+     "revenue": 5.2,
+     "ingredients": 2.12,
+     "rent": 0,
+     "wages": 0,
+     "repBefore": 67.08,
+     "repAfter": 69.17,
+     "avgSat": 0.78,
+     "soldOutAt": null,
+     "complaints": {}
+    }
+   ],
+   "morning": {
+    "sec": 30,
+    "tabs": [
+     "shop",
+     "recipe",
+     "staff"
+    ],
+    "actions": {
+     "buy": 3
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 1,
+    "speeds": [
+     2
+    ],
+    "skippedAt": 15
+   },
+   "reportSec": 2,
+   "purchasesDid": [
+    {
+     "kind": "forecast",
+     "item": "radio",
+     "standId": null,
+     "profit": 0,
+     "count": 0,
+     "approx": false
+    },
+    {
+     "kind": "upgrade",
+     "item": "body",
+     "standId": 0,
+     "profit": 0.62,
+     "count": 1,
+     "approx": false
+    },
+    {
+     "kind": "campaign",
+     "item": "flyers",
+     "standId": 0,
+     "profit": -5.38,
+     "count": 1,
+     "approx": false
+    }
+   ]
+  },
+  {
+   "day": 20,
+   "season": "spring",
+   "weather": {
+    "cond": "partlyCloudy",
+    "temp": 78
+   },
+   "forecast": {
+    "cond": "partlyCloudy",
+    "temp": 78
+   },
+   "cashStart": 135.91,
+   "cashEnd": 188.95,
+   "netWorth": 204.13,
+   "revenue": 54.6,
+   "profit": 38.53,
+   "costs": {
+    "ingredients": 16.01,
+    "rent": 0,
+    "wages": 0,
+    "ads": 0,
+    "spoilage": 0.06,
+    "fines": 0
+   },
+   "stockBought": 1.56,
+   "capitalSpent": 0,
+   "cupsSold": 84,
+   "spoiledLemons": 0,
+   "iceLost": 1,
+   "campaigns": [
+    "flyers"
+   ],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.65,
+     "upgrades": "body1",
+     "staff": [],
+     "passersby": 584,
+     "stoppers": 251,
+     "buyers": 84,
+     "lostQueue": 15,
+     "lostSoldOut": 149,
+     "tooExpensive": 3,
+     "revenue": 54.6,
+     "ingredients": 16.01,
+     "rent": 0,
+     "wages": 0,
+     "repBefore": 69.17,
+     "repAfter": 60.46,
+     "avgSat": 0.58,
+     "soldOutAt": 225.95558870374225,
+     "complaints": {
+      "slowService": 2,
+      "notSweet": 1,
+      "notCold": 10
+     }
+    }
+   ],
+   "morning": {
+    "sec": 11,
+    "tabs": [
+     "shop"
+    ],
+    "actions": {
+     "buy": 2
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 1,
+    "speeds": [
+     2
+    ],
+    "skippedAt": 11
+   },
+   "reportSec": 2,
+   "purchasesDid": [
+    {
+     "kind": "forecast",
+     "item": "radio",
+     "standId": null,
+     "profit": 0,
+     "count": 0,
+     "approx": false
+    },
+    {
+     "kind": "upgrade",
+     "item": "body",
+     "standId": 0,
+     "profit": 0,
+     "count": 29,
+     "approx": false
+    },
+    {
+     "kind": "campaign",
+     "item": "flyers",
+     "standId": 0,
+     "profit": -6,
+     "count": 24,
+     "approx": false
+    }
+   ]
+  },
+  {
+   "day": 21,
+   "season": "spring",
+   "weather": {
+    "cond": "cloudy",
+    "temp": 67
+   },
+   "forecast": {
+    "cond": "cloudy",
+    "temp": 66
+   },
+   "cashStart": 188.95,
+   "cashEnd": 241.05,
+   "netWorth": 254.09,
+   "revenue": 74.1,
+   "profit": 49.97,
+   "costs": {
+    "ingredients": 22.97,
+    "rent": 0,
+    "wages": 0,
+    "ads": 0,
+    "spoilage": 1.16,
+    "fines": 0
+   },
+   "stockBought": 22,
+   "capitalSpent": 0,
+   "cupsSold": 114,
+   "spoiledLemons": 0,
+   "iceLost": 86,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.65,
+     "upgrades": "body1",
+     "staff": [],
+     "passersby": 598,
+     "stoppers": 134,
+     "buyers": 114,
+     "lostQueue": 10,
+     "lostSoldOut": 0,
+     "tooExpensive": 10,
+     "revenue": 74.1,
+     "ingredients": 22.97,
+     "rent": 0,
+     "wages": 0,
+     "repBefore": 60.46,
+     "repAfter": 61.66,
+     "avgSat": 0.7,
+     "soldOutAt": null,
+     "complaints": {
+      "slowService": 1
+     }
+    }
+   ],
+   "morning": {
+    "sec": 7,
+    "tabs": [
+     "shop"
+    ],
+    "actions": {
+     "buy": 3
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 1,
+    "speeds": [
+     2
+    ],
+    "skippedAt": 14
+   },
+   "reportSec": 2,
+   "purchasesDid": [
+    {
+     "kind": "forecast",
+     "item": "radio",
+     "standId": null,
+     "profit": 0,
+     "count": 0,
+     "approx": false
+    },
+    {
+     "kind": "upgrade",
+     "item": "body",
+     "standId": 0,
+     "profit": 7.58,
+     "count": 24,
+     "approx": false
+    }
+   ]
+  },
+  {
+   "day": 22,
+   "season": "spring",
+   "weather": {
+    "cond": "cloudy",
+    "temp": 63
+   },
+   "forecast": {
+    "cond": "cloudy",
+    "temp": 64
+   },
+   "cashStart": 241.05,
+   "cashEnd": 236.26,
+   "netWorth": 275.92,
+   "revenue": 35.75,
+   "profit": 21.82,
+   "costs": {
+    "ingredients": 11.42,
+    "rent": 0,
+    "wages": 0,
+    "ads": 0,
+    "spoilage": 2.51,
+    "fines": 0
+   },
+   "stockBought": 40.54,
+   "capitalSpent": 0,
+   "cupsSold": 55,
+   "spoiledLemons": 0,
+   "iceLost": 241,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.65,
+     "upgrades": "body1",
+     "staff": [],
+     "passersby": 316,
+     "stoppers": 59,
+     "buyers": 55,
+     "lostQueue": 0,
+     "lostSoldOut": 0,
+     "tooExpensive": 4,
+     "revenue": 35.75,
+     "ingredients": 11.42,
+     "rent": 0,
+     "wages": 0,
+     "repBefore": 61.66,
+     "repAfter": 64.29,
+     "avgSat": 0.75,
+     "soldOutAt": null,
+     "complaints": {}
+    }
+   ],
+   "morning": {
+    "sec": 12,
+    "tabs": [
+     "shop"
+    ],
+    "actions": {
+     "buy": 5
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 1,
+    "speeds": [
+     2
+    ],
+    "skippedAt": 19
+   },
+   "reportSec": 1,
+   "purchasesDid": [
+    {
+     "kind": "forecast",
+     "item": "radio",
+     "standId": null,
+     "profit": 0,
+     "count": 0,
+     "approx": false
+    },
+    {
+     "kind": "upgrade",
+     "item": "body",
+     "standId": 0,
+     "profit": 4.28,
+     "count": 6,
+     "approx": false
+    }
+   ]
+  },
+  {
+   "day": 23,
+   "season": "spring",
+   "weather": {
+    "cond": "partlyCloudy",
+    "temp": 61
+   },
+   "forecast": {
+    "cond": "partlyCloudy",
+    "temp": 61
+   },
+   "cashStart": 236.26,
+   "cashEnd": 275.88,
+   "netWorth": 303.32,
+   "revenue": 43.55,
+   "profit": 27.4,
+   "costs": {
+    "ingredients": 13.8,
+    "rent": 0,
+    "wages": 0,
+    "ads": 0,
+    "spoilage": 2.35,
+    "fines": 0
+   },
+   "stockBought": 3.93,
+   "capitalSpent": 0,
+   "cupsSold": 67,
+   "spoiledLemons": 0,
+   "iceLost": 208,
+   "campaigns": [],
+   "unlocked": [],
+   "milestones": [],
+   "inspectionFine": 0,
+   "stands": [
+    {
+     "id": 0,
+     "loc": "maple",
+     "recipe": "4/4/3",
+     "price": 0.65,
+     "upgrades": "body1",
+     "staff": [],
+     "passersby": 360,
+     "stoppers": 75,
+     "buyers": 67,
+     "lostQueue": 3,
+     "lostSoldOut": 0,
+     "tooExpensive": 5,
+     "revenue": 43.55,
+     "ingredients": 13.8,
+     "rent": 0,
+     "wages": 0,
+     "repBefore": 64.29,
+     "repAfter": 64.94,
+     "avgSat": 0.7,
+     "soldOutAt": null,
+     "complaints": {}
+    }
+   ],
+   "morning": {
+    "sec": 34,
+    "tabs": [
+     "shop",
+     "recipe",
+     "staff"
+    ],
+    "actions": {
+     "buy": 1
+    },
+    "failed": 0
+   },
+   "watch": {
+    "sec": 1,
+    "speeds": [
+     2
+    ],
+    "skippedAt": 19
+   },
+   "reportSec": 1,
+   "purchasesDid": [
+    {
+     "kind": "forecast",
+     "item": "radio",
+     "standId": null,
+     "profit": 0,
+     "count": 0,
+     "approx": false
+    },
+    {
+     "kind": "upgrade",
+     "item": "body",
+     "standId": 0,
+     "profit": 5.12,
+     "count": 11,
+     "approx": false
+    }
+   ]
+  }
+ ],
+ "actions": [
+  {
+   "day": 1,
+   "at": 2,
+   "type": "buy",
+   "detail": "lemons pack1",
+   "ok": true
+  },
+  {
+   "day": 1,
+   "at": 5,
+   "type": "buy",
+   "detail": "sugar pack1",
+   "ok": true
+  },
+  {
+   "day": 1,
+   "at": 7,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  },
+  {
+   "day": 1,
+   "at": 8,
+   "type": "buy",
+   "detail": "cups pack1",
+   "ok": true
+  },
+  {
+   "day": 1,
+   "at": 13,
+   "type": "setPrice",
+   "detail": "#0 $0.75",
+   "ok": true
+  },
+  {
+   "day": 1,
+   "at": 14,
+   "type": "setPrice",
+   "detail": "#0 $0.70",
+   "ok": true
+  },
+  {
+   "day": 1,
+   "at": 14,
+   "type": "setPrice",
+   "detail": "#0 $0.65",
+   "ok": true
+  },
+  {
+   "day": 1,
+   "at": 15,
+   "type": "setPrice",
+   "detail": "#0 $0.60",
+   "ok": true
+  },
+  {
+   "day": 1,
+   "at": 16,
+   "type": "setRecipe",
+   "detail": "#0 5/4/3",
+   "ok": true
+  },
+  {
+   "day": 1,
+   "at": 16,
+   "type": "setRecipe",
+   "detail": "#0 4/4/3",
+   "ok": true
+  },
+  {
+   "day": 2,
+   "at": 111,
+   "type": "buy",
+   "detail": "ice pack0",
+   "ok": true
+  },
+  {
+   "day": 2,
+   "at": 113,
+   "type": "buy",
+   "detail": "ice pack0",
+   "ok": true
+  },
+  {
+   "day": 2,
+   "at": 117,
+   "type": "setPrice",
+   "detail": "#0 $0.55",
+   "ok": true
+  },
+  {
+   "day": 2,
+   "at": 117,
+   "type": "setPrice",
+   "detail": "#0 $0.50",
+   "ok": true
+  },
+  {
+   "day": 3,
+   "at": 182,
+   "type": "buy",
+   "detail": "ice pack0",
+   "ok": true
+  },
+  {
+   "day": 3,
+   "at": 182,
+   "type": "buy",
+   "detail": "ice pack0",
+   "ok": true
+  },
+  {
+   "day": 4,
+   "at": 246,
+   "type": "buy",
+   "detail": "lemons pack0",
+   "ok": true
+  },
+  {
+   "day": 4,
+   "at": 247,
+   "type": "buy",
+   "detail": "sugar pack0",
+   "ok": true
+  },
+  {
+   "day": 4,
+   "at": 248,
+   "type": "buy",
+   "detail": "sugar pack0",
+   "ok": true
+  },
+  {
+   "day": 4,
+   "at": 250,
+   "type": "buy",
+   "detail": "ice pack0",
+   "ok": true
+  },
+  {
+   "day": 4,
+   "at": 251,
+   "type": "buy",
+   "detail": "ice pack0",
+   "ok": true
+  },
+  {
+   "day": 5,
+   "at": 295,
+   "type": "buy",
+   "detail": "ice pack0",
+   "ok": true
+  },
+  {
+   "day": 5,
+   "at": 296,
+   "type": "buy",
+   "detail": "ice pack0",
+   "ok": true
+  },
+  {
+   "day": 6,
+   "at": 310,
+   "type": "buy",
+   "detail": "lemons pack1",
+   "ok": true
+  },
+  {
+   "day": 6,
+   "at": 311,
+   "type": "buy",
+   "detail": "sugar pack1",
+   "ok": true
+  },
+  {
+   "day": 6,
+   "at": 315,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  },
+  {
+   "day": 7,
+   "at": 326,
+   "type": "buy",
+   "detail": "lemons pack1",
+   "ok": true
+  },
+  {
+   "day": 7,
+   "at": 327,
+   "type": "buy",
+   "detail": "sugar pack1",
+   "ok": true
+  },
+  {
+   "day": 7,
+   "at": 329,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  },
+  {
+   "day": 7,
+   "at": 331,
+   "type": "buy",
+   "detail": "cups pack1",
+   "ok": true
+  },
+  {
+   "day": 8,
+   "at": 385,
+   "type": "hire",
+   "detail": "#0 d8-0",
+   "ok": true
+  },
+  {
+   "day": 8,
+   "at": 426,
+   "type": "buy",
+   "detail": "lemons pack0",
+   "ok": true
+  },
+  {
+   "day": 8,
+   "at": 428,
+   "type": "buy",
+   "detail": "sugar pack1",
+   "ok": true
+  },
+  {
+   "day": 8,
+   "at": 430,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  },
+  {
+   "day": 8,
+   "at": 434,
+   "type": "buy",
+   "detail": "lemons pack0",
+   "ok": true
+  },
+  {
+   "day": 8,
+   "at": 436,
+   "type": "buy",
+   "detail": "cups pack0",
+   "ok": true
+  },
+  {
+   "day": 8,
+   "at": 438,
+   "type": "buy",
+   "detail": "cups pack0",
+   "ok": true
+  },
+  {
+   "day": 8,
+   "at": 440,
+   "type": "buy",
+   "detail": "ice pack0",
+   "ok": true
+  },
+  {
+   "day": 8,
+   "at": 442,
+   "type": "buy",
+   "detail": "lemons pack0",
+   "ok": true
+  },
+  {
+   "day": 8,
+   "at": 445,
+   "type": "buy",
+   "detail": "sugar pack1",
+   "ok": true
+  },
+  {
+   "day": 9,
+   "at": 479,
+   "type": "buy",
+   "detail": "lemons pack0",
+   "ok": true
+  },
+  {
+   "day": 9,
+   "at": 482,
+   "type": "buy",
+   "detail": "lemons pack0",
+   "ok": true
+  },
+  {
+   "day": 9,
+   "at": 484,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  },
+  {
+   "day": 9,
+   "at": 488,
+   "type": "buy",
+   "detail": "cups pack1",
+   "ok": true
+  },
+  {
+   "day": 10,
+   "at": 499,
+   "type": "buy",
+   "detail": "lemons pack1",
+   "ok": true
+  },
+  {
+   "day": 10,
+   "at": 503,
+   "type": "buy",
+   "detail": "sugar pack2",
+   "ok": true
+  },
+  {
+   "day": 10,
+   "at": 505,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  },
+  {
+   "day": 11,
+   "at": 519,
+   "type": "buy",
+   "detail": "lemons pack1",
+   "ok": true
+  },
+  {
+   "day": 11,
+   "at": 522,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  },
+  {
+   "day": 12,
+   "at": 532,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  },
+  {
+   "day": 13,
+   "at": 560,
+   "type": "buy",
+   "detail": "lemons pack1",
+   "ok": true
+  },
+  {
+   "day": 13,
+   "at": 562,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  },
+  {
+   "day": 13,
+   "at": 564,
+   "type": "buy",
+   "detail": "sugar pack1",
+   "ok": true
+  },
+  {
+   "day": 13,
+   "at": 565,
+   "type": "buy",
+   "detail": "cups pack1",
+   "ok": true
+  },
+  {
+   "day": 14,
+   "at": 579,
+   "type": "buy",
+   "detail": "lemons pack1",
+   "ok": true
+  },
+  {
+   "day": 14,
+   "at": 582,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  },
+  {
+   "day": 14,
+   "at": 585,
+   "type": "buy",
+   "detail": "sugar pack1",
+   "ok": true
+  },
+  {
+   "day": 14,
+   "at": 587,
+   "type": "buy",
+   "detail": "cups pack1",
+   "ok": true
+  },
+  {
+   "day": 15,
+   "at": 600,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  },
+  {
+   "day": 16,
+   "at": 633,
+   "type": "buyGlobalUpgrade",
+   "detail": "radio",
+   "ok": true
+  },
+  {
+   "day": 16,
+   "at": 635,
+   "type": "buyUpgrade",
+   "detail": "#0 body",
+   "ok": true
+  },
+  {
+   "day": 16,
+   "at": 643,
+   "type": "buy",
+   "detail": "lemons pack1",
+   "ok": true
+  },
+  {
+   "day": 16,
+   "at": 645,
+   "type": "buy",
+   "detail": "sugar pack1",
+   "ok": true
+  },
+  {
+   "day": 16,
+   "at": 647,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  },
+  {
+   "day": 17,
+   "at": 662,
+   "type": "setPrice",
+   "detail": "#0 $0.55",
+   "ok": true
+  },
+  {
+   "day": 17,
+   "at": 662,
+   "type": "setPrice",
+   "detail": "#0 $0.60",
+   "ok": true
+  },
+  {
+   "day": 17,
+   "at": 663,
+   "type": "setPrice",
+   "detail": "#0 $0.65",
+   "ok": true
+  },
+  {
+   "day": 17,
+   "at": 670,
+   "type": "buy",
+   "detail": "lemons pack1",
+   "ok": true
+  },
+  {
+   "day": 17,
+   "at": 671,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  },
+  {
+   "day": 17,
+   "at": 675,
+   "type": "buy",
+   "detail": "sugar pack1",
+   "ok": true
+  },
+  {
+   "day": 17,
+   "at": 676,
+   "type": "buy",
+   "detail": "cups pack1",
+   "ok": true
+  },
+  {
+   "day": 18,
+   "at": 690,
+   "type": "fire",
+   "detail": "#0 d8-0",
+   "ok": true
+  },
+  {
+   "day": 18,
+   "at": 697,
+   "type": "startCampaign",
+   "detail": "flyers @maple",
+   "ok": true
+  },
+  {
+   "day": 18,
+   "at": 713,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  },
+  {
+   "day": 18,
+   "at": 717,
+   "type": "buy",
+   "detail": "sugar pack1",
+   "ok": true
+  },
+  {
+   "day": 18,
+   "at": 718,
+   "type": "buy",
+   "detail": "lemons pack1",
+   "ok": true
+  },
+  {
+   "day": 19,
+   "at": 752,
+   "type": "buy",
+   "detail": "cups pack1",
+   "ok": true
+  },
+  {
+   "day": 19,
+   "at": 754,
+   "type": "buy",
+   "detail": "ice pack0",
+   "ok": true
+  },
+  {
+   "day": 19,
+   "at": 755,
+   "type": "buy",
+   "detail": "ice pack0",
+   "ok": true
+  },
+  {
+   "day": 20,
+   "at": 767,
+   "type": "buy",
+   "detail": "ice pack0",
+   "ok": true
+  },
+  {
+   "day": 20,
+   "at": 768,
+   "type": "buy",
+   "detail": "ice pack0",
+   "ok": true
+  },
+  {
+   "day": 21,
+   "at": 779,
+   "type": "buy",
+   "detail": "lemons pack1",
+   "ok": true
+  },
+  {
+   "day": 21,
+   "at": 779,
+   "type": "buy",
+   "detail": "sugar pack1",
+   "ok": true
+  },
+  {
+   "day": 21,
+   "at": 781,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  },
+  {
+   "day": 22,
+   "at": 789,
+   "type": "buy",
+   "detail": "lemons pack1",
+   "ok": true
+  },
+  {
+   "day": 22,
+   "at": 790,
+   "type": "buy",
+   "detail": "sugar pack1",
+   "ok": true
+  },
+  {
+   "day": 22,
+   "at": 791,
+   "type": "buy",
+   "detail": "lemons pack1",
+   "ok": true
+  },
+  {
+   "day": 22,
+   "at": 791,
+   "type": "buy",
+   "detail": "sugar pack1",
+   "ok": true
+  },
+  {
+   "day": 22,
+   "at": 793,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  },
+  {
+   "day": 23,
+   "at": 833,
+   "type": "buy",
+   "detail": "ice pack1",
+   "ok": true
+  }
+ ],
+ "viewSec": {
+  "title": 3.7,
+  "hub:shop": 308.5,
+  "hub:recipe": 31.8,
+  "hub:staff": 60.9,
+  "hub:upgrades": 98.2,
+  "hub:marketing": 37.2,
+  "hub:map": 15.9,
+  "day": 227,
+  "report": 66.6,
+  "stats": 10
+ },
+ "counters": {
+  "showMath:juicer": 2,
+  "showMath:body": 2,
+  "showMath:flyers": 1,
+  "copySummary": 1
+ },
+ "droppedDays": 0
+}

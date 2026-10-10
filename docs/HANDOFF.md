@@ -160,3 +160,7 @@ Bring the playtest notes to the Game Development project in chat and ask for the
 - **A "Done when" check won't pass after honest tuning:** stop and say which one, with the numbers. Do not change a bot's rules or a formula to make it pass.
 - **The spec and the GDD disagree:** the GDD wins. Say so, and fix the spec in the same pull request.
 - **The spec is silent:** pick the simplest option and log it in `docs/DECISIONS.md`.
+
+## G. v2 direction (2026-10-10)
+
+After Playtest 2, Benjamin asked for a substantial redesign: a solo food hustler who climbs from gigs and side hustles to a lemonade stand, food stand, food truck and restaurant, with recipes, trends and much more appealing art and music. Research and design move to Chat first. The self-contained handoff is `docs/handoff/CHAT-BRAINSTORM.md`. Upload it to the Game Development project in Chat, together with the newest play log in `docs/playtests/`. Its section 10 says what Chat hands back for Claude Code to build, and section 11 is the improvement loop each round follows.
