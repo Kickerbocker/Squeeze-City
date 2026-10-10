@@ -2,7 +2,9 @@
 
 A personal browser game, mobile-first. It is a spiritual successor to Lemonade Tycoon 2, built entirely from original assets.
 
-- **Design source of truth:** `docs/GDD.md`
+- **Design source of truth:** `docs/GDD.md` for the game that exists. `docs/GDD-v2.md` is the draft for the next game. Do not build from it until Benjamin has approved it.
+- **v2 research, roadmap and first spec:** `docs/research/BRIEF-v2.md`, `docs/ROADMAP-v2.md`, `docs/specs/P1-prototype.md`
+- **v2 starting numbers:** `scripts/paper-economy-v2.mjs`, checked with `npm run paper`
 - **Milestone plan:** `docs/ROADMAP.md` (M9 onward), with paste-in prompts in `docs/HANDOFF.md` section F
 - **Specs:** `docs/specs/` (one per milestone; build from these)
 - **Why the current build falls short:** `docs/DESIGN_REVIEW.md`
@@ -62,5 +64,6 @@ scripts/
 - `npm run dev` — local dev server, reachable on LAN for phone testing (`--host`)
 - `npm test` — Vitest
 - `npm run balance` — headless balance report
+- `npm run paper` — checks the v2 design's starting numbers (a paper model, no game code)
 - `npm run audit` — decision audit (`-- --loc financial` to test another location)
 - `npm run build` — production build

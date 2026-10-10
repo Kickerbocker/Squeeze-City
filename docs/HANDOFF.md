@@ -164,3 +164,21 @@ Bring the playtest notes to the Game Development project in chat and ask for the
 ## G. v2 direction (2026-10-10)
 
 After Playtest 2, Benjamin asked for a substantial redesign: a solo food hustler who climbs from gigs and side hustles to a lemonade stand, food stand, food truck and restaurant, with recipes, trends and much more appealing art and music. Research and design move to Chat first. The self-contained handoff is `docs/handoff/CHAT-BRAINSTORM.md`. Upload it to the Game Development project in Chat, together with the newest play log in `docs/playtests/`. Its section 10 says what Chat hands back for Claude Code to build, and section 11 is the improvement loop each round follows.
+
+## H. v2 hand-back from Chat (2026-10-10)
+
+Chat has written the v2 research and design. **Nothing is approved to build until Benjamin says so.**
+
+| File | What it is |
+|---|---|
+| `docs/GDD-v2.md` | The v2 design draft: fantasy, pillars, the ladder, the three-decision rule, recipes, skills, money |
+| `docs/research/BRIEF-v2.md` | What the research found, with sources and what was not checked |
+| `docs/specs/P1-prototype.md` | The first prototype: gigs, market table, drink stand, in the current look |
+| `docs/ROADMAP-v2.md` | P1 to P7, with the playtest question for each |
+| `scripts/paper-economy-v2.mjs` | The starting numbers and their checks: `npm run paper` |
+
+**Once Benjamin approves, paste this into Claude Code:**
+
+> Read CLAUDE.md, docs/GDD-v2.md and docs/specs/P1-prototype.md. Use the game-build-verify skill. Build P1 exactly as the spec says on a branch named claude/p1-prototype and open a pull request. The v1 game must keep working; P1 is its own mode with its own save. Start from the numbers in scripts/paper-economy-v2.mjs. Add the play log fields the spec lists. Propose your plan first and wait for my approval.
+
+**Playtest 3** follows P1. Its five questions and the conditions for reworking the design are at the end of the P1 spec.
