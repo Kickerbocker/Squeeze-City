@@ -1,6 +1,6 @@
 # Squeeze City v2: design draft
 
-**Status: draft for Benjamin's approval. Nothing here is built.** Written 2026-10-10 from his direction, Playtest 2's play log, and the research in `docs/research/BRIEF-v2.md`. Until this is approved, `docs/GDD.md` (v1.1) still describes the game that exists.
+**Status: approved by Benjamin on 2026-10-10** ("go ahead, get as far as you can without me"). P1 is being built from it. Written 2026-10-10 from his direction, Playtest 2's play log, and the research in `docs/research/BRIEF-v2.md`. Until this is approved, `docs/GDD.md` (v1.1) still describes the game that exists.
 
 Every number is a starting value. They live in `scripts/paper-economy-v2.mjs` and are checked with `npm run paper`.
 
@@ -193,7 +193,7 @@ In the paper model, things the player no longer runs bring in about a third of a
 - **Bad stretches happen:** a week of storms, road works or a breakdown, sometimes two in a row.
 - **Three days' warning** before a bill that can't be paid, in plain words with the options: "Truck payment of $3,200 is due in 3 days. You have $2,100. You could take gig shifts, sell a vending machine for $170, or borrow at 20%."
 - **An emergency loan** covers one missed bill, at most once every four weeks.
-- **If the bill still can't be paid, the business is lost.** The proposed outcome is stepping down one stage and keeping every skill and recipe. This needs Benjamin's call (section 14).
+- **If the bill still can't be paid, the business is lost.** You step down one stage and keep every skill and recipe (Benjamin's call, 2026-10-10).
 - **In the paper model** a player who keeps one week of bills in reserve goes broke 2% of the time. A player who expands with no reserve goes broke 28% of the time.
 
 ## 11. How the game explains itself
@@ -228,12 +228,12 @@ Benjamin has accepted both free (CC0) asset packs and AI-generated art in one co
 | The one-minute day, speeds and Skip | |
 | The street scene, as the plain look for the prototype | |
 
-## 14. Decisions needed from Benjamin
+## 14. Decisions from Benjamin (2026-10-10)
 
-1. **Approve the direction:** the fantasy, the six pillars, the ladder and the three-decision rule.
-2. **Going broke:** step down one stage and keep skills and recipes (proposed), restart from gigs, or reload a save?
-3. **The city:** a made-up city with a Nashville feel (proposed), or real Nashville neighborhoods?
-4. **Music:** one or two reference tracks.
+1. **Direction:** approved. "Go ahead, get as far as you can without me."
+2. **Going broke:** step down one stage and keep every skill and recipe.
+3. **The city:** made up, with a Nashville feel.
+4. **Music:** he agreed to give reference tracks. **Still needed:** the actual one or two song or soundtrack names. No music work until then.
 
 Still open, and better answered after the prototype: whether rival vendors belong in the city, and whether the look should be pixel art, smooth cartoon or rendered 3D.
 
