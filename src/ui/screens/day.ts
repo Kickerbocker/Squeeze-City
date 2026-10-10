@@ -8,7 +8,7 @@ import { audio } from '../audio';
 import { h, mount } from '../dom';
 import { BUBBLES, CONDITION_ICON, hourLabel, locName, money, temp } from '../text';
 
-const SPEED_KEY = 'squeeze-city:speed';
+export const SPEED_KEY = 'squeeze-city:speed';
 
 /** Plays back the day that runDay already computed. Returns a cleanup function. */
 export function renderDay(app: App): () => void {
@@ -52,6 +52,7 @@ export function renderDay(app: App): () => void {
         onclick: () => {
           speed = n;
           sessionStorage.setItem(SPEED_KEY, String(n));
+          app.playlog.speed(n);
           scene()?.setSpeed(n);
           speedBtns.forEach((b, i) => {
             b.classList.toggle('on', [1, 2, 4][i] === n);
@@ -62,7 +63,17 @@ export function renderDay(app: App): () => void {
       `${n}×`,
     ),
   );
-  const skip = h('button', { class: 'btn speed', onclick: () => scene()?.skipToEnd() }, 'Skip ⏭');
+  const skip = h(
+    'button',
+    {
+      class: 'btn speed',
+      onclick: () => {
+        app.playlog.skip(scene()?.gameTime ?? 0);
+        scene()?.skipToEnd();
+      },
+    },
+    'Skip ⏭',
+  );
   const tabs =
     stands.length > 1
       ? h(
@@ -152,6 +163,7 @@ export function renderDay(app: App): () => void {
       if (t >= tl.close && doneBtn.classList.contains('hidden')) {
         doneBtn.classList.remove('hidden');
         skip.setAttribute('disabled', '');
+        app.playlog.dayWatched();
       }
     },
   };

@@ -2,20 +2,26 @@ import { CONFIG } from '../config';
 import { SaveSlots } from '../save/save';
 import { type Action, type DayResult, dispatch, type GameState, newGame, runDay } from '../sim';
 import { audio } from './audio';
+import { hashJson, PlayLogger } from './playlog/log';
 import { toast } from './dom';
-import { renderDay } from './screens/day';
+import { renderDay, SPEED_KEY } from './screens/day';
 import { renderHub } from './screens/hub';
 import { renderReport } from './screens/report';
 import { renderStats } from './screens/stats';
 import { renderTitle } from './screens/title';
 
 export type Screen = 'title' | 'hub' | 'day' | 'report' | 'stats';
+/** Fingerprint of the tuning this build plays with, stamped on play logs. */
+export const CONFIG_HASH = hashJson(CONFIG);
+
 export type HubTab = 'shop' | 'recipe' | 'staff' | 'upgrades' | 'marketing' | 'map';
 
 /** Holds the current game and routes between screens. UI code reads `state` and calls `act()`. */
 export class App {
   readonly root: HTMLElement;
   readonly slots: SaveSlots;
+  /** Records how the game is played, for design analysis. Never read by the sim. */
+  readonly playlog: PlayLogger;
   slot: number | null = null;
   state: GameState | null = null;
   screen: Screen = 'title';
@@ -29,6 +35,11 @@ export class App {
   constructor(root: HTMLElement, storage: Storage) {
     this.root = root;
     this.slots = new SaveSlots(storage);
+    this.playlog = new PlayLogger(storage);
+    if (typeof document !== 'undefined') {
+      document.addEventListener('visibilitychange', () => this.playlog.setHidden(document.visibilityState === 'hidden'));
+      window.addEventListener('pagehide', () => this.playlog.close());
+    }
   }
 
   get game(): GameState {
@@ -39,6 +50,7 @@ export class App {
   /** Dispatches a player action to the sim. Returns true on success. */
   act(action: Action): boolean {
     const r = dispatch(this.game, action, CONFIG);
+    this.playlog.action(this.game, action, r.ok, r.ok ? undefined : r.error);
     if (!r.ok) {
       toast(r.error, 'error');
       return false;
@@ -67,6 +79,7 @@ export class App {
     this.hubTab = 'shop';
     this.lastDay = null;
     this.persist();
+    this.playlog.open(slot, this.state, CONFIG_HASH, true);
     this.go('hub');
   }
 
@@ -77,13 +90,16 @@ export class App {
     this.state = s;
     this.selectedStand = s.stands[0]?.id ?? 0;
     this.lastDay = null;
+    this.playlog.open(slot, s, CONFIG_HASH, false);
     this.go('hub');
   }
 
   /** Runs the day in the sim (instant), autosaves the night, then plays the replay. */
   openForBusiness(): void {
     audio.unlock();
-    const result = runDay(this.game, {}, CONFIG);
+    const morning = this.game;
+    const result = runDay(morning, {}, CONFIG);
+    this.playlog.dayStarted(morning, result, Number(sessionStorage.getItem(SPEED_KEY) ?? 1) || 1);
     this.state = result.state;
     this.persist();
     this.pendingReport = result;
@@ -91,6 +107,7 @@ export class App {
   }
 
   finishDay(): void {
+    this.playlog.dayWatched();
     this.lastDay = this.pendingReport;
     this.go('report');
   }
@@ -111,6 +128,7 @@ export class App {
       this.cleanup = null;
     }
     this.root.dataset.screen = this.screen;
+    this.playlog.setView(this.screen === 'hub' ? `hub:${this.hubTab}` : this.screen);
     switch (this.screen) {
       case 'title':
         renderTitle(this);

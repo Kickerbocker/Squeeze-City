@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "balance": "tsx scripts/balance.ts",
     "audit": "tsx scripts/audit.ts",
+    "playlog": "tsx scripts/playlog.ts",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host"
   },
