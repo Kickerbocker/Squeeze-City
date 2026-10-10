@@ -60,6 +60,8 @@ Ask the player to note where they were bored, confused, delighted or frustrated.
 
 ## After the playtest
 
+Start from the play log if there is one (`npm run playlog -- docs/playtests/<file>.json`): it shows what the player did, so their notes can explain why. Where the log and the notes disagree, the notes win.
+
 1. Find the line in `docs/learning/LESSONS.md` that said what the change was expected to do. Write what happened next to it.
 2. Add what the player liked and disliked to `docs/learning/TASTE.md`, in their words.
 3. Anything that surprised us goes in `docs/learning/UNKNOWNS.md`.

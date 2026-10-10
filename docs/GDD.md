@@ -271,3 +271,14 @@ The full rules, numbers, screens and tests are in `docs/specs/M10-show-what-it-d
 - **Ledger:** each upgrade tracks how much of its cost it has earned back, and shows "Paid off in N days" when it has.
 - **Losses are shown as plainly as gains.**
 - **Show the math** is closed by default, with a setting to keep it open.
+
+## 22. Play log (design tooling, 2026-10-10)
+A record of how the game is played, so playtests come with numbers as well as notes. It is tooling: it never changes how a day plays out.
+
+- **Where it lives:** `src/ui/playlog/`, in the UI layer. It reads copies of what the sim returns and is never read by the sim. It is stored per save slot under its own localStorage key, apart from the save, so the save format does not change. Nothing leaves the device until the player exports it.
+- **What it records each day:** the plan (location, recipe, price, upgrades and staff of each stand), the weather against the forecast, the funnel (passed, stopped, bought, left the line, sold out, too expensive), money, reputation, complaints, stock waste, purchases and unlocks.
+- **How the game was played:** real seconds planning, watching and reading the report; which hub tabs were opened; every action, including refused ones and their error; speed changes; when the day was skipped; time per screen; sessions and days per session.
+- **Limits:** the most recent 200 days and 1,500 actions are kept. If storage fills, the oldest half is dropped.
+- **Export:** Stats screen → **Export play log** (share sheet on phones, download otherwise) and **Copy summary**.
+- **Analysis:** `npm run playlog -- <file>` prints time per day, skip rate, plan changes, price against temperature, purchases, quiet streaks, profit by week, customers by location, stock and forecast, and refused actions.
+- **Growing it:** add an optional field, bump `LOG_VERSION`, and teach `analyze.ts` to read it. Older logs stay readable.

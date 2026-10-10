@@ -146,8 +146,10 @@ Done when the spec's "Done when" list passes and the pull request is open.
 4. How did the length of the day feel?
 5. Was there a moment you wanted to skip? What was happening?
 
+When you're done, open Stats (☰ menu) → **Export play log** and add the file to `docs/playtests/` (or upload it in chat). It records how you played, so you don't have to describe it.
+
 **After Playtest 2 (Claude Code)**
-> Read CLAUDE.md and the newest session in docs/PLAYTEST.md. Use the game-build-verify skill, section "After the playtest". Fill in the results for the M9 and M10 bets in docs/learning/LESSONS.md, add what I liked and disliked to docs/learning/TASTE.md in my words, log surprises in docs/learning/UNKNOWNS.md, and add anything that would hold for another game to section 15 of docs/research/KNOWLEDGE.md. Change no game code.
+> Read CLAUDE.md, the newest session in docs/PLAYTEST.md, and the newest play log in docs/playtests/ (`npm run playlog -- <file>`). Use the game-build-verify skill, section "After the playtest". Fill in the results for the M9 and M10 bets in docs/learning/LESSONS.md, add what I liked and disliked to docs/learning/TASTE.md in my words, log surprises in docs/learning/UNKNOWNS.md, and add anything that would hold for another game to section 15 of docs/research/KNOWLEDGE.md. Change no game code.
 
 ### Then come back to chat
 

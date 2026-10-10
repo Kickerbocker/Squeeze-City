@@ -124,3 +124,16 @@ Built from `docs/specs/M9-worth-buying.md`. Every price, wage, Promoter, Flyers 
 - Skimper earns 38% less than Sensible over 28 days, so under-buying is punished; nothing to log in `UNKNOWNS.md`.
 - Still failing, as the spec expects until M11/M12: lazy play 97% (target ≤85%), quiet days 80% (≤60%), longest quiet run 32 days (≤10).
 - Day view at the Financial District on a 93°F weekday: the line stays short (2 to 3) because people give up fast; 43 of 111 who stopped left by 11:30. "Line too long" bubbles show it clearly. "+N in line" did not appear.
+- **Sign-off (2026-10-10):** Benjamin approved the `wtpThirstBase`/`wtpThirstScale` change to 0.55/0.45. PR #3 merged.
+
+## Play log (2026-10-10)
+Requested by Benjamin: an internal record of play that doesn't affect gameplay, for design analysis. Spec in GDD §22.
+- **UI layer, not the save.** It lives in `src/ui/playlog/` and is stored under `squeeze-city:playlog:<slot>`. Keeping it out of `GameState` means no save migration and no way for it to reach the sim. A test plays five days with the logger receiving deep-frozen inputs and checks the results match a game played without it.
+- **Wall-clock time** comes from `Date.now()` in the UI, which the architecture allows outside `sim/`.
+- **One log per game.** Loading a slot continues its log if the seed matches. "New game" starts a fresh log.
+- **Sessions:** a session ends when the page is hidden. Coming back within 30 minutes continues it; later starts a new one. Hidden time is never counted.
+- **"Watching" time** runs from Open for business to the end of the replay (or Skip), not until the report button is pressed.
+- **Morning time** counts only time on hub tabs between the report and Open for business.
+- **Size:** the newest 200 days and 1,500 actions are kept, roughly 0.5 MB. If localStorage refuses a write, the oldest half is dropped and the write retried; it never throws into the game.
+- **Config fingerprint:** each log carries an FNV-1a hash of the full config, so a log can be matched to the tuning it was played on.
+- **Export** uses the share sheet when the browser can share files (iPhone, Android), otherwise a download. The file is pretty-printed JSON with one-space indents.
