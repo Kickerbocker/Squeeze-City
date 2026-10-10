@@ -281,3 +281,13 @@ section.card.upgrade { border-top: 1px solid var(--line); }
 .live { margin: 4px 16px 0; }
 .live .funnel-row { grid-template-columns: 84px 1fr 52px; }
 .live-lost { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 4px; }
+
+/* M10 purchase cards and report */
+.purchase-lines { display: grid; gap: 2px; margin-top: 6px; }
+.purchase-lines .proj strong { font-weight: 700; }
+.math-toggle summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-size: 14px; color: var(--ink-soft, inherit); text-decoration: underline; text-underline-offset: 3px; }
+.math-toggle .math { margin: 0 0 6px; }
+.math-toggle .math li { padding: 2px 0; }
+.did-row { padding: 8px 0; border-bottom: 1px solid var(--line); display: grid; gap: 2px; }
+.did-row:last-child { border-bottom: 0; }
+.did h4 { margin: 10px 0 0; }

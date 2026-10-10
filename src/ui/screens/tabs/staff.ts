@@ -3,6 +3,7 @@ import { wage } from '../../../sim/stand';
 import type { App } from '../../app';
 import { selectedStand, standLabel, standPicker } from '../../components';
 import { confirmSheet, h } from '../../dom';
+import { purchaseLines } from '../../purchase';
 import { money, ROLE_EFFECT, ROLE_ICON } from '../../text';
 
 const stars = (n: number) => '★'.repeat(n) + '☆'.repeat(CONFIG.staff.maxSkill - n);
@@ -69,6 +70,9 @@ export function staffTab(app: App): HTMLElement {
             h('strong', null, `${c.name} · ${CONFIG.staff.roles[c.role].name}`),
             h('div', { class: 'small' }, h('span', { class: 'stars' }, stars(c.skill)), ` ${ROLE_EFFECT[c.role](c.skill)}`),
             h('div', { class: 'small muted' }, `${money(wage(c, CONFIG))}/day`),
+            full
+              ? null
+              : purchaseLines(s, { action: { type: 'hire', candidateId: c.id, standId: stand.id }, kind: 'staff', item: c.role, onMath: () => app.playlog.mathOpened(c.role), standId: stand.id, upfront: null, dailyNote: 'after wages' }),
           ),
           h(
             'button',

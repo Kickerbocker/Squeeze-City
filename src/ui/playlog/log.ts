@@ -6,9 +6,9 @@
 // To record more: add an optional field, bump LOG_VERSION, and teach analyze.ts to read it.
 // Old logs stay readable because every field added after version 1 is optional.
 import type { KeyValueStore } from '../../save/save';
-import type { Action, DayResult, GameState } from '../../sim';
+import type { Action, AttributionLine, DayResult, GameState } from '../../sim';
 
-export const LOG_VERSION = 1;
+export const LOG_VERSION = 2;
 /** Detail is kept for this many recent days; older days are dropped first. */
 export const MAX_DAYS = 200;
 export const MAX_ACTIONS = 1500;
@@ -70,6 +70,10 @@ export interface DayEntry {
   watch: { sec: number; speeds: number[]; skippedAt: number | null };
   /** Real seconds on the evening report (filled in when the player leaves it). */
   reportSec: number | null;
+  /** v2 (M10): "What your purchases did today", as the report showed it. */
+  purchasesDid?: { kind: AttributionLine['kind']; item: string; standId: number | null; profit: number; count: number; approx: boolean }[];
+  /** v2 (M10): Show the math opened this morning. */
+  mathOpened?: number;
 }
 
 export interface ActionEntry {
@@ -235,7 +239,7 @@ export class PlayLogger {
   private sessionStart = 0;
   private hidden = false;
   private hiddenAt = 0;
-  private morning = { since: 0, tabs: new Set<string>(), actions: {} as Record<string, number>, failed: 0, sec: 0 };
+  private morning = { since: 0, tabs: new Set<string>(), actions: {} as Record<string, number>, failed: 0, sec: 0, math: 0 };
   private watch = { since: 0, speeds: [] as number[], skippedAt: null as number | null };
   private reportSince: number | null = null;
 
@@ -359,7 +363,7 @@ export class PlayLogger {
   }
 
   private startMorning(): void {
-    this.morning = { since: this.clock(), tabs: new Set(), actions: {}, failed: 0, sec: 0 };
+    this.morning = { since: this.clock(), tabs: new Set(), actions: {}, failed: 0, sec: 0, math: 0 };
   }
 
   action(state: GameState, a: Action, ok: boolean, error?: string): void {
@@ -383,6 +387,7 @@ export class PlayLogger {
         morning: { sec: Math.round(this.morning.sec), tabs: [...this.morning.tabs], actions: { ...this.morning.actions }, failed: this.morning.failed },
         watch: { sec: 0, speeds: [speed], skippedAt: null },
         reportSec: null,
+        ...(this.morning.math ? { mathOpened: this.morning.math } : {}),
       };
       this.log.days.push(entry);
       if (this.log.days.length > MAX_DAYS) {
@@ -434,6 +439,22 @@ export class PlayLogger {
     this.reportSince = null;
     this.startMorning();
     this.save();
+  }
+
+  /** M10: "What your purchases did today" for a logged day (it arrives after the day starts). */
+  attribution(day: number, lines: AttributionLine[]): void {
+    this.safe(() => {
+      const d = this.log?.days.findLast((x) => x.day === day);
+      if (!d) return;
+      d.purchasesDid = lines.map((l) => ({ kind: l.kind, item: l.item, standId: l.standId, profit: l.profit, count: l.count, approx: l.approx }));
+      this.save();
+    });
+  }
+
+  /** M10: the player opened "Show the math" on a purchase card. */
+  mathOpened(item: string): void {
+    this.morning.math++;
+    this.count(`showMath:${item}`);
   }
 
   count(name: string): void {

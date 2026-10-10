@@ -4,6 +4,7 @@ import type { App } from './app';
 import { audio } from './audio';
 import { h } from './dom';
 import { CONDITION_ICON, locName, money, temp } from './text';
+import { alwaysShowMath, setAlwaysShowMath } from './purchase';
 
 export function topBar(app: App): HTMLElement {
   const s = app.game;
@@ -61,6 +62,19 @@ function openMenu(app: App): void {
           },
         },
         audio.muted ? '🔊 Sound on' : '🔇 Mute',
+      ),
+      h(
+        'button',
+        {
+          class: 'btn block',
+          'aria-pressed': String(alwaysShowMath()),
+          onclick: () => {
+            setAlwaysShowMath(!alwaysShowMath());
+            close();
+            app.render();
+          },
+        },
+        alwaysShowMath() ? '🧮 Always show the math: on' : '🧮 Always show the math: off',
       ),
       h('button', { class: 'btn block', onclick: () => (close(), app.persist(), app.go('title')) }, '💾 Save & quit to title'),
       h('button', { class: 'btn block ghost', onclick: close }, 'Close'),

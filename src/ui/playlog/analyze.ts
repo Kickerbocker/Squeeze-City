@@ -124,6 +124,22 @@ export function analyze(log: PlayLog): string {
   const q = quietStreaks(days);
   line(`days with nothing bought or unlocked: ${q.quietDays}/${days.length} (${pct(q.quietDays, days.length)}) · longest run: ${q.longest} days`);
 
+  // --- What purchases did (log v2, M10)
+  const did = days.flatMap((d) => (d.purchasesDid ?? []).map((x) => ({ ...x, day: d.day })));
+  if (did.length) {
+    line(`\n## What purchases did (measured each day)`);
+    const by = new Map<string, typeof did>();
+    for (const x of did) {
+      const k = `${x.kind}:${x.item}${x.standId !== null ? ` #${x.standId + 1}` : ''}`;
+      by.set(k, [...(by.get(k) ?? []), x]);
+    }
+    for (const [k, xs] of by) {
+      line(`${k}: ${xs.length} days · ${usd(mean(xs.map((x) => x.profit)))}/day on average · count change ${mean(xs.map((x) => x.count)).toFixed(1)}/day${xs.some((x) => x.approx) ? ' (approx.)' : ''}`);
+    }
+  }
+  const mathDays = days.filter((d) => (d.mathOpened ?? 0) > 0).length;
+  if (days.some((d) => d.mathOpened !== undefined) || mathDays) line(`"Show the math" opened on ${mathDays}/${days.length} days`);
+
   // --- Money
   line(`\n## Money`);
   for (let i = 0; i < days.length; i += 7) {

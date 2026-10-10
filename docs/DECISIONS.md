@@ -137,3 +137,34 @@ Requested by Benjamin: an internal record of play that doesn't affect gameplay, 
 - **Size:** the newest 200 days and 1,500 actions are kept, roughly 0.5 MB. If localStorage refuses a write, the oldest half is dropped and the write retried; it never throws into the game.
 - **Config fingerprint:** each log carries an FNV-1a hash of the full config, so a log can be matched to the tuning it was played on.
 - **Export** uses the share sheet when the browser can share files (iPhone, Android), otherwise a download. The file is pretty-printed JSON with one-space indents.
+
+## M10 — Show what it did (2026-10-10)
+Built from `docs/specs/M10-show-what-it-did.md`. All numbers are the spec's, in `src/config/feedback.json`.
+
+**Where the spec was silent (simplest option taken)**
+- **"Tomorrow" in the projection is the day being planned.** In the morning hub the forecast describes the day about to be played, so the projection runs that day with the forecast as its weather.
+- **Projected profit leaves out leftover stock.** The projection gives the stand unlimited stock at today's prices, so spoilage of the surplus isn't counted. Ingredients used by the extra customers are. The measured effect in the report uses the real day's profit, exactly.
+- **Campaigns** are judged after their cost per day (cost ÷ days), in both the projection and the report, as in "−$2.80 today after cost".
+- **Radio and TV in the report:** rather than storing a 7-day history in the save, today is replayed over 7 sample crowds from the projection stream, with and without the campaign, and the average is shown with "about".
+- **Weather radio:** the projection can't measure it, so its card says it helps planning and gives the forecast history. In the report it shows "Forecast right N of the last 10 days" while owned; it never pays off by measurement, so it stays listed.
+- **Tiered upgrades:** buying a higher tier marks the lower tier's ledger entry as replaced. Only the top tier is measured: the report drops one tier.
+- **Flyers' card** projects for the selected stand's location (or the first open one). The location picker still opens on Buy.
+- **Paid-off count:** "Paid off in N days" counts the day of purchase as day 1.
+- **Losses:** "Rain kept people home." is added to lines that lost money on a rain or storm day.
+- **Yesterday's numbers** for the "why" line are kept in the save (`yesterday`), so they survive closing the app.
+- **runDay** takes an optional `customerSeed` so projections can sample made-up crowds. Without it, a day plays exactly as after M9; a test holds the event logs and reports of 3 seeds × 40 bot days to fingerprints recorded on main.
+- **Save version 2.** The migration adds a ledger entry for every owned upgrade at its current config cost, earning back from the day of loading; forecast history starts empty.
+
+**Performance**
+- With four stands and 31 report lines, `runDayWithAttribution` takes about 450 ms on the build machine, which could be over a second on a phone. So the app runs the day with `runDay` (instant), starts the replay, and works out the attribution in a Web Worker. The report says "Working it out…" in the rare case it isn't ready; it usually is long before the 60-second day ends. If the worker can't start or answer, it falls back to the main thread.
+- Purchase-card projections (14 simulated days each, about 30 ms for one stand) are drawn after the tab renders and cached per relevant state.
+
+**One-minute day**
+- `MINUTES_PER_SECOND` 3 → 9. To keep the street readable, walking speed went from 34 to 14 world units per game minute and bubbles from 5 to 14 game minutes. On screen that's about 125 px/s and 1.5 s per bubble at 1×, close to before. Measured: a day takes about 63 s at 1× (60 s plus serving the last customers in line).
+
+**Results**
+- `npm test`: 113 pass (13 new for M10).
+- `npm run balance`: 10/10, identical to the end of M9.
+- `npm run audit`: identical to the end of M9, plus the new projection check passing 6/6 (Stall, Neon sign and Register I at Maple Park and the Financial District; worst is Register I at Maple Park, off by 21% on a $0.93-a-day effect).
+
+**Play log v2** records "what your purchases did" each day and how often "Show the math" was opened.
