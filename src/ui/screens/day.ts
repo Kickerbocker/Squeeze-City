@@ -126,6 +126,7 @@ export function renderDay(app: App): () => void {
     timeline: tl,
     stands: stands.map((st) => ({ id: st.id, locationId: st.locationId!, upgrades: st.upgrades, staffCount: st.staff.length })),
     condition: report.weather.condition,
+    dayTemp: report.weather.dayTemp,
     openHour: CONFIG.calendar.openHour,
     bubbleText: (b) => BUBBLES[b],
     onServe: () => audio.ding(),

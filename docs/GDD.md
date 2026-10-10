@@ -258,6 +258,14 @@ Run headlessly over 20 seeds with `npm run balance`.
 - Sky tint changes by hour; clouds and rain particles show the weather.
 - Audio is generated with Web Audio: cash ding, pour, ambient street sound, and rain. Includes a mute toggle.
 
+**Sound and look pass (2026-10-10, requested by Benjamin ahead of M16).** Everything is still made in code; no asset files.
+- **Music** is generated live and follows the day: a soft pad, a walking bass, a plucked lead and, on busy days, light hats and a soft kick. Each location has its own key and instrument (marimba in the park, electric piano uptown, lo-fi keys on campus, steel pan on the boardwalk, vibraphone downtown, brass at the stadium, synth under the neon). Calm on the title and in the morning; brighter towards noon and warmer towards closing; fuller and a little faster when the stand is busy; muted and in a minor-ish mode in rain; a slow, warm evening on the report, gentler after a loss. Code: `src/ui/audio/`.
+- **Ambience** for each place and the weather: birds and a breeze, campus chatter, traffic and horns, waves and gulls, a stadium crowd, rain with droplets, thunder in storms. The crowd murmur follows how busy the stand is.
+- **Effects:** sale bells (pentatonic, so a rush sounds musical), pour with gurgle and ice, a soft walk-away, purchase coins, a milestone fanfare, a tab tick.
+- **Volume:** music and effects sliders in the menu, plus mute.
+- **Day scene:** gradient sky with a sun glow; golden-hour light from 4 pm and a hint of dusk at closing; puffy drifting clouds; a hazy far layer (hills, skyline, headland) for depth; shadows and a walking bob for customers; "+$1.30" coin pops on sales; rain splashes, puddles and wet pavement; heat shimmer on days of 88°F or more; a pulsing neon sign and a LEMONADE sign board on bigger stands; birds, gulls and passing cars by location.
+- **Screens:** gradient top bar, softer card shadows, a glow under the active tab, a short rise-and-fade between screens, a tinted report header, a bobbing title lemon. Motion is off when the phone asks for reduced motion.
+
 ## 20. Parking lot (not in v1)
 Extra drinks (pink lemonade, iced tea), loans, competitor AI shops, seasonal decorations, achievements beyond the milestones.
 
