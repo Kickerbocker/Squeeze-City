@@ -41,6 +41,21 @@ export function topBar(app: App): HTMLElement {
   );
 }
 
+function volumeSlider(label: string, value: number, onChange: (v: number) => void): HTMLElement {
+  const input = h('input', {
+    type: 'range',
+    min: '0',
+    max: '100',
+    step: '5',
+    value: String(Math.round(value * 100)),
+    'aria-label': label,
+    class: 'slider',
+  }) as HTMLInputElement;
+  input.addEventListener('pointerdown', () => audio.unlock());
+  input.addEventListener('change', () => onChange(Number(input.value) / 100));
+  return h('label', { class: 'volume' }, h('span', { class: 'small' }, label), input);
+}
+
 function openMenu(app: App): void {
   const close = () => sheet.remove();
   const sheet = h(
@@ -50,6 +65,11 @@ function openMenu(app: App): void {
       'div',
       { class: 'sheet' },
       h('h3', null, 'Menu'),
+      volumeSlider('🎵 Music', audio.musicVolume, (v) => audio.setMusicVolume(v)),
+      volumeSlider('🔔 Effects & ambience', audio.effectsVolume, (v) => {
+        audio.setEffectsVolume(v);
+        audio.ding();
+      }),
       h('button', { class: 'btn block', onclick: () => (close(), app.go('stats')) }, '📊 Stats & milestones'),
       h(
         'button',

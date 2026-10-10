@@ -88,6 +88,7 @@ export function renderDay(app: App): () => void {
                 onclick: (e: Event) => {
                   active = st.id;
                   lastLive = -1;
+                  audio.startDay(st.locationId!, report.weather.condition);
                   scene()?.showStand(st.id);
                   (e.currentTarget as HTMLElement).parentElement!.querySelectorAll('.seg').forEach((b) => b.classList.toggle('on', b.getAttribute('data-stand') === String(st.id)));
                 },
@@ -129,8 +130,16 @@ export function renderDay(app: App): () => void {
     bubbleText: (b) => BUBBLES[b],
     onServe: () => audio.ding(),
     onPitcher: () => audio.pour(),
+    onLeave: () => audio.walkAway(),
     onTick: (t) => {
       const hour = CONFIG.calendar.openHour + Math.min(t, 540) / 60;
+      const busy = tl.stands.get(active);
+      if (busy) {
+        // How busy it feels: cups sold in the last game hour plus the line.
+        const lastHour = soldAt(busy, t) - soldAt(busy, Math.max(0, t - 60));
+        const q = posesAt(busy, t, undefined, 1_000_000).queueLength;
+        audio.dayTick(hour, Math.min(1, lastHour / 36 + q / 10));
+      }
       clock.textContent = t >= 540 ? (t >= tl.close ? 'Closed' : 'Closing…') : hourLabel(hour);
       const hourTemp = tl.hours.filter((x) => x.t <= t).at(-1)?.temp ?? report.weather.dayTemp - 4;
       weather.textContent = `${CONDITION_ICON[report.weather.condition]} ${temp(hourTemp)}`;
@@ -185,10 +194,10 @@ export function renderDay(app: App): () => void {
   game.events.once('ready', () => scene()?.setSpeed(speed));
   // The scene may already be running before 'ready' fires in some browsers.
   setTimeout(() => scene()?.setSpeed(speed), 50);
-  audio.startAmbience(report.weather.condition === 'rain' || report.weather.condition === 'storm');
+  audio.startDay(stands.find((st) => st.id === active)?.locationId ?? 'maple', report.weather.condition);
 
   return () => {
-    audio.stopAmbience();
+    audio.stopDay();
     game.destroy(true);
   };
 }

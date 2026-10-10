@@ -60,6 +60,7 @@ export class App {
       return false;
     }
     this.state = r.state;
+    if (action.type === 'buyUpgrade' || action.type === 'buyGlobalUpgrade' || action.type === 'buyLicense' || action.type === 'hire' || action.type === 'startCampaign') audio.purchase();
     this.persist();
     this.render();
     return true;
@@ -143,6 +144,19 @@ export class App {
     window.scrollTo(0, 0);
   }
 
+  /** The music follows the screen: calm title and mornings, the day itself, a warm evening. */
+  private setMusic(sameScreen: boolean): void {
+    const s = this.state;
+    const loc = s?.stands.find((st) => st.locationId)?.locationId ?? 'maple';
+    if (this.screen === 'title' || !s) audio.setMood({ scene: 'title' });
+    else if (this.screen === 'hub' || this.screen === 'stats') audio.setMood({ scene: 'hub', location: loc, condition: s.forecast.condition });
+    else if (this.screen === 'report' && this.lastDay) {
+      const r = this.lastDay.report;
+      audio.setMood({ scene: 'report', location: r.stands[0]?.locationId ?? loc, condition: r.weather.condition, loss: r.profit < 0 });
+      if (!sameScreen && (r.milestones.length || r.unlocked.length)) setTimeout(() => audio.fanfare(), 350);
+    }
+  }
+
   render(): void {
     // Keep the scroll position when re-rendering the same screen.
     const scroller = this.root.querySelector<HTMLElement>('.scroll');
@@ -153,6 +167,7 @@ export class App {
       this.cleanup = null;
     }
     this.root.dataset.screen = this.screen;
+    this.setMusic(sameScreen);
     this.playlog.setView(this.screen === 'hub' ? `hub:${this.hubTab}` : this.screen);
     switch (this.screen) {
       case 'title':

@@ -27,8 +27,10 @@ export interface DaySceneData {
   openHour: number;
   bubbleText: (b: Bubble) => string;
   onTick: (t: number) => void;
-  onServe?: () => void;
+  onServe?: (price: number) => void;
   onPitcher?: () => void;
+  /** Someone walked away (too expensive, line too long, sold out). */
+  onLeave?: () => void;
 }
 
 const LANE_Y = [GROUND_Y + 150, GROUND_Y + 86, GROUND_Y + 74];
@@ -66,6 +68,8 @@ export class DayScene extends Phaser.Scene {
   private flash!: Phaser.GameObjects.Rectangle;
   private lastServeIdx = -1;
   private lastPitcherIdx = -1;
+  private leaveTimes: number[] = [];
+  private lastLeaveIdx = -1;
   private soldOutShown: boolean | null = null;
 
   constructor() {
@@ -162,6 +166,13 @@ export class DayScene extends Phaser.Scene {
     this.lastServeIdx = st ? st.serves.findIndex((x) => x.t > this.t) - 1 : -1;
     if (st && this.lastServeIdx < -1) this.lastServeIdx = st.serves.length - 1;
     this.lastPitcherIdx = st ? st.pitchers.filter((p) => p.t <= this.t).length - 1 : -1;
+    this.leaveTimes = st
+      ? st.walkers
+          .flatMap((w) => (w.outcome === 'leave' ? [w.tArrive] : w.tQuit !== undefined ? [w.tQuit] : []))
+          .sort((a, b) => a - b)
+      : [];
+    this.lastLeaveIdx = this.leaveTimes.findIndex((x) => x > this.t) - 1;
+    if (this.lastLeaveIdx < -1) this.lastLeaveIdx = this.leaveTimes.length - 1;
     this.soldOutShown = null;
   }
 
@@ -190,12 +201,18 @@ export class DayScene extends Phaser.Scene {
   }
 
   private fireSounds(st: NonNullable<ReturnType<Timeline['stands']['get']>>, t: number): void {
-    let served = false;
+    let served: number | null = null;
     while (this.lastServeIdx + 1 < st.serves.length && st.serves[this.lastServeIdx + 1]!.t <= t) {
       this.lastServeIdx++;
-      served = true;
+      served = st.serves[this.lastServeIdx]!.price;
     }
-    if (served) this.cfg.onServe?.();
+    if (served !== null) this.cfg.onServe?.(served);
+    let left = false;
+    while (this.lastLeaveIdx + 1 < this.leaveTimes.length && this.leaveTimes[this.lastLeaveIdx + 1]! <= t) {
+      this.lastLeaveIdx++;
+      left = true;
+    }
+    if (left) this.cfg.onLeave?.();
     let poured = false;
     while (this.lastPitcherIdx + 1 < st.pitchers.length && st.pitchers[this.lastPitcherIdx + 1]!.t <= t) {
       this.lastPitcherIdx++;

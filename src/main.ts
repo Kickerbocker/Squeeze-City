@@ -1,5 +1,6 @@
 import './ui/styles.css';
 import { App } from './ui/app';
+import { audio } from './ui/audio';
 
 const root = document.getElementById('app')!;
 
@@ -29,3 +30,4 @@ const app = new App(root, storage());
 app.render();
 // Exposed for debugging in the browser console only.
 (window as unknown as { squeeze: App }).squeeze = app;
+(window as unknown as { squeezeAudio: typeof audio }).squeezeAudio = audio;
