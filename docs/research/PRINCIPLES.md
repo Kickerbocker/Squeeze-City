@@ -45,3 +45,11 @@ Rules we have adopted, each one checkable. Tags: `[E]` evidenced, `[X]` expert o
 22. `[P]` Make purchases worth buying before building the displays that show their worth. Built first, the displays would report that purchases are useless.
 23. `[X]` Threat and pressure cancel a cozy tone, so failure has to be slow, announced in advance and recoverable. (Project Horseshoe, "Coziness in Games", 2017)
 24. `[E]` A gate on progress counts what the player has earned, never the cash they are holding. Gates on cash in hand punish spending. (Our own experiment and playtest, 2026-10-09: cheaper upgrades delayed the Campus Quad unlock from day 17 to day 26)
+
+## Attention and reward (v2)
+
+25. `[P]` No stage asks the player for more than three decisions a day. (Benjamin, 2026-10-10: "so you don't have to constantly think about it all the time")
+26. `[P]` Every new decision arrives with an offer to hand off an older one, through a skill or a hire. Nothing is handed off before the player has done it by hand.
+27. `[P]` A handed-off decision earns 85% to 96% of careful play: good enough to forget, still worth taking back.
+28. `[E]` Reward the new thing and never punish the familiar one. A menu the player never changes is always a sound business. (Benjamin's reaction, 2026-10-10; players of Cook, Serve, Delicious! called its menu rot unrealistic)
+29. `[E]` Every number the player sets is shown beside a reference: a street price, a forecast range. (Playtest 2: priced at half the best price for 23 days with nothing to compare against; Moonlighter and Recettear show a reaction at the price tag)

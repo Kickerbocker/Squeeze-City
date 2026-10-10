@@ -8,6 +8,7 @@ import { newGame, projectPurchase, runDay, type DayPlan, type DayReport, type Ga
 import { forSale, rolesForHire } from '../src/sim/stand';
 import { runBot } from './balance';
 import { type BotMemory, type BotOptions, botMorning } from './bots';
+import { p1Checks } from './p1-bots';
 
 // Thresholds are proposals (docs/learning/UNKNOWNS.md U1). Change them here, and log why in LESSONS.md.
 const T = {
@@ -359,7 +360,7 @@ if (isMain) {
   };
   const loc = arg('loc', 'maple') as LocationId;
   if (!LOCATION_IDS.includes(loc)) throw new Error(`Unknown location "${loc}". Use one of: ${LOCATION_IDS.join(', ')}`);
-  const checks = audit(loc, Number(arg('seeds', '20')), Number(arg('days', '28')));
+  const checks = [...audit(loc, Number(arg('seeds', '20')), Number(arg('days', '28'))), ...p1Checks()];
   const w = Math.max(...checks.map((c) => c.name.length));
   console.log(`\n${'Check'.padEnd(w)} | Value            | Result`);
   for (const c of checks) console.log(`${c.name.padEnd(w)} | ${c.value.padEnd(16)} | ${c.pass ? 'PASS' : 'FAIL'}`);

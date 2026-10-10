@@ -1,5 +1,7 @@
 # Roadmap: M9 onward
 
+**M9 and M10 are built. M11 to M16 below are replaced by `docs/ROADMAP-v2.md` once Benjamin approves the v2 design.**
+
 M1 to M8 built the first playable game (`docs/HANDOFF.md`, sections A to E). This is the second arc. It comes from the first playtest and the design review of 2026-10-09 (`docs/DESIGN_REVIEW.md`).
 
 ## How this arc works

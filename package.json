@@ -11,6 +11,7 @@
     "balance": "tsx scripts/balance.ts",
     "audit": "tsx scripts/audit.ts",
     "playlog": "tsx scripts/playlog.ts",
+    "paper": "node scripts/paper-economy-v2.mjs",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host"
   },

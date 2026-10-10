@@ -40,6 +40,16 @@ Lemonade Tycoon 2, RollerCoaster Tycoon, Game Dev Tycoon, Thrillville, Cities: S
 - Visuals: "way more appealing, similar to lemonade tycoon 2."
 - "It's time to pick it up substantially. Much more research and development."
 
+## Decisions and reactions on the v2 design (2026-10-10)
+
+- Art: free (CC0) asset packs and AI-generated sprites in one consistent style are both acceptable.
+- Feel of a day: "Mostly planning, strategizing. I like the flow of restaurant city."
+- The ladder he first described "was only a suggestion. Make a progression that makes sense."
+- "We are not going to just limit ourselves to lemonade tycoon 2 so the creative limits are less restrictive and we can implement more proven and researched game mechanics for maximum fun."
+- On a penalty for repeating recipes: "The penalty for old recipes is too hard. One every day is excessive, you would want the player to feel rewarded rather than make it an absolute chore to constantly innovate. Don't penalize but rather incentivize to create new recipes if it's appropriate for the progression of the game."
+- "Would it be necessary to change recipes a lot for a measly food stand? Probably not… But maybe as a restaurant, it matters more a little bit to change recipes every once in a while, especially in regards to what ingredients are in season, or trends, or new skills being learned."
+- On how much thinking the game asks for: "Make sure it's a good balance for all of it so you don't have to constantly think about it all the time where it becomes mundane and tedious. And then feeling like a chore. Eventually, it should be automated somehow through skill trees or upgrades as the game progresses and priorities change."
+
 ## How much the game should explain
 
 - 2026-10-09: On upgrades: "Perhaps show the math, or at least show a comparison of before the upgrade and after."

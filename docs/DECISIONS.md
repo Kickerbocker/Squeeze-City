@@ -179,3 +179,32 @@ Requested by Benjamin ahead of M16, built after M10 (his choice of order). Gener
 - **Coin pops** are limited to one every 0.45 s, alternating sides, so a rush stays readable.
 - **Canvas fallback:** Phaser can only draw gradient fills in WebGL, so on the Canvas renderer the sky is drawn as two bands.
 - **The deeper art pass stays in M16** (`docs/ROADMAP.md`): M13 and M15 will change the day scene, so character redesigns and new animation sets wait until then.
+
+## P1 prototype (2026-10-10)
+Built from `docs/specs/P1-prototype.md` after Benjamin approved GDD-v2 ("go ahead, get as far as you can without me"). Numbers in `src/config/p1.json`, starting from `scripts/paper-economy-v2.mjs`.
+
+**Values that differ from the paper model**
+
+| Value | Paper | Now | Why |
+|---|---|---|---|
+| Lemonade cup cost | $0.35 | $0.25 | With $0.35 a handed-off batch earned 98% of careful play (target 85–96%): covering a busy day barely paid. Cheaper cups make extra cover worth it. |
+| Day-to-day demand spread | 0.18 | 0.22 | Same reason; together they put the handed-off batch at 96% (the top of the band) and careful play at about $147 a day. |
+
+**Where the spec was silent (simplest option taken)**
+- **Code layout:** `src/sim/p1/` (pure sim), `src/config/p1.*`, `src/ui/p1/`. The v1 game is untouched apart from three new bubble kinds and a music on/off switch.
+- **Its own mode and save:** a card on the title screen; save under `squeeze-city:p1:save`; its own play log under `squeeze-city:p1:playlog`.
+- **One business at a time:** once the drink stand is open, it replaces the market table as the day's business. Gigs stay available every day.
+- **Money earned** counts gig pay and each day's profit when positive; a losing day never lowers it.
+- **Unsold goods** are credited at the end of the day at half their cost (75% with Thrifty), as the paper model does, rather than carried as stock.
+- **Customers** are drawn from their own random stream, independent of batch and price, so "what you missed" replays are exact. Passers-by who don't want any are drawn too, for a lively street.
+- **Forecast confidence:** each day is "sure", "fairly sure" or "unsure" (right 92%, 80%, 60%; 79% overall), and the "likely to want" range widens with doubt. The range is counted at the street price; the board says fewer buy above it.
+- **Reactions:** "What a deal!" at 135% or more of the price, a smile at 108% to 135%, "Hmm, pricey" below that, walking off below the price.
+- **The market table** has a fixed fair price ($2.25), so its customers only smile; the price decision starts at the stand, as the spec says.
+- **Moments:** the sold-out sign, the first run of five "What a deal!"s, the first run of three walk-offs, and the busiest hour as a fallback; at most three. Each slows the day to 0.5× for 30 game minutes with a banner.
+- **Weekly goal:** units, earnings or "beat your best Saturday", picked deterministically each Monday from what the player has done; meeting it pays a $30 bonus. The week summary is shown with Sunday's report.
+- **Sharp eye** shows what the "What a deal!" crowd would have paid, in the live panel and the report, rather than on each bubble.
+- **Gig days** are a 20-second sequence of lines (skippable), not the street scene. Each gig shows what it teaches: two made-up neighborhoods' tastes, a stall owner's batch call and how it went, or reactions at a $1 price.
+- **No music in P1.** Benjamin found the generated music ominous, and GDD-v2 retires it. Ambience and effects play. Music work waits for his reference tracks.
+- **The city is made up** with a Nashville feel (Benjamin's call): neighborhood names like Riverside, Depot Square, Fiddler's Row.
+
+**Checks:** P1 bots 5/5 (`npm run audit`, v2 section): never changing 56%, handed-off 96%, $0.55 24%, stand day 7, cart day 15. `npm run paper` 17/17. v1 balance 10/10 and audit unchanged.

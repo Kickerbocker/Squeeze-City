@@ -737,6 +737,17 @@ Findings from building games ourselves. These are the strongest evidence in this
 11. **A simulation may already support twin-day comparison.** Ours drew the same four random numbers per passer-by whether or not they stopped. A one-day test showed identical arrivals with and without each purchase. Only purchases that change how many people arrive broke it.
 12. **Test a limitation before writing it down.** We recorded that the engine could not do the comparison in point 11 without reading the code. A ten-minute test showed it could.
 
+### Squeeze City, second playtest and v2 research, 2026-10-10
+
+13. **Fixing an economy cannot create decisions the core loop lacks.** Purchases were made to pay back and their effects were shown. The second playtest still "got mundane really quick": the recipe never changed and 83% of days were skipped. Design the daily decision first.
+14. **Explaining after the fact works; explaining before in the model's terms does not.** A report card showing a hire losing $13 a day led the player to fire him. A projection built from multipliers was opened twice and never again.
+15. **A number with no reference point gets set wrong.** The player priced at about half the best price for 23 days and nothing told him. Games that show a customer's reaction at the price tag (Moonlighter, Recettear) make a low price visible at once. `[E]`
+16. **Every hidden, fixed target gets found and shared.** In this research pass that held for Lemonade Tycoon 2's recipe, Kairosoft's perfect dish, Moonlighter's price multiplier and Schedule I's best mix. What stayed interesting moved for a reason the player could see. `[E]`
+17. **A penalty and a bonus can be the same arithmetic and feel opposite.** The research recommended a penalty for repeating a dish. The player rejected it as a chore and asked for a reward for trying something new. Start from a baseline where doing nothing new is fine.
+18. **Older businesses become homework unless they can be handed off.** Big Ambitions' reviews say so in those words. `[E]` The player asked for the same thing unprompted: decisions that become automatic "as the game progresses and priorities change". Cap what a stage asks for, and offer a hand-off with each new decision.
+19. **Real-world margins make poor game rewards.** A real food truck nets less per day than a busy cart might. Take the order of the climb and the kinds of cost from life, and let game money grow faster.
+20. **A paper model tuned until it passes proves the numbers are consistent and nothing more.** Ours passed 17 of 17 checks after several rounds of tuning. It says nothing about fun.
+
 Each game's own detail lives in its `docs/learning/LESSONS.md`.
 
 ---
@@ -823,5 +834,6 @@ None yet. A finding contradicted twice by our own development moves here with th
 
 | Date | Change |
 |---|---|
+| 2026-10-10 | Added findings 13 to 20 in section 15 from Squeeze City's second playtest, the v2 research pass and the player's reaction to it. The research itself is in `BRIEF-v2.md`. |
 | 2026-10-09 | Added findings 8 to 12 in section 15 from Squeeze City's design review and experiments. Corrected section 4.4 on what a twin-day comparison needs. Extended failure 21. |
 | 2026-10-09 | File created from two research passes (design fundamentals and failure modes; a catalog of proven elements and how to show purchase effects) and from Squeeze City's first playtest and decision audit. |

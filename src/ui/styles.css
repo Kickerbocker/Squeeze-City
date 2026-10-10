@@ -315,3 +315,17 @@ section.card.upgrade { border-top: 1px solid var(--line); }
   #app > .enter, .logo-lemon { animation: none; }
   .tab, .progress > div { transition: none; }
 }
+
+/* P1 prototype */
+.p1-card { border: 2px solid var(--lemon); margin-bottom: 14px; }
+.title-screen h4 { margin: 4px 2px 8px; }
+.p1 .big { font-size: 20px; }
+.p1 .mode { margin: 8px 0; }
+.p1 .suggest { padding: 6px 0; }
+.soldout-banner { margin: 6px 16px 0; padding: 8px 12px; border-radius: 10px; background: var(--bad); color: #fff; font-weight: 700; font-size: 14px; }
+.moment-banner { margin: 6px 16px 0; padding: 8px 12px; border-radius: 10px; background: var(--ink); color: var(--bg); font-weight: 700; font-size: 14px; text-align: center; animation: rise .2s ease-out; }
+.reactions-card { margin: 8px 16px 0; }
+.reactions { font-size: 18px; letter-spacing: .02em; padding-top: 2px; }
+.gig-lines li { padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
+.gig-lines li:last-child { border-bottom: 0; }
+.gig-lines li.enter { animation: rise .3s ease-out; }

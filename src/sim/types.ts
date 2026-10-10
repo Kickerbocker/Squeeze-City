@@ -205,7 +205,11 @@ export type Bubble =
   | 'slowService'
   | 'tooExpensive'
   | 'lineTooLong'
-  | 'soldOut';
+  | 'soldOut'
+  /** P1 price-tag reactions: would have paid much more, about right, bought reluctantly. */
+  | 'deal'
+  | 'fair'
+  | 'pricey';
 
 export interface StockSnapshot {
   lemons: number;
