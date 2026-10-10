@@ -16,7 +16,9 @@ class Audio {
   private dayOn = false;
 
   constructor() {
-    this.engine.onReady(() => this.music.start());
+    this.engine.onReady(() => {
+      if (this.musicOn) this.music.start();
+    });
   }
 
   get muted(): boolean {
@@ -46,6 +48,16 @@ class Audio {
 
   setEffectsVolume(v: number): void {
     this.engine.setEffectsVolume(v);
+  }
+
+  private musicOn = true;
+
+  /** Turn the generated music off or on (the P1 prototype plays without it). */
+  setMusicOn(on: boolean): void {
+    if (on === this.musicOn) return;
+    this.musicOn = on;
+    if (on) this.engine.onReady(() => this.music.start());
+    else this.music.stop();
   }
 
   /** What the music should follow. Safe to call often; it only changes at bar lines. */

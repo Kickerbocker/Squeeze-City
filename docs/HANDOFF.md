@@ -182,3 +182,19 @@ Chat has written the v2 research and design. **Nothing is approved to build unti
 > Read CLAUDE.md, docs/GDD-v2.md and docs/specs/P1-prototype.md. Use the game-build-verify skill. Build P1 exactly as the spec says on a branch named claude/p1-prototype and open a pull request. The v1 game must keep working; P1 is its own mode with its own save. Start from the numbers in scripts/paper-economy-v2.mjs. Add the play log fields the spec lists. Propose your plan first and wait for my approval.
 
 **Playtest 3** follows P1. Its five questions and the conditions for reworking the design are at the end of the P1 spec.
+
+## I. P1 built (2026-10-10)
+
+P1 is on the title screen as **"New: Hustle (prototype)"**, with its own save. The v1 game is unchanged.
+
+**Playtest 3 (you):** play to the food cart unlock, about 20 game days (the careful bot gets there around day 15). Then ☰ → **Export play log**, and add it to `docs/playtests/` or upload it. Answer:
+
+1. Tell me about a morning where you changed your plan. What did you see that made you change it?
+2. What did the faces tell you?
+3. Was there a day you were glad you watched? A day you skipped and wished you hadn't?
+4. When did setting the batch start to feel routine, if it did? What did you do then?
+5. How did the report's "what you missed" lines read to you?
+
+Also still needed: **one or two songs or game soundtracks** that sound right to you, so music can be made to match.
+
+`npm run playlog -- <file>` reads a P1 log and checks the spec's rework conditions automatically.

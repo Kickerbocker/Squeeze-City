@@ -187,3 +187,92 @@ export function analyze(log: PlayLog): string {
   }
   return out.join('\n');
 }
+
+// ---------------------------------------------------------------- P1 prototype logs
+
+interface P1LogLike {
+  mode: 'p1';
+  seed: number;
+  configHash: string;
+  createdAt: string;
+  sessions: { days: number; activeSec: number }[];
+  days: {
+    day: number;
+    stage: string;
+    choice: string;
+    gigAfterStand?: boolean;
+    forecast: { right: boolean };
+    batch?: number;
+    batchMode?: string;
+    price?: number;
+    sold?: number;
+    leftover?: number;
+    walkedSoldOut?: number;
+    street?: [number, number];
+    reactions?: { deal: number; fair: number; pricey: number; walk: number };
+    income: number;
+    missed: { kind: string; size: number }[];
+    missedSeen: boolean;
+    moments: { kind: string; onScreen: boolean; speed: number | null }[];
+    morningSec: number;
+    watchSec: number;
+    skippedAt: number | null;
+    skillsSpent: string[];
+    edits: { batch: number; price: number };
+  }[];
+  counters: Record<string, number>;
+}
+
+/** The P1 report, built around Playtest 3's questions and rework conditions. */
+export function analyzeP1(log: P1LogLike): string {
+  const out: string[] = [];
+  const line = (s = '') => out.push(s);
+  const days = log.days;
+  line(`# P1 play log report`);
+  line(`seed ${log.seed} · config ${log.configHash} · started ${log.createdAt.slice(0, 10)} · days logged: ${days.length}`);
+  line(`sessions: ${log.sessions.length} · total active ${secs(log.sessions.reduce((a, s) => a + s.activeSec, 0))}`);
+  if (!days.length) return out.join('\n');
+  const biz = days.filter((d) => d.choice === 'business');
+  const stand = biz.filter((d) => d.stage === 'stand');
+  line(`\n## The climb`);
+  const firstOf = (stage: string) => days.find((d) => d.stage === stage)?.day;
+  line(`market table from day ${firstOf('market') ?? '—'} · drink stand from day ${firstOf('stand') ?? '—'} · gig days after the stand opened: ${days.filter((d) => d.gigAfterStand).length}`);
+  line(`skills: ${days.flatMap((d) => d.skillsSpent.map((s) => `${s} (day ${d.day})`)).join(', ') || 'none'}`);
+  line(`\n## Rework checks (P1 spec)`);
+  const first15 = days.filter((d) => d.day <= 15);
+  const skipped15 = first15.filter((d) => d.skippedAt !== null).length;
+  line(`skipped in the first 15 days: ${skipped15}/${first15.length} (${pct(skipped15, first15.length)}) — rework if over 70%`);
+  const yours = biz.filter((d) => d.batchMode === 'yours');
+  const quick = yours.filter((d) => d.morningSec < 10).length;
+  line(`mornings under 10 s before anything is handed off: ${pct(quick, yours.length)} of ${yours.length} — rework if over 60%`);
+  const standOpen = firstOf('stand');
+  if (standOpen !== undefined) {
+    const inRange = stand.find((d) => d.street && d.price !== undefined && d.price >= d.street[0] && d.price <= d.street[1]);
+    line(`price first inside the street range: ${inRange ? `day ${inRange.day} (${inRange.day - standOpen} days after the stand opened)` : 'never'} — rework if over 5 days`);
+  }
+  let changed = 0;
+  for (let i = 1; i < biz.length; i++) if (biz[i]!.batch !== biz[i - 1]!.batch || biz[i]!.price !== biz[i - 1]!.price) changed++;
+  line(`batch or price changed on ${pct(changed, Math.max(1, biz.length - 1))} of business days — worked if at least 40%`);
+  line(`skipped overall: ${pct(days.filter((d) => d.skippedAt !== null).length, days.length)} — worked if under half`);
+  const handed = biz.filter((d) => d.batchMode === 'handed').length;
+  line(`batch handed off on ${handed} days; suggested (Prep sense) on ${biz.filter((d) => d.batchMode === 'helped').length}`);
+  line(`\n## Attention`);
+  line(`planning: median ${secs(median(days.map((d) => d.morningSec)))} · watching: median ${secs(median(days.map((d) => d.watchSec)))}`);
+  const ms = days.flatMap((d) => d.moments);
+  line(`labelled moments on screen: ${ms.filter((m) => m.onScreen).length}/${ms.length}`);
+  line(`"what you missed" scrolled into view on ${pct(biz.filter((d) => d.missedSeen).length, biz.length)} of business days`);
+  line(`board edits per business day: batch ${mean(biz.map((d) => d.edits.batch)).toFixed(1)}, price ${mean(stand.map((d) => d.edits.price)).toFixed(1)}`);
+  if (stand.length) {
+    line(`\n## The drink stand`);
+    const r = stand.reduce((a, d) => ({ deal: a.deal + (d.reactions?.deal ?? 0), fair: a.fair + (d.reactions?.fair ?? 0), pricey: a.pricey + (d.reactions?.pricey ?? 0), walk: a.walk + (d.reactions?.walk ?? 0) }), { deal: 0, fair: 0, pricey: 0, walk: 0 });
+    line(`reactions: 🤩 ${r.deal} · 🙂 ${r.fair} · 😬 ${r.pricey} · 🙅 ${r.walk}`);
+    line(`prices: ${stand.map((d) => `$${d.price?.toFixed(2)}`).join(' ')}`);
+    line(`sold-out days: ${stand.filter((d) => (d.walkedSoldOut ?? 0) > 0).length}/${stand.length} · profit per day: ${usd(mean(stand.map((d) => d.income)))}`);
+  }
+  const missed = new Map<string, number>();
+  for (const d of biz) for (const m of d.missed) missed.set(m.kind, (missed.get(m.kind) ?? 0) + 1);
+  line(`missed lines shown: ${[...missed].map(([k, n]) => `${k} ${n}`).join(' · ') || 'none'}`);
+  line(`forecast right: ${pct(days.filter((d) => d.forecast.right).length, days.length)}`);
+  if (Object.keys(log.counters).length) line(`counters: ${Object.entries(log.counters).map(([k, n]) => `${k} ${n}`).join(' · ')}`);
+  return out.join('\n');
+}

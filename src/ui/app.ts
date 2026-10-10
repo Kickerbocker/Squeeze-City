@@ -9,12 +9,13 @@ import { renderDay, SPEED_KEY } from './screens/day';
 import { renderHub } from './screens/hub';
 import { renderReport } from './screens/report';
 import { renderStats } from './screens/stats';
+import { P1Mode } from './p1/p1';
 import { renderTitle } from './screens/title';
 
 /** A played day; `attribution` arrives a moment later from the worker (null until then). */
 export type PlayedDay = DayResult & { attribution: AttributionLine[] | null };
 
-export type Screen = 'title' | 'hub' | 'day' | 'report' | 'stats';
+export type Screen = 'title' | 'hub' | 'day' | 'report' | 'stats' | 'p1';
 /** Fingerprint of the tuning this build plays with, stamped on play logs. */
 export const CONFIG_HASH = hashJson(CONFIG);
 
@@ -26,6 +27,8 @@ export class App {
   readonly slots: SaveSlots;
   /** Records how the game is played, for design analysis. Never read by the sim. */
   readonly playlog: PlayLogger;
+  /** The v2 prototype (P1), with its own save and screens. */
+  readonly p1: P1Mode;
   slot: number | null = null;
   state: GameState | null = null;
   screen: Screen = 'title';
@@ -40,6 +43,7 @@ export class App {
     this.root = root;
     this.slots = new SaveSlots(storage);
     this.playlog = new PlayLogger(storage);
+    this.p1 = new P1Mode(this);
     if (typeof document !== 'undefined') {
       document.addEventListener('visibilitychange', () => this.playlog.setHidden(document.visibilityState === 'hidden'));
       window.addEventListener('pagehide', () => this.playlog.close());
@@ -144,8 +148,16 @@ export class App {
     window.scrollTo(0, 0);
   }
 
+  /** Opens the P1 prototype; `fresh` starts it over. */
+  openP1(fresh: boolean): void {
+    audio.unlock();
+    this.p1.start(fresh);
+    this.go('p1');
+  }
+
   /** The music follows the screen: calm title and mornings, the day itself, a warm evening. */
   private setMusic(sameScreen: boolean): void {
+    audio.setMusicOn(this.screen !== 'p1');
     const s = this.state;
     const loc = s?.stands.find((st) => st.locationId)?.locationId ?? 'maple';
     if (this.screen === 'title' || !s) audio.setMood({ scene: 'title' });
@@ -184,6 +196,9 @@ export class App {
         break;
       case 'stats':
         renderStats(this);
+        break;
+      case 'p1':
+        this.p1.render();
         break;
     }
     const next = this.root.querySelector<HTMLElement>('.scroll');

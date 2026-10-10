@@ -37,6 +37,21 @@ export function renderTitle(app: App): void {
       ),
       h(
         'section',
+        { class: 'card p1-card' },
+        h('div', { class: 'slot-head' }, h('strong', null, '🛵 New: Hustle (prototype)'), h('span', { class: 'chip good' }, 'P1')),
+        h('p', { class: 'small' }, 'Start with nothing: take gigs, bake for the market, then run a drink stand. A plain test of the new game’s first days.'),
+        h(
+          'div',
+          { class: 'row' },
+          app.p1.hasSave()
+            ? h('button', { class: 'btn primary grow', onclick: () => app.openP1(false) }, 'Continue')
+            : h('button', { class: 'btn primary grow', onclick: () => app.openP1(true) }, 'Play the prototype'),
+          app.p1.hasSave() ? h('button', { class: 'btn', onclick: () => confirmNewP1(app) }, 'New') : null,
+        ),
+      ),
+      h('h4', null, 'The current game'),
+      h(
+        'section',
         { class: 'slots' },
         ...slots.map(({ slot, state, error }) => {
           const label = `Slot ${slot + 1}`;
@@ -95,4 +110,8 @@ function confirmNew(app: App, slot: number, broken: boolean): void {
   };
   if (broken) start();
   else confirmSheet(`Start a new game in slot ${slot + 1}?\nThe current save will be lost.`, 'Start new game', start, true);
+}
+
+function confirmNewP1(app: App): void {
+  confirmSheet('Start the Hustle prototype over from day 1?', 'Start over', () => app.openP1(true), true);
 }
