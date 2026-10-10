@@ -1,8 +1,9 @@
 import { CAMPAIGNS, CONFIG, type LocationId } from '../../../config';
 import { campaignStrength } from '../../../sim/marketing';
 import type { App } from '../../app';
-import { canAfford } from '../../components';
+import { canAfford, selectedStand } from '../../components';
 import { h } from '../../dom';
+import { purchaseLines } from '../../purchase';
 import { locName, money } from '../../text';
 
 export function marketingTab(app: App): HTMLElement {
@@ -10,6 +11,9 @@ export function marketingTab(app: App): HTMLElement {
   const m = CONFIG.marketing;
   const unlocked = CONFIG.locations.locations.filter((l) => s.locations[l.id].unlocked).map((l) => l.id);
   const active = s.campaigns.filter((c) => campaignStrength(c, s.day, CONFIG) > 0);
+  // Flyers are projected for the selected stand's spot (or the first open one).
+  const here = selectedStand(app).locationId ?? s.stands.find((st) => st.locationId)?.locationId ?? null;
+  const hereStand = s.stands.find((st) => st.locationId === here) ?? null;
 
   const chooseLocation = (onPick: (id: LocationId) => void) => {
     const close = () => sheet.remove();
@@ -68,6 +72,18 @@ export function marketingTab(app: App): HTMLElement {
           h('strong', null, c.name),
           h('div', { class: 'small' }, effect),
           h('div', { class: 'small muted' }, `${c.days} days, fading · ${c.scope === 'all' ? 'all stands' : 'one location'}`),
+          c.scope === 'location' && here ? h('div', { class: 'small muted' }, `At ${locName(here)}:`) : null,
+          c.scope === 'location' && !here
+            ? null
+            : purchaseLines(s, {
+                action: c.scope === 'location' ? { type: 'startCampaign', campaign: id, locationId: here! } : { type: 'startCampaign', campaign: id },
+                kind: 'campaign',
+                item: id,
+                onMath: () => app.playlog.mathOpened(id),
+                standId: c.scope === 'location' ? (hereStand?.id ?? null) : null,
+                upfront: null,
+                dailyNote: 'after cost',
+              }),
         ),
         h(
           'button',

@@ -20,8 +20,10 @@ export const DEFAULT_LAYOUT: Layout = {
   width: 390,
   counterX: 270,
   queueGap: 21,
-  walkSpeed: 34,
-  linger: 5,
+  // M10: the day runs at 9 game minutes per second (was 3), so walking and bubbles are set in
+  // game minutes to look about the same on screen: ~125 px/s and ~1.5 s per bubble at 1×.
+  walkSpeed: 14,
+  linger: 14,
   visibleQueue: 12,
 };
 

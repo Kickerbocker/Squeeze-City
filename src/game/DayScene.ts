@@ -10,8 +10,8 @@ export const SCENE_H = 460;
 export const RES = 2;
 /** On-screen size of customer figures relative to their 22×36 design size. */
 const FIG_SCALE = 1.35;
-/** Game minutes per real second at 1x: a 540-minute day takes 3 minutes. */
-export const MINUTES_PER_SECOND = 3;
+/** Game minutes per real second at 1x: a 540-minute day takes 1 minute (M10; was 3). */
+export const MINUTES_PER_SECOND = 9;
 
 export interface StandView {
   id: number;

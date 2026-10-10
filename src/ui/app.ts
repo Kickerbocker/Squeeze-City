@@ -1,6 +1,7 @@
 import { CONFIG } from '../config';
 import { SaveSlots } from '../save/save';
-import { type Action, type DayResult, dispatch, type GameState, newGame, runDay } from '../sim';
+import { type Action, type AttributionLine, type DayResult, dispatch, type GameState, newGame, runDay } from '../sim';
+import { computeAttribution } from './attribution';
 import { audio } from './audio';
 import { hashJson, PlayLogger } from './playlog/log';
 import { toast } from './dom';
@@ -9,6 +10,9 @@ import { renderHub } from './screens/hub';
 import { renderReport } from './screens/report';
 import { renderStats } from './screens/stats';
 import { renderTitle } from './screens/title';
+
+/** A played day; `attribution` arrives a moment later from the worker (null until then). */
+export type PlayedDay = DayResult & { attribution: AttributionLine[] | null };
 
 export type Screen = 'title' | 'hub' | 'day' | 'report' | 'stats';
 /** Fingerprint of the tuning this build plays with, stamped on play logs. */
@@ -27,9 +31,9 @@ export class App {
   screen: Screen = 'title';
   hubTab: HubTab = 'shop';
   selectedStand = 0;
-  lastDay: DayResult | null = null;
+  lastDay: PlayedDay | null = null;
   /** Report shown on the report screen (the day just played). */
-  pendingReport: DayResult | null = null;
+  pendingReport: PlayedDay | null = null;
   private cleanup: (() => void) | null = null;
 
   constructor(root: HTMLElement, storage: Storage) {
@@ -94,16 +98,37 @@ export class App {
     this.go('hub');
   }
 
-  /** Runs the day in the sim (instant), autosaves the night, then plays the replay. */
+  /**
+   * Runs the day in the sim (instant), autosaves the night, then plays the replay. "What your
+   * purchases did" (M10) is worked out in the background and merged in when it arrives.
+   */
   openForBusiness(): void {
     audio.unlock();
     const morning = this.game;
     const result = runDay(morning, {}, CONFIG);
+    const played: PlayedDay = { ...result, attribution: null };
     this.playlog.dayStarted(morning, result, Number(sessionStorage.getItem(SPEED_KEY) ?? 1) || 1);
     this.state = result.state;
     this.persist();
-    this.pendingReport = result;
+    this.pendingReport = played;
     this.go('day');
+    void computeAttribution(morning, {}).then((a) => {
+      played.attribution = a.attribution;
+      played.state = a.state;
+      this.playlog.attribution(result.report.day, a.attribution);
+      // Merge the ledger, forecast history and yesterday's numbers into the live game. Anything
+      // bought since (unlikely, the day is still playing) stays at the end of the ledger.
+      if (this.state && this.state.seed === a.state.seed && this.state.day === a.state.day) {
+        this.state = {
+          ...this.state,
+          purchases: [...a.state.purchases, ...this.state.purchases.slice(a.state.purchases.length)],
+          forecastHistory: a.state.forecastHistory,
+          yesterday: a.state.yesterday,
+        };
+        this.persist();
+        if (this.screen === 'report' || this.screen === 'hub') this.render();
+      }
+    });
   }
 
   finishDay(): void {

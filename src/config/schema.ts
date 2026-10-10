@@ -223,6 +223,27 @@ export const progressionSchema = obj({
   }),
 });
 
+/** M10: purchase projections and the "what your purchases did" report. */
+export const feedbackSchema = obj({
+  /** Sample days per projection. */
+  projectionSamples: num({ min: 1, int: true }),
+  /** Typical range: these positions (1-based) in the sorted samples. */
+  rangeLow: num({ min: 1, int: true }),
+  rangeHigh: num({ min: 1, int: true }),
+  /** Below this projected gain per day, the card says it won't help yet. */
+  minUsefulGain: pos,
+  /** Projected gains round to roundFine below roundFineBelow, roundCoarse above. */
+  roundFineBelow: pos,
+  roundFine: num({ min: 0.01 }),
+  roundCoarse: num({ min: 0.01 }),
+  reportLinesPerStand: num({ min: 1, int: true }),
+  /** Radio and TV change who arrives, so their effect is averaged over this many sample days. */
+  trafficCampaignSamples: num({ min: 1, int: true }),
+  forecastHistoryDays: num({ min: 1, int: true }),
+  /** Units of each ingredient given to a projected day so nothing sells out. */
+  projectionStock: num({ min: 1, int: true }),
+});
+
 export const configSchema = obj({
   calendar: calendarSchema,
   weather: weatherSchema,
@@ -238,6 +259,7 @@ export const configSchema = obj({
   marketing: marketingSchema,
   events: eventsSchema,
   progression: progressionSchema,
+  feedback: feedbackSchema,
 });
 
 export type GameConfig = Infer<typeof configSchema>;
@@ -276,6 +298,8 @@ export const validateConfig: Guard<GameConfig> = (raw, path) => {
   check(stands.licenseCosts.length === stands.maxStands, `${p}.stands.licenseCosts`, 'one cost per stand');
   check(staff.minSkill <= staff.candidateSkillMax && staff.candidateSkillMax <= staff.maxSkill, `${p}.staff`, 'skill bounds');
   check(STAFF_ROLES.some((r) => staff.roles[r].forHire), `${p}.staff.roles`, 'at least one role must be for hire');
+  const fb = c.feedback;
+  check(fb.rangeLow <= fb.rangeHigh && fb.rangeHigh <= fb.projectionSamples, `${p}.feedback`, 'range positions must lie within the samples');
   check(staff.names.length >= staff.poolSize, `${p}.staff.names`, 'need at least poolSize names');
   const nw = progression.milestones.netWorth;
   check(nw.thresholds.length === nw.bonuses.length, `${p}.progression.milestones.netWorth`, 'one bonus per threshold');

@@ -1,9 +1,97 @@
 import { CONFIG } from '../../config';
-import type { Bubble, StandReport } from '../../sim';
+import type { AttributionLine, Bubble, DayReport, GameState, StandReport } from '../../sim';
 import type { App } from '../app';
 import { barChart } from '../charts';
 import { h, mount, toastSequence } from '../dom';
 import { BUBBLES, CONDITION_ICON, locName, milestoneText, money, temp } from '../text';
+
+const signed = (x: number) => `${x < 0 ? '−' : '+'}${money(Math.abs(x))}`;
+
+function itemName(l: AttributionLine, s: GameState): string {
+  const U = CONFIG.upgrades;
+  switch (l.kind) {
+    case 'upgrade': {
+      if (l.item === 'body' || l.item === 'juicer' || l.item === 'register') {
+        const p = l.purchase !== undefined ? s.purchases[l.purchase] : undefined;
+        return U[l.item].tiers[p?.tier ?? 1]?.name ?? U[l.item].name;
+      }
+      return U[l.item as 'neon'].name;
+    }
+    case 'staff':
+      return `${l.name}, ${CONFIG.staff.roles[l.item as 'server'].name}`;
+    case 'campaign':
+      return CONFIG.marketing.campaigns[l.item as 'flyers'].name;
+    case 'forecast':
+      return U.radio.name;
+  }
+}
+
+function countText(l: AttributionLine): string {
+  const n = Math.abs(l.count);
+  const people = n === 1 ? 'person' : 'people';
+  switch (l.measure) {
+    case 'none':
+      return '';
+    case 'stopped':
+      if (n === 0) return 'No more people stopped';
+      return `${l.approx ? 'About ' : ''}${n} ${l.count > 0 ? 'more' : 'fewer'} ${people} stopped`;
+    case 'leftLine':
+      if (n === 0) return 'Nobody would have left the line without it';
+      return `${n} ${l.count > 0 ? 'fewer' : 'more'} ${people} left the line`;
+    case 'served':
+      if (n === 0) return 'No more cups sold';
+      return `${n} ${l.count > 0 ? 'more' : 'fewer'} cups sold`;
+  }
+}
+
+const hasCovered = (s: GameState) => s.purchases.some((p) => !p.replaced && p.paidOffDay === undefined) || s.stands.some((st) => st.staff.length > 0) || s.campaigns.length > 0;
+
+/** M10: "What your purchases did today", grouped by stand, largest effect first. */
+function purchasesCard(lines: AttributionLine[], r: DayReport, s: GameState): HTMLElement | null {
+  if (!lines.length) return null;
+  const wet = r.weather.condition === 'rain' || r.weather.condition === 'storm';
+  const groups = new Map<number | null, AttributionLine[]>();
+  for (const l of lines) groups.set(l.standId, [...(groups.get(l.standId) ?? []), l]);
+  const multi = r.stands.length > 1 || groups.size > 1;
+  const rowFor = (l: AttributionLine) => {
+    if (l.kind === 'forecast') {
+      return h('div', { class: 'did-row' }, h('div', { class: 'row spread' }, h('strong', null, itemName(l, s)), h('span', { class: 'small' }, `Forecast right ${l.forecast!.right} of the last ${l.forecast!.of} days`)));
+    }
+    const after = l.kind === 'staff' ? ' after wages' : l.kind === 'campaign' ? ' after cost' : '';
+    const p = l.purchase !== undefined ? s.purchases[l.purchase] : undefined;
+    const paidToday = p?.paidOffDay === r.day;
+    return h(
+      'div',
+      { class: 'did-row' },
+      h(
+        'div',
+        { class: 'row spread' },
+        h('strong', null, itemName(l, s)),
+        h('span', { class: `small ${l.profit < 0 ? 'bad' : 'good'}` }, `${l.approx ? 'about ' : ''}${signed(l.profit)} today${after}`),
+      ),
+      countText(l) ? h('div', { class: 'small muted' }, countText(l)) : null,
+      p && !paidToday
+        ? h(
+            'div',
+            { class: 'progress', title: 'Earned back' },
+            h('div', { style: `width:${Math.max(0, Math.min(100, (p.earnedBack / Math.max(0.01, p.cost)) * 100))}%` }),
+            h('span', null, `${money(Math.max(0, p.earnedBack), false)} of ${money(p.cost, false)} earned back`),
+          )
+        : null,
+      paidToday ? h('div', { class: 'small good' }, `Paid off in ${p!.paidOffDay! - p!.day + 1} days ✓`) : null,
+      wet && l.profit < 0 ? h('div', { class: 'small muted' }, 'Rain kept people home.') : null,
+    );
+  };
+  const blocks: HTMLElement[] = [];
+  const keys = [...groups.keys()].sort((a, b) => (a === null ? 1 : b === null ? -1 : a - b));
+  for (const k of keys) {
+    const ls = groups.get(k)!.sort((a, b) => Math.abs(b.profit) - Math.abs(a.profit)).slice(0, CONFIG.feedback.reportLinesPerStand);
+    const sr = r.stands.find((x) => x.standId === k);
+    if (multi) blocks.push(h('h4', null, k === null ? 'Whole business' : `Stand #${k + 1}${sr ? ` · ${locName(sr.locationId)}` : ''}`));
+    blocks.push(...ls.map(rowFor));
+  }
+  return h('section', { class: 'card did' }, h('h3', null, 'What your purchases did today'), ...blocks);
+}
 
 export function renderReport(app: App): void {
   const r = app.lastDay!.report;
@@ -57,6 +145,9 @@ export function renderReport(app: App): void {
           r.inspection ? h('p', { class: r.inspection.fined ? 'warn small' : 'small good' }, r.inspection.fined ? `🕵️ The health inspector found spoiled lemons: ${money(r.inspection.fine, false)} fine and reputation −${CONFIG.events.inspector.repPenalty}.` : '🕵️ The health inspector visited. All clean!') : null,
           r.spoiledLemons ? h('p', { class: 'small muted' }, `${r.spoiledLemons} lemons went bad and were thrown out.`) : null,
         ),
+        app.lastDay!.attribution === null && hasCovered(app.lastDay!.state)
+          ? h('section', { class: 'card did' }, h('h3', null, 'What your purchases did today'), h('p', { class: 'small muted' }, 'Working it out…'))
+          : purchasesCard(app.lastDay!.attribution ?? [], r, app.lastDay!.state),
         ...r.stands.map((s) => standCard(s, r.stands.length > 1)),
         r.stands.length === 0 ? h('p', { class: 'muted center' }, 'No stands were open today.') : null,
       ),

@@ -99,8 +99,15 @@ export function applyAction(s: GameState, a: Action, cfg: GameConfig): void {
       if (!forSale(a.upgrade, cfg)) throw new ActionError('Not for sale');
       spend(s, cost, 'capital');
       const u = stand.upgrades;
-      if (a.upgrade === 'body' || a.upgrade === 'juicer' || a.upgrade === 'register') u[a.upgrade] += 1;
-      else u[a.upgrade] = true;
+      if (a.upgrade === 'body' || a.upgrade === 'juicer' || a.upgrade === 'register') {
+        u[a.upgrade] += 1;
+        // M10 ledger: the new tier replaces the old one in "what your purchases did".
+        for (const p of s.purchases) if (p.standId === stand.id && p.item === a.upgrade) p.replaced = true;
+        s.purchases.push({ item: a.upgrade, tier: u[a.upgrade], standId: stand.id, day: s.day, cost, earnedBack: 0 });
+      } else {
+        u[a.upgrade] = true;
+        s.purchases.push({ item: a.upgrade, standId: stand.id, day: s.day, cost, earnedBack: 0 });
+      }
       return;
     }
     case 'buyGlobalUpgrade': {
@@ -108,6 +115,7 @@ export function applyAction(s: GameState, a: Action, cfg: GameConfig): void {
       if (!forSale(a.upgrade, cfg)) throw new ActionError('Not for sale');
       spend(s, cfg.upgrades[a.upgrade].cost, 'capital');
       s.globalUpgrades[a.upgrade] = true;
+      s.purchases.push({ item: a.upgrade, standId: null, day: s.day, cost: cfg.upgrades[a.upgrade].cost, earnedBack: 0 });
       return;
     }
     case 'buyLicense': {

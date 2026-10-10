@@ -1,7 +1,8 @@
 // Versioned localStorage saves. Format: { version, state }.
-import type { GameState } from '../sim';
+import { CONFIG, type GameConfig } from '../config';
+import type { GameState, Purchase } from '../sim';
 
-export const SAVE_VERSION = 1;
+export const SAVE_VERSION = 2;
 export const SLOT_COUNT = 3;
 const KEY = (slot: number) => `squeeze-city:slot:${slot}`;
 
@@ -23,7 +24,34 @@ export class SaveError extends Error {}
  * Migrations from version N to N+1. Add one whenever GameState changes shape:
  *   MIGRATIONS[1] = (s) => ({ ...s, newField: default })  // upgrades a v1 state to v2
  */
-export const MIGRATIONS: Record<number, (state: any) => any> = {};
+export const MIGRATIONS: Record<number, (state: any) => any> = {
+  1: (s) => migrateToV2(s, CONFIG),
+};
+
+/**
+ * M10 adds the purchase ledger, forecast history and yesterday's numbers. Every upgrade
+ * already owned gets a ledger entry at its current config cost, earning back from today.
+ */
+export function migrateToV2(s: any, cfg: GameConfig): any {
+  const purchases: Purchase[] = [];
+  const day = typeof s?.day === 'number' ? s.day : 1;
+  for (const st of Array.isArray(s?.stands) ? s.stands : []) {
+    const u = st?.upgrades ?? {};
+    for (const item of ['body', 'juicer', 'register'] as const) {
+      const tier = u[item];
+      if (typeof tier === 'number' && tier > 0 && cfg.upgrades[item].tiers[tier]) {
+        purchases.push({ item, tier, standId: st.id, day, cost: cfg.upgrades[item].tiers[tier]!.cost, earnedBack: 0 });
+      }
+    }
+    for (const item of ['cooler', 'umbrella', 'neon', 'speaker'] as const) {
+      if (u[item] === true) purchases.push({ item, standId: st.id, day, cost: cfg.upgrades[item].cost, earnedBack: 0 });
+    }
+  }
+  for (const item of ['fridge', 'radio'] as const) {
+    if (s?.globalUpgrades?.[item] === true) purchases.push({ item, standId: null, day, cost: cfg.upgrades[item].cost, earnedBack: 0 });
+  }
+  return { ...s, purchases, forecastHistory: [], yesterday: null };
+}
 
 export function migrate(raw: unknown, migrations = MIGRATIONS, target = SAVE_VERSION): SaveFile {
   if (typeof raw !== 'object' || raw === null) throw new SaveError('Save is not an object');

@@ -4,7 +4,7 @@
 // Usage: npm run audit [-- --loc maple --seeds 20 --days 28]
 // Version 2 (M9): purchase checks judged across the first five locations, plus the Never-buys and Skimper bots.
 import { CAMPAIGNS, type CampaignId, CONFIG, type GameConfig, type GlobalUpgrade, LOCATION_IDS, type LocationId, type StandUpgrade } from '../src/config';
-import { newGame, runDay, type DayPlan, type DayReport, type GameState } from '../src/sim';
+import { newGame, projectPurchase, runDay, type DayPlan, type DayReport, type GameState } from '../src/sim';
 import { forSale, rolesForHire } from '../src/sim/stand';
 import { runBot } from './balance';
 import { type BotMemory, type BotOptions, botMorning } from './bots';
@@ -32,6 +32,10 @@ const T = {
   unlockDays: 90,
   /** A Skimper gap below this means under-buying is not punished. Reported, not a check. */
   skimperMinGap: 0.1,
+  // M10 (docs/specs/M10-show-what-it-did.md)
+  /** A projection's median may be off from the average measured effect by at most this share. */
+  projectionMaxError: 0.25,
+  projectionLocations: ['maple', 'financial'] as LocationId[],
 };
 
 const mean = (xs: number[]): number => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : NaN);
@@ -278,7 +282,73 @@ export function audit(loc: LocationId, seeds: number, days: number, cfg: GameCon
   }
   checks.push({ name: `At most ${T.idleMaxShare * 100}% of days have nothing to buy or unlock`, value: `${(100 * mean(idle)).toFixed(0)}%`, pass: mean(idle) <= T.idleMaxShare });
   checks.push({ name: `Longest quiet run is at most ${T.gapMaxDays} days`, value: `median ${median(longest)} days`, pass: median(longest) <= T.gapMaxDays });
+  // M10: does the purchase card's projection match what the item actually does?
+  const accuracy = projectionAccuracy(seeds, days, cfg);
+  console.log(`\nPROJECTIONS  median projection vs average measured effect, ${seeds} seeds x ${days} days`);
+  for (const a of accuracy) {
+    console.log(`  ${a.name.padEnd(11)} ${a.locName.padEnd(19)} projected ${money(a.projected)}/day  measured ${money(a.measured)}/day  off by ${(100 * a.error).toFixed(0)}%`);
+  }
+  const off = accuracy.filter((a) => a.error > T.projectionMaxError);
+  checks.push({
+    name: `Projections within ${T.projectionMaxError * 100}% of measured effect`,
+    value: off.length ? `not: ${off.map((a) => `${a.name} @${a.loc}`).join(', ')}` : `${accuracy.length}/${accuracy.length}`,
+    pass: off.length === 0,
+  });
   return checks;
+}
+
+/**
+ * For each item and location: each morning, project buying it (from a copy without it) and
+ * measure what owning it did that day (replay without it). Compare the averages.
+ */
+function projectionAccuracy(seeds: number, days: number, cfg: GameConfig) {
+  const items: [string, StandUpgrade, (s: GameState) => void][] = [
+    [cfg.upgrades.body.tiers[1]!.name, 'body', (s) => void (s.stands[0]!.upgrades.body = 0)],
+    [cfg.upgrades.neon.name, 'neon', (s) => void (s.stands[0]!.upgrades.neon = false)],
+    [cfg.upgrades.register.tiers[1]!.name, 'register', (s) => void (s.stands[0]!.upgrades.register = 0)],
+  ];
+  const own: Record<string, (s: GameState) => void> = {
+    body: (s) => void (s.stands[0]!.upgrades.body = 1),
+    neon: (s) => void (s.stands[0]!.upgrades.neon = true),
+    register: (s) => void (s.stands[0]!.upgrades.register = 1),
+  };
+  const out: { name: string; loc: LocationId; locName: string; projected: number; measured: number; error: number }[] = [];
+  for (const loc of T.projectionLocations) {
+    for (const [name, upgrade, remove] of items) {
+      const proj: number[] = [];
+      const meas: number[] = [];
+      for (let seed = 1; seed <= seeds; seed++) {
+        let s = newGame(cfg, seed);
+        s.cash = T.probeCash;
+        s.locations[loc].unlocked = true;
+        s.stands[0]!.locationId = loc;
+        own[upgrade]!(s);
+        const mem: BotMemory = { lastReport: null };
+        for (let d = 0; d < days; d++) {
+          const m = botMorning(s, mem, { name: 'probe', expand: false }, cfg);
+          const planned = structuredClone(m.state);
+          const sp = m.plan.stands?.[0];
+          if (sp?.recipe) planned.stands[0]!.recipe = sp.recipe;
+          if (sp?.price !== undefined) planned.stands[0]!.price = sp.price;
+          const without = structuredClone(planned);
+          remove(without);
+          const p = projectPurchase(without, { type: 'buyUpgrade', standId: 0, upgrade }, cfg);
+          if (p.kind === 'gain') proj.push(p.median);
+          const r = runDay(m.state, m.plan, cfg);
+          const rw = structuredClone(m.state);
+          remove(rw);
+          meas.push(r.report.profit - runDay(rw, m.plan, cfg).report.profit);
+          mem.lastReport = r.report;
+          s = r.state;
+          s.cash = Math.max(s.cash, T.probeCash);
+        }
+      }
+      const projected = mean(proj);
+      const measured = mean(meas);
+      out.push({ name, loc, locName: cfg.locations.locations.find((l) => l.id === loc)!.name, projected, measured, error: Math.abs(projected - measured) / Math.max(Math.abs(measured), 0.01) });
+    }
+  }
+  return out;
 }
 
 const isMain = process.argv[1]?.endsWith('audit.ts');
