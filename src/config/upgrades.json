@@ -3,33 +3,33 @@
     "name": "Stand body",
     "tiers": [
       { "name": "Cart", "cost": 0, "appeal": 1.0 },
-      { "name": "Stall", "cost": 400, "appeal": 1.15 },
-      { "name": "Kiosk", "cost": 2000, "appeal": 1.35 },
-      { "name": "Shop", "cost": 10000, "appeal": 1.6 }
+      { "name": "Stall", "cost": 120, "appeal": 1.15 },
+      { "name": "Kiosk", "cost": 600, "appeal": 1.35 },
+      { "name": "Shop", "cost": 2500, "appeal": 1.6 }
     ]
   },
   "juicer": {
     "name": "Juicer",
     "tiers": [
       { "name": "None", "cost": 0, "prepMinutes": 4 },
-      { "name": "Juicer I", "cost": 150, "prepMinutes": 3 },
-      { "name": "Juicer II", "cost": 600, "prepMinutes": 2 },
-      { "name": "Juicer III", "cost": 2000, "prepMinutes": 1 }
+      { "name": "Juicer I", "cost": 90, "prepMinutes": 3 },
+      { "name": "Juicer II", "cost": 300, "prepMinutes": 2 },
+      { "name": "Juicer III", "cost": 900, "prepMinutes": 1 }
     ]
   },
   "register": {
     "name": "Register",
     "tiers": [
       { "name": "Cash box", "cost": 0 },
-      { "name": "Register I", "cost": 200 },
-      { "name": "Register II", "cost": 900 }
+      { "name": "Register I", "cost": 120 },
+      { "name": "Register II", "cost": 400 }
     ],
     "serveMultiplierPerTier": 0.8
   },
-  "cooler": { "name": "Cooler", "cost": 250, "meltMultiplier": 0.5 },
-  "umbrella": { "name": "Umbrella", "cost": 120, "patienceBonus": 0.3, "tempAbove": 85, "conditions": ["rain", "storm"] },
-  "neon": { "name": "Neon sign", "cost": 500, "appealBonus": 0.1 },
-  "speaker": { "name": "Speaker", "cost": 350, "stopMultiplier": 1.1, "archetypes": ["kid", "student", "tourist"] },
-  "fridge": { "name": "Fridge", "cost": 800, "lemonSpoilDays": 12 },
-  "radio": { "name": "Weather radio", "cost": 300 }
+  "cooler": { "name": "Cooler", "cost": 250, "forSale": false, "meltMultiplier": 0.5 },
+  "umbrella": { "name": "Umbrella", "cost": 120, "forSale": false, "patienceBonus": 0.3, "tempAbove": 85, "conditions": ["rain", "storm"] },
+  "neon": { "name": "Neon sign", "cost": 90, "appealBonus": 0.1 },
+  "speaker": { "name": "Speaker", "cost": 70, "stopMultiplier": 1.1, "archetypes": ["kid", "student", "tourist"] },
+  "fridge": { "name": "Fridge", "cost": 800, "forSale": false, "lemonSpoilDays": 12 },
+  "radio": { "name": "Weather radio", "cost": 60 }
 }

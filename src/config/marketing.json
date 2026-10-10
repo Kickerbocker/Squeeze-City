@@ -1,7 +1,7 @@
 {
   "adFactorCap": 1.6,
   "campaigns": {
-    "flyers": { "name": "Flyers", "cost": 25, "days": 3, "adBonus": 0.08, "trafficBonus": 0, "scope": "location" },
+    "flyers": { "name": "Flyers", "cost": 18, "days": 3, "adBonus": 0.25, "trafficBonus": 0, "scope": "location" },
     "newspaper": { "name": "Newspaper", "cost": 120, "days": 5, "adBonus": 0.12, "trafficBonus": 0, "scope": "all" },
     "radio": { "name": "Radio", "cost": 400, "days": 7, "adBonus": 0.18, "trafficBonus": 0.05, "scope": "all" },
     "tv": { "name": "TV", "cost": 1500, "days": 10, "adBonus": 0.3, "trafficBonus": 0.12, "scope": "all" }

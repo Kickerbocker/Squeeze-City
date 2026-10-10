@@ -1,5 +1,5 @@
 import { CONFIG, type GlobalUpgrade, type StandUpgrade } from '../../../config';
-import { upgradeCost } from '../../../sim/stand';
+import { forSale, upgradeCost } from '../../../sim/stand';
 import type { App } from '../../app';
 import { canAfford, selectedStand, standLabel, standPicker } from '../../components';
 import { h } from '../../dom';
@@ -62,7 +62,7 @@ export function upgradesTab(app: App): HTMLElement {
       'section',
       { class: 'card' },
       h('h3', null, standLabel(stand)),
-      ...order.map((u) => {
+      ...order.filter((u) => forSale(u, CONFIG) || stand.upgrades[u]).map((u) => {
         const cost = upgradeCost(stand, u, CONFIG);
         const buy = () => app.act({ type: 'buyUpgrade', standId: stand.id, upgrade: u });
         if (u === 'body' || u === 'juicer' || u === 'register') {
@@ -80,7 +80,7 @@ export function upgradesTab(app: App): HTMLElement {
       'section',
       { class: 'card' },
       h('h3', null, 'Whole business'),
-      row(
+      !forSale('fridge', CONFIG) && !s.globalUpgrades.fridge ? null : row(
         ICONS.fridge,
         U.fridge.name,
         s.globalUpgrades.fridge ? `Lemons keep ${U.fridge.lemonSpoilDays} days` : `Lemons keep ${CONFIG.ingredients.lemonSpoilDays} days`,

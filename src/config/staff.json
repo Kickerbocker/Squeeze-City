@@ -7,9 +7,9 @@
   "maxSkill": 5,
   "candidateSkillMax": 3,
   "roles": {
-    "server": { "name": "Server", "baseWage": 40, "wagePerSkill": 10, "speedBase": 0.7, "speedPerSkill": 0.1 },
-    "mixer": { "name": "Mixer", "baseWage": 35, "wagePerSkill": 10, "prepCutBase": 0.3, "prepCutPerSkill": 0.1, "prepFloor": 0.5 },
-    "promoter": { "name": "Promoter", "baseWage": 45, "wagePerSkill": 10, "stopBase": 1.05, "stopPerSkill": 0.03 }
+    "server": { "name": "Server", "forHire": true, "baseWage": 8, "wagePerSkill": 4, "speedBase": 0.7, "speedPerSkill": 0.1 },
+    "mixer": { "name": "Mixer", "forHire": false, "baseWage": 35, "wagePerSkill": 10, "prepCutBase": 0.3, "prepCutPerSkill": 0.1, "prepFloor": 0.5 },
+    "promoter": { "name": "Promoter", "forHire": true, "baseWage": 8, "wagePerSkill": 4, "stopBase": 1.15, "stopPerSkill": 0.05 }
   },
   "names": [
     "Ava", "Ben", "Cleo", "Dev", "Esme", "Finn", "Gus", "Hana", "Ivo", "Jada",

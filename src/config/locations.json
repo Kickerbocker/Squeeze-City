@@ -7,7 +7,7 @@
       "trafficWeekday": 40,
       "trafficWeekend": 70,
       "mix": { "kid": 35, "jogger": 25, "senior": 25, "office": 15 },
-      "unlockCash": 0,
+      "unlockRevenue": 0,
       "unlockRep": 0
     },
     {
@@ -17,7 +17,7 @@
       "trafficWeekday": 50,
       "trafficWeekend": 60,
       "mix": { "senior": 30, "kid": 30, "office": 20, "jogger": 20 },
-      "unlockCash": 300,
+      "unlockRevenue": 300,
       "unlockRep": 40
     },
     {
@@ -27,7 +27,7 @@
       "trafficWeekday": 90,
       "trafficWeekend": 40,
       "mix": { "student": 70, "jogger": 15, "office": 15 },
-      "unlockCash": 1000,
+      "unlockRevenue": 1000,
       "unlockRep": 45
     },
     {
@@ -37,7 +37,7 @@
       "trafficWeekday": 60,
       "trafficWeekend": 150,
       "mix": { "tourist": 45, "kid": 25, "jogger": 30 },
-      "unlockCash": 2500,
+      "unlockRevenue": 5000,
       "unlockRep": 50,
       "weatherAmplify": 1.5,
       "offSeasons": ["fall", "winter"],
@@ -50,7 +50,7 @@
       "trafficWeekday": 180,
       "trafficWeekend": 40,
       "mix": { "office": 85, "tourist": 15 },
-      "unlockCash": 6000,
+      "unlockRevenue": 17500,
       "unlockRep": 55
     },
     {
@@ -60,7 +60,7 @@
       "trafficWeekday": 40,
       "trafficWeekend": 40,
       "mix": { "fan": 70, "student": 15, "kid": 15 },
-      "unlockCash": 12000,
+      "unlockRevenue": 37500,
       "unlockRep": 60,
       "gameDayTraffic": 400,
       "gameDaysPerWeek": 2,
@@ -73,7 +73,7 @@
       "trafficWeekday": 250,
       "trafficWeekend": 300,
       "mix": { "tourist": 60, "office": 20, "student": 10, "kid": 10 },
-      "unlockCash": 30000,
+      "unlockRevenue": 80000,
       "unlockRep": 70
     }
   ]

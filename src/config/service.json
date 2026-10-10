@@ -1,6 +1,5 @@
 {
-  "pitcherPrepMinutes": 4,
-  "serveMinutes": 0.8,
+  "serveMinutes": 2.0,
   "visibleQueue": 12,
   "firstPitcherReadyAtOpen": true
 }

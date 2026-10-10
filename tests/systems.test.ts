@@ -45,26 +45,26 @@ describe('stands, upgrades, staff (GDD §8, §12, §13)', () => {
   });
   it('serve time ×0.8 per register tier; servers add lanes', () => {
     const s = newStand(0, C);
-    expect(serveMinutes(s, C)).toBeCloseTo(0.8);
+    expect(serveMinutes(s, C)).toBeCloseTo(2.0);
     s.upgrades.register = 2;
-    expect(serveMinutes(s, C)).toBeCloseTo(0.512);
+    expect(serveMinutes(s, C)).toBeCloseTo(1.28);
     s.staff.push(staff('server', 2));
     expect(laneSpeeds(s, C)).toEqual([1, expect.closeTo(0.9)]);
   });
   it('promoter and speaker multiply P_stop', () => {
     const s = newStand(0, C);
     s.staff.push(staff('promoter', 5));
-    expect(stopMultiplier(s, 'office', C)).toBeCloseTo(1.2);
+    expect(stopMultiplier(s, 'office', C)).toBeCloseTo(1.4);
     s.upgrades.speaker = true;
-    expect(stopMultiplier(s, 'kid', C)).toBeCloseTo(1.2 * 1.1);
-    expect(stopMultiplier(s, 'senior', C)).toBeCloseTo(1.2);
+    expect(stopMultiplier(s, 'kid', C)).toBeCloseTo(1.4 * 1.1);
+    expect(stopMultiplier(s, 'senior', C)).toBeCloseTo(1.4);
   });
   it('wages and upgrade costs', () => {
-    expect(wage(staff('server', 1), C)).toBe(50);
+    expect(wage(staff('server', 1), C)).toBe(12);
     expect(wage(staff('mixer', 3), C)).toBe(65);
-    expect(wage(staff('promoter', 5), C)).toBe(95);
+    expect(wage(staff('promoter', 5), C)).toBe(28);
     const s = newStand(0, C);
-    expect(upgradeCost(s, 'body', C)).toBe(400);
+    expect(upgradeCost(s, 'body', C)).toBe(120);
     s.upgrades.body = 3;
     expect(upgradeCost(s, 'body', C)).toBeNull();
     expect(upgradeCost(s, 'cooler', C)).toBe(250);
@@ -80,7 +80,7 @@ describe('marketing (GDD §14)', () => {
     expect(campaignStrength(c, 10, C)).toBe(1);
     expect(campaignStrength(c, 11, C)).toBeCloseTo(2 / 3);
     expect(campaignStrength(c, 13, C)).toBe(0);
-    expect(adFactor([c], 'maple', 10, C)).toBeCloseTo(1.08);
+    expect(adFactor([c], 'maple', 10, C)).toBeCloseTo(1.25);
     expect(adFactor([c], 'uptown', 10, C)).toBe(1);
   });
   it('overlapping campaigns multiply, capped at 1.6', () => {

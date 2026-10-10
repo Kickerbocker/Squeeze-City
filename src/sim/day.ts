@@ -465,7 +465,7 @@ export function runDay(state: GameState, plan: DayPlan = {}, cfg: GameConfig = C
   const best = bestRep(s);
   for (const loc of cfg.locations.locations) {
     const ls = s.locations[loc.id];
-    if (!ls.unlocked && s.cash >= loc.unlockCash && best >= loc.unlockRep) {
+    if (!ls.unlocked && s.stats.lifetimeRevenue >= loc.unlockRevenue && best >= loc.unlockRep) {
       ls.unlocked = true;
       unlocked.push(loc.id);
     }

@@ -25,13 +25,16 @@ describe('config loader', () => {
     expect(c.recipe.cupsPerPitcher).toBe(12);
     expect(c.customers.archetypes.tourist.wtpBase).toBe(3.25); // tuned in M3 (GDD: 2.25), see DECISIONS.md
     expect(c.customers.archetypes.jogger.sweetShift).toBe(-1);
-    expect(c.service.serveMinutes).toBe(0.8);
+    expect(c.service.serveMinutes).toBe(2.0);
     expect(c.reputation.start).toBe(40);
     expect(c.locations.locations.find((l) => l.id === 'neon')?.rent).toBe(350);
     expect(c.stands.licenseCosts).toEqual([0, 2000, 8000, 25000]);
     expect(c.upgrades.body.tiers.map((t) => t.appeal)).toEqual([1, 1.15, 1.35, 1.6]);
     expect(c.upgrades.juicer.tiers.map((t) => t.prepMinutes)).toEqual([4, 3, 2, 1]);
-    expect(c.staff.roles.server.baseWage).toBe(40);
+    expect(c.staff.roles.server.baseWage).toBe(8);
+    expect(c.locations.locations.map((l) => l.unlockRevenue)).toEqual([0, 300, 1000, 5000, 17500, 37500, 80000]);
+    expect([c.upgrades.cooler.forSale, c.upgrades.umbrella.forSale, c.upgrades.fridge.forSale]).toEqual([false, false, false]);
+    expect(c.staff.roles.mixer.forHire).toBe(false);
     expect(c.marketing.campaigns.tv).toMatchObject({ cost: 1500, days: 10, adBonus: 0.3, trafficBonus: 0.12 });
     expect(c.marketing.adFactorCap).toBe(1.6);
     expect(c.events.competitor.steal).toBe(0.2);
