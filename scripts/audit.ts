@@ -2,10 +2,12 @@
 // `npm run balance` checks pacing (how fast money grows). This checks the other half:
 // whether playing well beats playing lazily, and whether each thing you can buy pays for itself.
 // Usage: npm run audit [-- --loc maple --seeds 20 --days 28]
-import { CAMPAIGNS, CONFIG, LOCATION_IDS, STAFF_ROLES, type GameConfig, type LocationId } from '../src/config';
+// Version 2 (M9): purchase checks judged across the first five locations, plus the Never-buys and Skimper bots.
+import { CAMPAIGNS, type CampaignId, CONFIG, type GameConfig, type GlobalUpgrade, LOCATION_IDS, type LocationId, type StandUpgrade } from '../src/config';
 import { newGame, runDay, type DayPlan, type DayReport, type GameState } from '../src/sim';
+import { forSale, rolesForHire } from '../src/sim/stand';
 import { runBot } from './balance';
-import { type BotMemory, botMorning } from './bots';
+import { type BotMemory, type BotOptions, botMorning } from './bots';
 
 // Thresholds are proposals (docs/learning/UNKNOWNS.md U1). Change them here, and log why in LESSONS.md.
 const T = {
@@ -21,6 +23,15 @@ const T = {
   probeCash: 500,
   staffSkill: 2,
   pacingDays: 120,
+  // Audit v2 (M9, docs/specs/M9-worth-buying.md)
+  /** Purchases are judged at the first five locations. */
+  earlyLocations: ['maple', 'uptown', 'campus', 'boardwalk', 'financial'] as LocationId[],
+  /** At least this many items for sale must pay back within paybackMaxDays at Maple Park. */
+  mapleMinPaybacks: 3,
+  /** Long enough for every bot to reach Campus Quad. */
+  unlockDays: 90,
+  /** A Skimper gap below this means under-buying is not punished. Reported, not a check. */
+  skimperMinGap: 0.1,
 };
 
 const mean = (xs: number[]): number => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : NaN);
@@ -87,6 +98,58 @@ interface Check {
   pass: boolean;
 }
 
+const campaignDaily = (id: CampaignId, loc: LocationId, cfg: GameConfig) => (s: GameState, i: number) => {
+  const c = cfg.marketing.campaigns[id];
+  if (i % c.days === 0) s.campaigns.push({ id, startDay: s.day, ...(c.scope === 'location' ? { locationId: loc } : {}) });
+};
+
+interface PurchaseMatrix {
+  /** One-off and first-tier upgrades for sale: payback in days at each early location. */
+  upgrades: { name: string; cost: number; payback: number[] }[];
+  /** Things paid for every day (staff for hire, Flyers): net profit per day at each early location. */
+  daily: { name: string; kind: 'staff' | 'flyers'; net: number[] }[];
+}
+
+function purchaseMatrix(seeds: number, days: number, cfg: GameConfig): PurchaseMatrix {
+  const u = cfg.upgrades;
+  const all: [StandUpgrade | GlobalUpgrade, string, number, (s: GameState) => void][] = [
+    ['body', u.body.tiers[1]!.name, u.body.tiers[1]!.cost, (s) => void (s.stands[0]!.upgrades.body = 1)],
+    ['juicer', u.juicer.tiers[1]!.name, u.juicer.tiers[1]!.cost, (s) => void (s.stands[0]!.upgrades.juicer = 1)],
+    ['register', u.register.tiers[1]!.name, u.register.tiers[1]!.cost, (s) => void (s.stands[0]!.upgrades.register = 1)],
+    ['cooler', u.cooler.name, u.cooler.cost, (s) => void (s.stands[0]!.upgrades.cooler = true)],
+    ['umbrella', u.umbrella.name, u.umbrella.cost, (s) => void (s.stands[0]!.upgrades.umbrella = true)],
+    ['neon', u.neon.name, u.neon.cost, (s) => void (s.stands[0]!.upgrades.neon = true)],
+    ['speaker', u.speaker.name, u.speaker.cost, (s) => void (s.stands[0]!.upgrades.speaker = true)],
+    ['fridge', u.fridge.name, u.fridge.cost, (s) => void (s.globalUpgrades.fridge = true)],
+    ['radio', u.radio.name, u.radio.cost, (s) => void (s.globalUpgrades.radio = true)],
+  ];
+  const ups = all.filter(([id]) => forSale(id, cfg));
+  const out: PurchaseMatrix = {
+    upgrades: ups.map(([, name, cost]) => ({ name, cost, payback: [] })),
+    daily: [
+      ...rolesForHire(cfg).map((role) => ({ name: `${cfg.staff.roles[role].name} (skill ${T.staffSkill})`, kind: 'staff' as const, net: [] as number[] })),
+      { name: cfg.marketing.campaigns.flyers.name, kind: 'flyers', net: [] },
+    ],
+  };
+  for (const loc of T.earlyLocations) {
+    const base = probe(loc, seeds, days, cfg).profit;
+    ups.forEach(([, , cost, setup], i) => {
+      const delta = probe(loc, seeds, days, cfg, { setup }).profit - base;
+      out.upgrades[i]!.payback.push(delta > 0.005 ? cost / delta : Infinity);
+    });
+    rolesForHire(cfg).forEach((role, i) => {
+      const staffed = probe(loc, seeds, days, cfg, {
+        setup: (s) => void s.stands[0]!.staff.push({ id: 'audit', name: 'Audit', role, skill: T.staffSkill, daysWorked: 0 }),
+      }).profit;
+      out.daily[i]!.net.push(staffed - base);
+    });
+    const f = cfg.marketing.campaigns.flyers;
+    const gross = probe(loc, seeds, days, cfg, { daily: campaignDaily('flyers', loc, cfg) }).profit - base;
+    out.daily[out.daily.length - 1]!.net.push(gross - f.cost / f.days);
+  }
+  return out;
+}
+
 export function audit(loc: LocationId, seeds: number, days: number, cfg: GameConfig = CONFIG): Check[] {
   const checks: Check[] = [];
   const locName = cfg.locations.locations.find((l) => l.id === loc)!.name;
@@ -115,56 +178,77 @@ export function audit(loc: LocationId, seeds: number, days: number, cfg: GameCon
     pass: lazy.profit <= base.profit * T.lazyMaxShare,
   });
 
-  // 2. Does each purchase pay for itself?
-  console.log(`\nUPGRADES  (given free on day 1; payback = cost / extra profit per day)`);
-  const u = cfg.upgrades;
-  const ups: [string, number, (s: GameState) => void][] = [
-    [u.body.tiers[1]!.name, u.body.tiers[1]!.cost, (s) => void (s.stands[0]!.upgrades.body = 1)],
-    [u.juicer.tiers[1]!.name, u.juicer.tiers[1]!.cost, (s) => void (s.stands[0]!.upgrades.juicer = 1)],
-    [u.register.tiers[1]!.name, u.register.tiers[1]!.cost, (s) => void (s.stands[0]!.upgrades.register = 1)],
-    [u.cooler.name, u.cooler.cost, (s) => void (s.stands[0]!.upgrades.cooler = true)],
-    [u.umbrella.name, u.umbrella.cost, (s) => void (s.stands[0]!.upgrades.umbrella = true)],
-    [u.neon.name, u.neon.cost, (s) => void (s.stands[0]!.upgrades.neon = true)],
-    [u.speaker.name, u.speaker.cost, (s) => void (s.stands[0]!.upgrades.speaker = true)],
-    [u.fridge.name, u.fridge.cost, (s) => void (s.globalUpgrades.fridge = true)],
-    [u.radio.name, u.radio.cost, (s) => void (s.globalUpgrades.radio = true)],
-  ];
-  let worthIt = 0;
-  for (const [name, cost, setup] of ups) {
-    const delta = probe(loc, seeds, days, cfg, { setup }).profit - base.profit;
-    const payback = delta > 0.005 ? cost / delta : Infinity;
-    if (payback <= T.paybackMaxDays) worthIt++;
-    console.log(`  ${name.padEnd(14)} $${String(cost).padStart(5)}  ${money(delta).padStart(8)}/day  payback ${Number.isFinite(payback) ? `${payback.toFixed(0)} days` : 'never'}`);
+  // 2. Does each purchase pay for itself? (audit v2, M9)
+  const paybacks = purchaseMatrix(seeds, days, cfg);
+  const names = cfg.locations.locations.filter((l) => T.earlyLocations.includes(l.id)).map((l) => l.name.split(' ')[0]!);
+  console.log(`\nPURCHASES  items for sale, payback in days (given free on day 1; payback = cost / extra profit per day)`);
+  console.log(`  ${''.padEnd(14)} ${'cost'.padStart(6)}  ${names.map((n) => n.padStart(9)).join(' ')}`);
+  for (const row of paybacks.upgrades) {
+    const cells = row.payback.map((p) => (Number.isFinite(p) ? `${p.toFixed(0)}` : 'never').padStart(9)).join(' ');
+    console.log(`  ${row.name.padEnd(14)} ${`$${row.cost}`.padStart(6)}  ${cells}`);
   }
-  checks.push({ name: `At least half of upgrades pay back within ${T.paybackMaxDays} days`, value: `${worthIt}/${ups.length}`, pass: worthIt * 2 >= ups.length });
-
-  console.log(`\nSTAFF  (skill ${T.staffSkill}, wage paid daily)`);
-  let staffPays = 0;
-  for (const role of STAFF_ROLES) {
-    const r = cfg.staff.roles[role];
-    const net =
-      probe(loc, seeds, days, cfg, { setup: (s) => void s.stands[0]!.staff.push({ id: 'audit', name: 'Audit', role, skill: T.staffSkill, daysWorked: 0 }) }).profit -
-      base.profit;
-    if (net >= 0) staffPays++;
-    console.log(`  ${r.name.padEnd(9)} wage $${r.baseWage + r.wagePerSkill * T.staffSkill}/day  net ${money(net)}/day`);
+  console.log(`  net per day after cost:`);
+  for (const row of paybacks.daily) {
+    console.log(`  ${row.name.padEnd(21)}  ${row.net.map((n) => money(n).padStart(9)).join(' ')}`);
   }
-  checks.push({ name: 'At least one staff role earns its wage', value: `${staffPays}/${STAFF_ROLES.length}`, pass: staffPays > 0 });
+  const at = (id: LocationId) => T.earlyLocations.indexOf(id);
+  const mapleWorth = paybacks.upgrades.filter((r) => r.payback[at('maple')]! <= T.paybackMaxDays);
+  checks.push({
+    name: `Maple Park: at least ${T.mapleMinPaybacks} items pay back within ${T.paybackMaxDays} days`,
+    value: `${mapleWorth.length}/${paybacks.upgrades.length}`,
+    pass: mapleWorth.length >= T.mapleMinPaybacks,
+  });
+  const nowhere = paybacks.upgrades.filter((r) => !r.payback.some((p) => p <= T.paybackMaxDays));
+  checks.push({
+    name: `Every item pays back within ${T.paybackMaxDays} days somewhere in the first five`,
+    value: nowhere.length ? `not: ${nowhere.map((r) => r.name).join(', ')}` : `${paybacks.upgrades.length}/${paybacks.upgrades.length}`,
+    pass: nowhere.length === 0,
+  });
+  const finStaff = paybacks.daily.filter((r) => r.kind === 'staff' && r.net[at('financial')]! >= 0);
+  checks.push({
+    name: 'Financial District: a staff role earns its wage',
+    value: `${finStaff.length}/${paybacks.daily.filter((r) => r.kind === 'staff').length}`,
+    pass: finStaff.length > 0,
+  });
+  const flyers = paybacks.daily.find((r) => r.kind === 'flyers')!.net[at('maple')]!;
+  checks.push({ name: 'Maple Park: Flyers earn their cost', value: `${money(flyers)}/day`, pass: flyers >= 0 });
 
-  console.log(`\nMARKETING  (bought again the day it runs out)`);
-  let adsPay = 0;
+  console.log(`\nMARKETING at ${locName}  (bought again the day it runs out)`);
   for (const id of CAMPAIGNS) {
     const c = cfg.marketing.campaigns[id];
-    const gross =
-      probe(loc, seeds, days, cfg, {
-        daily: (s, i) => {
-          if (i % c.days === 0) s.campaigns.push({ id, startDay: s.day, ...(c.scope === 'location' ? { locationId: loc } : {}) });
-        },
-      }).profit - base.profit;
+    const gross = probe(loc, seeds, days, cfg, { daily: campaignDaily(id, loc, cfg) }).profit - base.profit;
     const perDay = c.cost / c.days;
-    if (gross - perDay >= 0) adsPay++;
     console.log(`  ${c.name.padEnd(9)} costs $${perDay.toFixed(2)}/day  brings in ${money(gross)}/day  net ${money(gross - perDay)}/day`);
   }
-  checks.push({ name: 'At least one campaign earns its cost', value: `${adsPay}/${CAMPAIGNS.length}`, pass: adsPay > 0 });
+
+  // Spending must never delay progress, and under-buying stock should cost something.
+  const unlockDay = (opts: BotOptions) =>
+    median(
+      Array.from({ length: seeds }, (_, i) => {
+        const r = runBot(i + 1, T.unlockDays, opts, cfg);
+        const d = r.campusUnlockDay;
+        return d ?? Infinity;
+      }),
+    );
+  const sensibleUnlock = unlockDay({ name: 'Sensible', expand: true });
+  const neverUnlock = unlockDay({ name: 'Never-buys', expand: true, buysImprovements: false });
+  const fmtDay = (d: number) => (Number.isFinite(d) ? `day ${d}` : 'never');
+  console.log(`\nPROGRESS  Campus Quad unlock, median of ${seeds} seeds: Sensible ${fmtDay(sensibleUnlock)}, Never-buys ${fmtDay(neverUnlock)}`);
+  checks.push({
+    name: 'Never-buys does not unlock Campus Quad sooner',
+    value: `${fmtDay(neverUnlock)} vs ${fmtDay(sensibleUnlock)}`,
+    pass: neverUnlock >= sensibleUnlock,
+  });
+  const profit28 = (opts: BotOptions) =>
+    mean(Array.from({ length: seeds }, (_, i) => runBot(i + 1, days, opts, cfg).reports.reduce((a, r) => a + r.profit, 0)));
+  const sensible28 = profit28({ name: 'Sensible', expand: true });
+  const skimper28 = profit28({ name: 'Skimper', expand: true, stockShare: 0.5 });
+  const gap = 1 - skimper28 / sensible28;
+  console.log(
+    `STOCK     Skimper (buys half the stock it expects to need) earns ${(100 * gap).toFixed(0)}% less than Sensible over ${days} days` +
+      ` ($${skimper28.toFixed(0)} vs $${sensible28.toFixed(0)})` +
+      (gap < T.skimperMinGap ? ' — under-buying is barely punished; log in docs/learning/UNKNOWNS.md' : ''),
+  );
 
   // 3. Is there something to do most days?
   const runs = Array.from({ length: seeds }, (_, i) => runBot(i + 1, T.pacingDays, { name: 'Sensible', expand: true }, cfg));

@@ -10,7 +10,7 @@ import {
 import { todayPackCost } from './game';
 import { addStock } from './inventory';
 import { validPrice, validRecipe } from './recipe';
-import { newStand, upgradeCost } from './stand';
+import { forSale, newStand, upgradeCost } from './stand';
 import type { GameState, Recipe, Stand } from './types';
 import { cents } from './util';
 
@@ -96,6 +96,7 @@ export function applyAction(s: GameState, a: Action, cfg: GameConfig): void {
       const stand = standOf(s, a.standId);
       const cost = upgradeCost(stand, a.upgrade, cfg);
       if (cost === null) throw new ActionError('Already owned');
+      if (!forSale(a.upgrade, cfg)) throw new ActionError('Not for sale');
       spend(s, cost, 'capital');
       const u = stand.upgrades;
       if (a.upgrade === 'body' || a.upgrade === 'juicer' || a.upgrade === 'register') u[a.upgrade] += 1;
@@ -104,6 +105,7 @@ export function applyAction(s: GameState, a: Action, cfg: GameConfig): void {
     }
     case 'buyGlobalUpgrade': {
       if (s.globalUpgrades[a.upgrade]) throw new ActionError('Already owned');
+      if (!forSale(a.upgrade, cfg)) throw new ActionError('Not for sale');
       spend(s, cfg.upgrades[a.upgrade].cost, 'capital');
       s.globalUpgrades[a.upgrade] = true;
       return;
@@ -120,6 +122,7 @@ export function applyAction(s: GameState, a: Action, cfg: GameConfig): void {
       if (stand.staff.length >= cfg.staff.maxPerStand) throw new ActionError('This stand is fully staffed');
       const i = s.candidates.findIndex((c) => c.id === a.candidateId);
       if (i < 0) throw new ActionError('Candidate not available');
+      if (!cfg.staff.roles[s.candidates[i]!.role].forHire) throw new ActionError('Not for hire');
       const c = s.candidates.splice(i, 1)[0]!;
       stand.staff.push({ id: c.id, name: c.name, role: c.role, skill: c.skill, daysWorked: 0 });
       return;

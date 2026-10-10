@@ -28,6 +28,10 @@ export interface BotOptions {
   hoard?: number;
   /** Buy upgrades, licences, staff and expand to new locations. */
   expand: boolean;
+  /** Share of the expected stock need to buy (Skimper = 0.5). Default 1. */
+  stockShare?: number;
+  /** When false, expand without ever buying an upgrade or hiring (Never-buys). Default true. */
+  buysImprovements?: boolean;
 }
 
 export interface BotMemory {
@@ -220,12 +224,13 @@ export function botMorning(state: GameState, mem: BotMemory, opts: BotOptions, c
   const budget = Math.max(0, s.cash - fixedDaily() - 5);
   const order: Item[] = ['cups', 'lemons', 'sugar', 'ice'];
   for (const item of order) {
-    const want = hoard > 1 ? need[item] * hoard : need[item] - have[item];
+    const share = opts.stockShare ?? 1;
+    const want = hoard > 1 ? need[item] * hoard : Math.ceil(need[item] * share) - have[item];
     if (want <= 0) continue;
     const spentSoFar = s.ledger.stock;
     // Non-perishables in bulk once the business is established.
     const bulkOk = item === 'cups' || item === 'sugar' ? s.cash > 300 : item === 'lemons' ? need.lemons >= 48 : true;
-    const amount = item === 'cups' || item === 'sugar' ? (s.cash > 300 ? Math.max(want, need[item] * 3 - have[item]) : want) : want;
+    const amount = item === 'cups' || item === 'sugar' ? (s.cash > 300 ? Math.max(want, Math.ceil(need[item] * 3 * share) - have[item]) : want) : want;
     s = buyUnits(s, item, amount, budget - spentSoFar, cfg, bulkOk);
   }
   return { state: s, plan };
@@ -263,6 +268,7 @@ function expand(s: GameState, mem: BotMemory, opts: BotOptions, cfg: GameConfig,
   if (lic !== undefined && goodSpots > s.stands.length && affordable(lic, 0.7)) s = act(s, { type: 'buyLicense' }, cfg);
 
   const last = mem.lastReport;
+  if (opts.buysImprovements === false) return s;
   for (const st of s.stands) {
     if (!st.locationId) continue;
     const sr = last?.stands.find((x) => x.standId === st.id && x.locationId === st.locationId);

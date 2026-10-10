@@ -97,3 +97,30 @@ Choices made where the GDD is ambiguous or silent. Newest at the bottom of each 
 - **Audit thresholds** (85% lazy play, 30-day payback, 60% quiet days, 10-day quiet stretch) are our own proposals, set as constants at the top of the script. They are listed as an open question in `docs/learning/UNKNOWNS.md` (U1).
 - **Probe runs** hold cash at $500 or more so stock is never cash-limited. They compare profit per day, not cash.
 - **Skills** live in `.claude/skills/` (`game-research`, `game-design`, `game-build-verify`). What they learn is kept in `docs/learning/` and `docs/research/`.
+
+## M9 — Worth buying (2026-10-10)
+Built from `docs/specs/M9-worth-buying.md`. Every price, wage, Promoter, Flyers and `unlockRevenue` value is the spec's starting value; none needed tuning.
+
+**One value differs from the spec**
+
+| Value | Was | Now | Why |
+|---|---|---|---|
+| `customers.decision.wtpThirstBase` / `wtpThirstScale` | 0.6 / 0.4 | 0.55 / 0.45 | With 2-minute serving, the best fixed price was $1.10 at 60°F and $1.35 at 90°F (Δ $0.25, target $0.30). 0.55/0.45 gives $1.05 vs $1.40 (Δ $0.35). At T_thirst = 1 willingness to pay is unchanged, so the other nine targets barely move. M3 called these two values formula coefficients and left them alone, so this change is in its own commit and **needs the player's sign-off**. If refused, revert that commit and the variety target fails at $0.25. |
+
+**Where the spec was silent (simplest option taken)**
+- **`pitcherPrepMinutes` removed** from `service.json` and the schema. It was never read: prep time comes from `upgrades.juicer.tiers[0].prepMinutes`.
+- **"Items for sale" in audit checks 1 and 2** means the first tier of Stall, Juicer and Register plus the one-off upgrades that are for sale (Neon sign, Speaker, Weather radio): six items, as in the spec's own table. Higher tiers and things paid daily are left out; staff and Flyers have their own checks (3 and 4).
+- **A Mixer already in this week's hiring pool** (a save from before M9) is hidden on the Staff tab and the hire action refuses it. Mixers already hired keep working.
+- **Parked upgrades already owned** show as "Owned" on the Upgrades tab; parked ones not owned are not listed. Buying one is refused with "Not for sale".
+- **Never-buys bot** still buys licences and moves stands; it never buys an upgrade or hires. The Sensible bot doesn't advertise, so there was nothing to remove there.
+- **Skimper bot** buys half of its expected need of every item, including the bulk stock-up of cups and sugar (otherwise its cups would never run short).
+- **The Sensible bot's rules are unchanged.** It still tries to buy the Umbrella, Cooler and Fridge; those actions are now refused by the sim.
+- **The hiring pool now draws from two roles instead of three**, so a given seed rolls different candidates than before. Still deterministic.
+- **Campus Quad unlock target** reads `locations.campus.unlocked` in the bot run; the unlock day is the night it unlocks.
+
+**Results (20 seeds)**
+- Balance: 10/10. Campus Quad median day 15 (range 11–21), near the low end of 14–25.
+- Audit at Maple Park, checks 1–5 all pass: 3/6 items pay back within 30 days at Maple Park (Stall 17, Neon 20, Weather radio 26 days); 6/6 pay back somewhere in the first five; both staff roles earn their wage at the Financial District (Server +$49.69, Promoter +$15.02 a day); Flyers +$1.66 a day at Maple Park; Never-buys unlocks Campus Quad on day 16 against Sensible's day 15.
+- Skimper earns 38% less than Sensible over 28 days, so under-buying is punished; nothing to log in `UNKNOWNS.md`.
+- Still failing, as the spec expects until M11/M12: lazy play 97% (target ≤85%), quiet days 80% (≤60%), longest quiet run 32 days (≤10).
+- Day view at the Financial District on a 93°F weekday: the line stays short (2 to 3) because people give up fast; 43 of 111 who stopped left by 11:30. "Line too long" bubbles show it clearly. "+N in line" did not appear.

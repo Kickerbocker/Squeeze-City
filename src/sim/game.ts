@@ -1,10 +1,10 @@
-import { CONFIG, type GameConfig, type Item, ITEMS, type LocationId, LOCATION_IDS, STAFF_ROLES } from '../config';
+import { CONFIG, type GameConfig, type Item, ITEMS, type LocationId, LOCATION_IDS } from '../config';
 import { dayInfo } from './calendar';
 import { heatwaveBonus, ingredientPriceMultiplier, rollMorningEvents } from './events';
 import { driftPrices, emptyInventory, inventoryValue, packCost, unitPrice } from './inventory';
 import { activeCampaigns } from './marketing';
 import { dayRng, STREAM } from './rng';
-import { newStand } from './stand';
+import { newStand, rolesForHire } from './stand';
 import type { Candidate, GameState, LocationState } from './types';
 import { rollForecast, rollWeather } from './weather';
 
@@ -59,9 +59,10 @@ export function rollCandidates(seed: number, day: number, cfg: GameConfig): Cand
   const rng = dayRng(seed, day, STREAM.staff);
   const s = cfg.staff;
   const names = [...s.names];
+  const roles = rolesForHire(cfg);
   return Array.from({ length: s.poolSize }, (_, i) => {
     const name = names.splice(rng.int(0, names.length - 1), 1)[0]!;
-    return { id: `d${day}-${i}`, name, role: rng.pick(STAFF_ROLES), skill: rng.int(s.minSkill, s.candidateSkillMax) };
+    return { id: `d${day}-${i}`, name, role: rng.pick(roles), skill: rng.int(s.minSkill, s.candidateSkillMax) };
   });
 }
 

@@ -180,9 +180,9 @@ describe('actions', () => {
     expect(r.state.cash).toBe(3000);
     r = dispatch(r.state, { type: 'buyUpgrade', standId: 0, upgrade: 'body' });
     expect(r.state.stands[0]!.upgrades.body).toBe(1);
-    r = dispatch(r.state, { type: 'buyGlobalUpgrade', upgrade: 'fridge' });
-    expect(r.state.globalUpgrades.fridge).toBe(true);
-    expect(dispatch(r.state, { type: 'buyGlobalUpgrade', upgrade: 'fridge' }).ok).toBe(false);
+    r = dispatch(r.state, { type: 'buyGlobalUpgrade', upgrade: 'radio' });
+    expect(r.state.globalUpgrades.radio).toBe(true);
+    expect(dispatch(r.state, { type: 'buyGlobalUpgrade', upgrade: 'radio' }).ok).toBe(false);
     const cand = r.state.candidates[0]!;
     r = dispatch(r.state, { type: 'hire', candidateId: cand.id, standId: 0 });
     expect(r.state.stands[0]!.staff).toHaveLength(1);
@@ -191,7 +191,7 @@ describe('actions', () => {
     expect(r.state.stands[0]!.staff).toHaveLength(0);
     r = dispatch(r.state, { type: 'startCampaign', campaign: 'flyers', locationId: 'maple' });
     expect(r.ok).toBe(true);
-    expect(r.state.ledger.ads).toBe(25);
+    expect(r.state.ledger.ads).toBe(18);
     expect(dispatch(r.state, { type: 'startCampaign', campaign: 'flyers' }).ok).toBe(false);
   });
 });

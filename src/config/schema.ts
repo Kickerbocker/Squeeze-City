@@ -116,7 +116,6 @@ export const customersSchema = obj({
 });
 
 export const serviceSchema = obj({
-  pitcherPrepMinutes: pos,
   serveMinutes: num({ min: 0.01 }),
   visibleQueue: num({ min: 1, int: true }),
   firstPitcherReadyAtOpen: bool,
@@ -140,7 +139,7 @@ const location = obj({
   trafficWeekday: pos,
   trafficWeekend: pos,
   mix: partialRecordOf(ARCHETYPES, pos),
-  unlockCash: pos,
+  unlockRevenue: pos,
   unlockRep: pos,
   weatherAmplify: opt(pos),
   offSeasons: opt(arr(oneOf(SEASONS))),
@@ -158,16 +157,18 @@ export const standsSchema = obj({
 });
 
 const named = { name: str, cost: pos };
+/** M9: one-off upgrades can be parked; omitted means for sale. */
+const oneOff = { ...named, forSale: opt(bool) };
 export const upgradesSchema = obj({
   body: obj({ name: str, tiers: arr(obj({ ...named, appeal: pos }), { minLen: 1 }) }),
   juicer: obj({ name: str, tiers: arr(obj({ ...named, prepMinutes: pos }), { minLen: 1 }) }),
   register: obj({ name: str, tiers: arr(obj(named), { minLen: 1 }), serveMultiplierPerTier: pos }),
-  cooler: obj({ ...named, meltMultiplier: pos }),
-  umbrella: obj({ ...named, patienceBonus: pos, tempAbove: num(), conditions: arr(oneOf(CONDITIONS)) }),
-  neon: obj({ ...named, appealBonus: pos }),
-  speaker: obj({ ...named, stopMultiplier: pos, archetypes: arr(oneOf(ARCHETYPES)) }),
-  fridge: obj({ ...named, lemonSpoilDays: num({ min: 1, int: true }) }),
-  radio: obj(named),
+  cooler: obj({ ...oneOff, meltMultiplier: pos }),
+  umbrella: obj({ ...oneOff, patienceBonus: pos, tempAbove: num(), conditions: arr(oneOf(CONDITIONS)) }),
+  neon: obj({ ...oneOff, appealBonus: pos }),
+  speaker: obj({ ...oneOff, stopMultiplier: pos, archetypes: arr(oneOf(ARCHETYPES)) }),
+  fridge: obj({ ...oneOff, lemonSpoilDays: num({ min: 1, int: true }) }),
+  radio: obj(oneOff),
 });
 
 export const staffSchema = obj({
@@ -179,9 +180,9 @@ export const staffSchema = obj({
   maxSkill: posInt,
   candidateSkillMax: posInt,
   roles: obj({
-    server: obj({ name: str, baseWage: pos, wagePerSkill: pos, speedBase: pos, speedPerSkill: pos }),
-    mixer: obj({ name: str, baseWage: pos, wagePerSkill: pos, prepCutBase: pos, prepCutPerSkill: pos, prepFloor: pos }),
-    promoter: obj({ name: str, baseWage: pos, wagePerSkill: pos, stopBase: pos, stopPerSkill: pos }),
+    server: obj({ name: str, forHire: bool, baseWage: pos, wagePerSkill: pos, speedBase: pos, speedPerSkill: pos }),
+    mixer: obj({ name: str, forHire: bool, baseWage: pos, wagePerSkill: pos, prepCutBase: pos, prepCutPerSkill: pos, prepFloor: pos }),
+    promoter: obj({ name: str, forHire: bool, baseWage: pos, wagePerSkill: pos, stopBase: pos, stopPerSkill: pos }),
   }),
   names: arr(str, { minLen: 1 }),
 });
@@ -271,9 +272,10 @@ export const validateConfig: Guard<GameConfig> = (raw, path) => {
     const total = Object.values(loc.mix).reduce((a, b) => a + (b ?? 0), 0);
     check(Math.abs(total - 100) < 1e-9, `${p}.locations.locations[${i}].mix`, `shares must sum to 100, got ${total}`);
   }
-  check(locations.locations[0]?.unlockCash === 0, `${p}.locations`, 'first location must be unlocked from the start');
+  check(locations.locations[0]?.unlockRevenue === 0, `${p}.locations`, 'first location must be unlocked from the start');
   check(stands.licenseCosts.length === stands.maxStands, `${p}.stands.licenseCosts`, 'one cost per stand');
   check(staff.minSkill <= staff.candidateSkillMax && staff.candidateSkillMax <= staff.maxSkill, `${p}.staff`, 'skill bounds');
+  check(STAFF_ROLES.some((r) => staff.roles[r].forHire), `${p}.staff.roles`, 'at least one role must be for hire');
   check(staff.names.length >= staff.poolSize, `${p}.staff.names`, 'need at least poolSize names');
   const nw = progression.milestones.netWorth;
   check(nw.thresholds.length === nw.bonuses.length, `${p}.progression.milestones.netWorth`, 'one bonus per threshold');

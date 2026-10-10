@@ -1,4 +1,4 @@
-import type { Archetype, GameConfig, StandUpgrade } from '../config';
+import { type Archetype, type GameConfig, type GlobalUpgrade, STAFF_ROLES, type StaffRole, type StandUpgrade } from '../config';
 import type { Stand, StaffMember } from './types';
 
 export function newStand(id: number, cfg: GameConfig): Stand {
@@ -83,4 +83,15 @@ export function upgradeCost(stand: Stand, upgrade: StandUpgrade, cfg: GameConfig
     case 'speaker':
       return stand.upgrades[upgrade] ? null : u[upgrade].cost;
   }
+}
+
+/** M9: whether the shop sells this upgrade. Tiered upgrades are always sold; parked one-offs keep working once owned. */
+export function forSale(upgrade: StandUpgrade | GlobalUpgrade, cfg: GameConfig): boolean {
+  if (upgrade === 'body' || upgrade === 'juicer' || upgrade === 'register') return true;
+  return cfg.upgrades[upgrade].forSale !== false;
+}
+
+/** M9: the roles the hiring pool can roll. Staff already hired keep working whatever their role. */
+export function rolesForHire(cfg: GameConfig): StaffRole[] {
+  return STAFF_ROLES.filter((r) => cfg.staff.roles[r].forHire);
 }

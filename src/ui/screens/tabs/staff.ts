@@ -13,6 +13,7 @@ export function staffTab(app: App): HTMLElement {
   const full = stand.staff.length >= CONFIG.staff.maxPerStand;
   const nextRefresh = s.day + (CONFIG.staff.poolRefreshDays - ((s.day - 1) % CONFIG.staff.poolRefreshDays));
   const daysToRefresh = nextRefresh - s.day;
+  const hireable = s.candidates.filter((c) => CONFIG.staff.roles[c.role].forHire);
 
   return h(
     'div',
@@ -56,8 +57,8 @@ export function staffTab(app: App): HTMLElement {
       { class: 'card' },
       h('h3', null, 'Hiring pool'),
       h('p', { class: 'small muted' }, `New candidates ${daysToRefresh === 0 ? 'tomorrow' : `in ${daysToRefresh} days`} (every Monday). Wages rise as skill grows.`),
-      s.candidates.length === 0 ? h('p', { class: 'muted small' }, 'Nobody is looking for work right now.') : null,
-      ...s.candidates.map((c) =>
+      hireable.length === 0 ? h('p', { class: 'muted small' }, 'Nobody is looking for work right now.') : null,
+      ...hireable.map((c) =>
         h(
           'div',
           { class: 'person' },

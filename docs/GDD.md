@@ -95,7 +95,7 @@ Each archetype has a 10-value hourly weight curve (hours 9–18) that peaks at t
    - `repFactor = 0.5 + rep/100`; `appeal` comes from upgrades (§12); `adFactor` from marketing (§14).
 2. **Joins the line?** If the expected wait is longer than their patience (with the Umbrella bonus if applicable), they leave with "Line too long" and count as a lost customer.
 3. **Willingness to pay:**
-   - `WTP = base · (0.6 + 0.4·T_thirst) · (0.75 + 0.5·rep/100) · LogNormal(σ = 0.25)`
+   - `WTP = base · (0.55 + 0.45·T_thirst) · (0.75 + 0.5·rep/100) · LogNormal(σ = 0.25)` *(0.6 + 0.4 in v1; tuned in M9 for price variety, see DECISIONS.md)*
 4. **Buys?**
    - `P_buy = 1 / (1 + exp(priceSens · 6 · (price/WTP − 1)))`
    - If they don't buy, they show "Too expensive."

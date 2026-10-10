@@ -26,9 +26,9 @@ describe('customer decision (GDD §7)', () => {
     expect(stopProbability({ appeal: 2, rep: 100, adFactor: 1.6, wThirst: 1, tThirst: 1.8, multiplier: 2 }, C)).toBe(0.95);
   });
 
-  it('WTP = base·(0.6 + 0.4·T)·(0.75 + 0.5·rep/100)·noise', () => {
+  it('WTP = base·(0.55 + 0.45·T)·(0.75 + 0.5·rep/100)·noise (tuned in M9, see DECISIONS.md)', () => {
     expect(willingnessToPay(1.75, 1, 50, 1, C)).toBeCloseTo(1.75 * 1 * 1);
-    expect(willingnessToPay(2, 0.5, 0, 1.2, C)).toBeCloseTo(2 * 0.8 * 0.75 * 1.2);
+    expect(willingnessToPay(2, 0.5, 0, 1.2, C)).toBeCloseTo(2 * (0.55 + 0.45 * 0.5) * 0.75 * 1.2);
   });
 
   it('P_buy = 1/(1 + exp(priceSens·6·(price/WTP − 1)))', () => {

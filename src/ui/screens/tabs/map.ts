@@ -125,11 +125,12 @@ export function mapTab(app: App): HTMLElement {
 
       let body: (HTMLElement | null)[];
       if (!ls.unlocked) {
-        const cashPct = Math.min(100, (s.cash / Math.max(1, loc.unlockCash)) * 100);
+        const earned = s.stats.lifetimeRevenue;
+        const earnedPct = Math.min(100, (earned / Math.max(1, loc.unlockRevenue)) * 100);
         const repPct = Math.min(100, (best / Math.max(1, loc.unlockRep)) * 100);
         body = [
-          h('p', { class: 'small' }, `Unlocks when you hold ${money(loc.unlockCash, false)} cash with ★${loc.unlockRep} reputation somewhere (checked each night).`),
-          h('div', { class: 'progress', title: 'Cash' }, h('div', { style: `width:${cashPct}%` }), h('span', null, `💰 ${money(s.cash, false)} / ${money(loc.unlockCash, false)}`)),
+          h('p', { class: 'small' }, `Unlocks when you have earned ${money(loc.unlockRevenue, false)} in total and have ★${loc.unlockRep} reputation somewhere (checked each night). Spending never sets this back.`),
+          h('div', { class: 'progress', title: 'Money earned' }, h('div', { style: `width:${earnedPct}%` }), h('span', null, `💰 Earned ${money(Math.min(earned, loc.unlockRevenue), false)} of ${money(loc.unlockRevenue, false)}`)),
           h('div', { class: 'progress', title: 'Reputation' }, h('div', { style: `width:${repPct}%` }), h('span', null, `★ ${Math.round(best)} / ${loc.unlockRep}`)),
         ];
       } else {
