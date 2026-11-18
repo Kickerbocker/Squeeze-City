@@ -1,6 +1,6 @@
 ---
 name: game-build-verify
-description: Use when implementing, tuning or checking a change to a deterministic simulation game such as Squeeze City - writing sim or UI code from a spec, changing config numbers, running the balance bots or the decision audit, or judging whether a build is ready to playtest.
+description: Use when implementing, tuning or checking a change to a deterministic simulation game - writing sim or UI code from a spec, changing config numbers, running the balance bots or the decision audit, checking the sim against a paper model, or judging whether a build is ready to playtest.
 ---
 
 # Game build and verify
@@ -12,31 +12,39 @@ This skill is the third of three. `game-research` answers open questions. `game-
 ## Before building
 
 - Follow the repo's `CLAUDE.md`. Its architecture rules are fixed.
-- Build from a spec in `docs/GDD.md`. If there is none, use `game-design` first.
+- Build from a spec in `docs/GDD.md`. If there is none, use `game-design` first. If the GDD is missing something or seems wrong, say so and propose a change; don't improvise a mechanic.
 - Propose a short plan and wait for approval.
-- Work on a branch and open a pull request. Never push to `main`: it deploys the live game.
+- Work on a branch and open a pull request. Never push to `main`: in a deployed game it ships to players.
+- If the game is private (for example because it uses someone else's characters), never add public hosting.
 
-The repo's copy of this skill is the master. If it differs from the one you loaded, follow the repo's.
+The repo's copy of this skill is the master for that game. If it differs from the one you loaded, follow the repo's.
 
 ## Build order
 
-1. Sim rules and config numbers, with a unit test for each formula
+1. Sim rules and config numbers, with a unit test for each formula. If the repo has a paper model or reference implementation, a test proves the sim reproduces its numbers for the same inputs.
 2. Bots: teach the existing bots to use the new feature, and add one that never uses it
 3. The audit and balance runs (below)
-4. The feedback the player sees: numbers, bubbles, report lines
+4. The feedback the player sees: one sentence and a few numbers, with before and after
 5. Hand off to a playtest
 
 Feedback comes before polish. A mechanic the player can't see working has not shipped.
+
+## Architecture reminders
+
+- The sim is pure and deterministic: no DOM, no `Date`, no `Math.random`. All randomness comes from the seeded generator, split into independent streams so one system's draws never shift another's.
+- A turn (day, game, round) is computed at once and returns an event log. Every screen, animation and line of commentary renders from that log and states nothing the sim did not do.
+- Every tunable number lives in `src/config/*.json`, validated at load.
+- Saves are `{ version, state }` with a migration for every shape change.
 
 ## Three checks, and what each one proves
 
 | Command | Proves | Does not prove |
 |---|---|---|
-| `npm test` | each formula does what the spec says | that the formula is a good idea |
-| `npm run balance` | money grows at the planned pace | that choices matter |
+| `npm test` | each formula does what the spec says; the sim is deterministic | that the formula is a good idea |
+| `npm run balance` | progress and income grow at the planned pace | that choices matter |
 | `npm run audit` | playing well beats playing lazily, and purchases pay for themselves | that it is fun |
 
-Run all three after any sim or config change. Report every FAIL plainly, including ones that were already failing. To check a different part of the game: `npm run audit -- --loc financial`.
+Run all three after any sim or config change. Report every FAIL plainly, including ones that were already failing. The repo's `CLAUDE.md` lists any options these commands take.
 
 Only the player can say whether it is fun. When the player's verdict and the numbers disagree, the player is right; log the disagreement in `docs/learning/LESSONS.md` and find out what the numbers missed.
 
@@ -46,6 +54,7 @@ Only the player can say whether it is fun. When the player's verdict and the num
 - Every new thing the player can do gets a bot that never does it. If that bot earns nearly as much, the feature is a false choice.
 - Tune config numbers freely. Changing a formula needs the player's sign-off.
 - Log every tuning change in `docs/DECISIONS.md` with the reason.
+- A paper model tuned until it passes proves only that the numbers are consistent.
 
 ## Handing off a playtest
 
@@ -53,21 +62,21 @@ End each milestone with:
 
 - What was built, in two or three sentences
 - Test, balance and audit results
-- What to try, and for how many in-game days
-- Three questions that don't lead the answer, for example: "When did you last change your plan, and why?", "Was there a moment you wanted to skip? What was happening?", "What caused your best and worst day?"
+- What to try, and for how long in game time
+- Three questions that don't lead the answer, for example: "When did you last change your plan, and why?", "Was there a moment you wanted to skip? What was happening?", "What caused your best and worst result?"
 
 Ask the player to note where they were bored, confused, delighted or frustrated. Record the session in `docs/PLAYTEST.md` in their words.
 
 ## After the playtest
 
-Start from the play log if there is one (`npm run playlog -- docs/playtests/<file>.json`): it shows what the player did, so their notes can explain why. Where the log and the notes disagree, the notes win.
+If the game records a play log, start from it (for example `npm run playlog -- docs/playtests/<file>.json`): it shows what the player did, so their notes can explain why. Where the log and the notes disagree, the notes win.
 
 1. Find the line in `docs/learning/LESSONS.md` that said what the change was expected to do. Write what happened next to it.
 2. Add what the player liked and disliked to `docs/learning/TASTE.md`, in their words.
 3. Anything that surprised us goes in `docs/learning/UNKNOWNS.md`.
-4. If a lesson would hold for another game, add it to section 15 of `docs/research/KNOWLEDGE.md`, and mark any finding there that it confirms or contradicts.
+4. If a lesson would hold for another game, add it to section 15 of `KNOWLEDGE.md` (the game's copy and the starter kit's), and mark any finding there that it confirms or contradicts.
 5. At a milestone's end, write four lines: what we expected, what happened, why they differed, what we will do differently.
 
 ## Keeping this skill current
 
-A lesson confirmed twice (two playtests, or a playtest and an audit result) is promoted into the skill it concerns. A rule in a skill contradicted twice is removed. In the repo, edit the skill file in the same pull request. In chat, propose the full updated skill for the player to save. Keep this file under 150 lines.
+A lesson confirmed twice (two playtests, or a playtest and an audit result) is promoted into the skill it concerns. A rule in a skill contradicted twice is removed. In the repo, edit the skill file in the same pull request, and copy the change to the starter kit if it would hold for any game. In chat, propose the full updated skill for the player to save. Keep this file under 150 lines.

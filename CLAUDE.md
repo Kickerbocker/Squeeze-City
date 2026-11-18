@@ -13,7 +13,8 @@ A personal browser game, mobile-first. It is a spiritual successor to Lemonade T
 - **What Benjamin finds fun:** `docs/learning/TASTE.md` (outranks everything else)
 - **Lessons and open questions:** `docs/learning/LESSONS.md`, `docs/learning/UNKNOWNS.md`
 - **Design principles:** `docs/research/PRINCIPLES.md` (rules this game has adopted)
-- **Game design knowledge base:** `docs/research/KNOWLEDGE.md` (what we know about any strategy, sim or idle game; updated as we learn)
+- **Game design knowledge base:** `docs/research/KNOWLEDGE.md` (what we know about any strategy, sim or idle game; updated as we learn). Its master copy is in the starter kit.
+- **Starter kit:** `Kickerbocker/App-Development` holds the master copies of the three skills and `KNOWLEDGE.md`, lessons across projects, and a template for new games. When a skill or `KNOWLEDGE.md` changes here in a way that would hold for any game, make the same change in the kit.
 
 ## Skills
 Three skills in `.claude/skills/` cover the work in order. Use the one that matches what you are doing.

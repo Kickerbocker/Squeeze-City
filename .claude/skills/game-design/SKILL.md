@@ -1,6 +1,6 @@
 ---
 name: game-design
-description: Use when deciding what a strategy, simulation or tycoon game should do - writing or changing a feature spec, fixing something that feels boring, confusing or pointless, tuning an economy, or designing upgrades, staff, skill trees, map placement or progression.
+description: Use when deciding what a strategy, simulation, management or tycoon game should do - writing or changing a feature spec, fixing something that feels boring, confusing or pointless, tuning an economy, or designing upgrades, staff, rosters, skill trees, map placement or progression.
 ---
 
 # Game design
@@ -15,16 +15,16 @@ In the game's repo:
 
 - `docs/learning/TASTE.md` - what the player finds fun. This outranks every rule below.
 - `docs/PLAYTEST.md` - the newest session
-- `docs/research/KNOWLEDGE.md` - for the system being designed, its family in the element catalog (section 5) and the failure catalog (section 3)
+- `docs/research/KNOWLEDGE.md` (or the starter kit's `knowledge/KNOWLEDGE.md`) - for the system being designed, its family in the element catalog (section 5) and the failure catalog (section 3)
 - `docs/research/PRINCIPLES.md` and `docs/learning/LESSONS.md`
 - `docs/GDD.md` - the current design
-- The output of `npm run audit` and `npm run balance`
+- The output of `npm run audit` and `npm run balance`, or of the paper model if nothing is built yet
 
-The repo's copy of this skill is the master. If it differs from the one you loaded, follow the repo's.
+The repo's copy of this skill is the master for that game. If it differs from the one you loaded, follow the repo's.
 
 ## Start from a problem
 
-Every spec starts from evidence: something the player said, or a number from the audit. Then work in this order:
+Every spec starts from evidence: something the player said, or a number from the audit or paper model. Then work in this order:
 
 1. **Feeling** - what the player should feel ("the tension of ordering too many lemons before a storm")
 2. **Behavior** - what they would be doing to feel that ("checking the forecast and choosing how much risk to take")
@@ -32,19 +32,21 @@ Every spec starts from evidence: something the player said, or a number from the
 
 A spec that starts at the rule ("add spoilage") tends to add a system nobody feels.
 
+Design the repeated core decision first. Tuning the economy cannot create a decision the core loop doesn't have.
+
 ## Tests every design must pass
 
 **Each decision the player makes repeatedly:**
 
 - The best answer changes with the situation. If one answer wins on most days, it is a setting, and the player will stop looking at it.
-- The player has the information to choose well before choosing.
+- The player has the information to choose well before choosing. Every number the player sets is shown beside a reference point.
 - Choosing one option costs them another.
 - The result is shown, with its cause, soon after.
 
 **Each thing the player can buy:**
 
 - It fixes a problem the player can already see. An upgrade that speeds up serving is worthless where nobody leaves the line.
-- After buying, the game shows what changed in the player's own numbers ("12 more customers stopped today because of the sign").
+- After buying, the game shows what changed in the player's own numbers ("12 more customers stopped today because of the sign"): one sentence and a few numbers, before and after. Never the model's own terms such as multipliers.
 - It pays for itself in a time the player would wait for, at the point in the game where it becomes affordable.
 - It is a choice. If every sensible player buys the same things in the same order, it is a tier list.
 
@@ -55,11 +57,15 @@ A spec that starts at the rule ("add spoilage") tends to add a system nobody fee
 **Each system:**
 
 - It changes how at least one existing decision is made. A system that touches nothing else is bloat.
-- Waiting is never the best move. If saving up means skipping days, the pacing is broken.
+- Waiting is never the best move. If saving up means skipping turns, the pacing is broken. Progress gates count what has been earned, never cash in hand.
+- Reward the new thing; never punish the familiar one.
+- As the game grows, older decisions can be handed off. Cap how many decisions a stage asks for at once.
 
 ## When the call is uncertain
 
 Give two or three options with rough odds of each working, and a recommendation. Say what playtest result would prove the recommendation wrong.
+
+Push back on scope creep. Rank work by fun gained per hour, and say so when an idea costs a lot for little.
 
 ## Spec format
 
@@ -83,4 +89,4 @@ One milestone at a time, with a playtest between milestones.
 
 ## Keeping this skill current
 
-When a design that passed these tests still wasn't fun, or a test here blocked something the player enjoyed, record it in `docs/learning/LESSONS.md`. A lesson confirmed twice is promoted into this file; a rule here contradicted twice is removed. In the repo, edit this file in the same pull request. In chat, propose the full updated skill for the player to save. Keep this file under 150 lines.
+When a design that passed these tests still wasn't fun, or a test here blocked something the player enjoyed, record it in `docs/learning/LESSONS.md`. A lesson confirmed twice is promoted into this file; a rule here contradicted twice is removed. In the repo, edit this file in the same pull request, and copy the change to the starter kit if it would hold for any game. In chat, propose the full updated skill for the player to save. Keep this file under 150 lines.
