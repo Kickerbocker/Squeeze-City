@@ -26,7 +26,7 @@ This file is meant to be edited often.
 3. **When our own development contradicts a finding**, add "Contradicted in *game*, *date*" with what happened. Contradicted twice, it moves to the retired list in section 16.
 4. **Decisions about one game stay out.** They go in that game's `PRINCIPLES.md` (rules adopted), `LESSONS.md` (what we tried) and `TASTE.md` (what its player likes). This file holds what would be true for the next game too.
 5. **When a section passes about 150 lines**, move it to its own file in `docs/research/` and leave a summary and a link here.
-6. **The master copy** is `docs/research/KNOWLEDGE.md` in the Squeeze City repo. A copy is kept in the Game Development project as `claude/game-design-knowledge-base.md`, so it is available in chat for any game. After editing the master, write it to that project path again.
+6. **The master copy** is `knowledge/KNOWLEDGE.md` in the App-Development starter kit. Each game keeps a copy at `docs/research/KNOWLEDGE.md`. When a game's copy changes, make the same change here, and the reverse when starting a new game. A copy is also kept in the Game Development project as `claude/game-design-knowledge-base.md`, so it is available in chat; after editing the master, write it there again.
 
 ## Contents
 
@@ -834,6 +834,7 @@ None yet. A finding contradicted twice by our own development moves here with th
 
 | Date | Change |
 |---|---|
+| 2026-11-18 | Master copy moved from the Squeeze City repo to the App-Development starter kit. Content unchanged. |
 | 2026-10-10 | Added findings 13 to 20 in section 15 from Squeeze City's second playtest, the v2 research pass and the player's reaction to it. The research itself is in `BRIEF-v2.md`. |
 | 2026-10-09 | Added findings 8 to 12 in section 15 from Squeeze City's design review and experiments. Corrected section 4.4 on what a twin-day comparison needs. Extended failure 21. |
 | 2026-10-09 | File created from two research passes (design fundamentals and failure modes; a catalog of proven elements and how to show purchase effects) and from Squeeze City's first playtest and decision audit. |
